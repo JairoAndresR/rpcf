@@ -1,0 +1,33 @@
+Table managed_works_authors {
+  authors_id string [ref: > authors.id] // inline relationship (many-to-one)
+  directed_work_id int
+}
+
+Ref: managed_works_authors.directed_work_id > managed_works.id
+
+Table authors {
+  id string [pk] // primary key
+  names varchar
+  created_at varchar [note: 'When order created']
+  updated_at varchar [note: 'When order created']
+}
+
+Table managed_works {
+  id string [pk]
+  name varchar
+  initial_date datetime [default: `now()`]
+  ending_date datetime [default: `now()`]
+  orientation varchar
+  institution varchar
+  pages int
+  type string [ref: - type_managed_works.id] // inline relationship (one-to-one)
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+}
+
+// Enum for 'managed_works' types
+Table type_managed_works {
+  id string [pk]
+  name varchar
+  description varchar
+}
