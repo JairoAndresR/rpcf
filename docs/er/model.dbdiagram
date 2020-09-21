@@ -85,3 +85,76 @@ Table industrial_designs_authors {
 
 
 Ref: "industrial_designs"."id" < "industrial_designs_authors"."industrial_designs_id"
+
+Table book{
+  isbn bigint [pk]
+  name VARCHAR
+  published_country VARCHAR
+  published_year datetime
+  editorial VARCHAR
+}
+
+Table book_author{
+  id_book bigint [ref: > book.isbn]
+ id_author string [ref: > authors.id]
+}
+
+Table article{
+  id int [pk]
+  name VARCHAR
+  published_country VARCHAR
+  magazine_name VARCHAR
+  magazine_issn int
+  published_year datetime
+  vol int
+  fasc int
+  pags VARCHAR
+  doi VARCHAR
+}
+
+Table article_author{
+  article_id int [ref: > article.id]
+  author_id string [ref: > authors.id]
+}
+
+Table software{
+  id int [pk]
+  type VARCHAR
+  name VARCHAR
+  release_country VARCHAR
+  release_year datetime
+  disponibility VARCHAR
+  web_site VARCHAR
+  comercial_name VARCHAR
+  project_name VARCHAR
+  funding_institution VARCHAR
+}
+
+Table software_author{
+  id_sofware int [ref: > software.id]
+  id_author string [ref: > authors.id]
+}
+
+Table scientific_event {
+  id int [pk]
+  event_type VARCHAR
+  event_name VARCHAR
+  event_country VARCHAR
+  start_date datetime
+  end_date datetime
+  event_scope VARCHAR
+  participation_type VARCHAR
+  associated_institutions VARCHAR
+}
+
+Table institution {
+  id int [pk]
+  name VARCHAR
+  description VARCHAR
+}
+
+Table insititution_in_event{
+  id_institution int [ref: > institution.id]
+  id_event int [ref: > scientific_event.id]
+  vinculation_type VARCHAR
+}
