@@ -86,21 +86,21 @@ Table industrial_designs_authors {
 
 Ref: "industrial_designs"."id" < "industrial_designs_authors"."industrial_designs_id"
 
-Table book{
-  isbn bigint [pk]
+Table books{
+  isbn VARCHAR [pk]
   name VARCHAR
   published_country VARCHAR
   published_year datetime
   editorial VARCHAR
 }
 
-Table book_author{
-  id_book bigint [ref: > book.isbn]
+Table book_authors{
+  id_book bigint [ref: > books.isbn]
  id_author string [ref: > authors.id]
 }
 
-Table article{
-  id int [pk]
+Table articles{
+  id VARCHAR(36) [pk]
   name VARCHAR
   published_country VARCHAR
   magazine_name VARCHAR
@@ -112,13 +112,13 @@ Table article{
   doi VARCHAR
 }
 
-Table article_author{
-  article_id int [ref: > article.id]
+Table article_authors{
+  article_id int [ref: > articles.id]
   author_id string [ref: > authors.id]
 }
 
 Table software{
-  id int [pk]
+  id VARCHAR(36) [pk]
   type VARCHAR
   name VARCHAR
   release_country VARCHAR
@@ -130,31 +130,31 @@ Table software{
   funding_institution VARCHAR
 }
 
-Table software_author{
+Table software_authors{
   id_sofware int [ref: > software.id]
   id_author string [ref: > authors.id]
 }
 
-Table scientific_event {
+Table scientific_events {
   id int [pk]
   event_type VARCHAR
   event_name VARCHAR
   event_country VARCHAR
   start_date datetime
   end_date datetime
-  event_scope VARCHAR
+  scope VARCHAR
   participation_type VARCHAR
   associated_institutions VARCHAR
 }
 
-Table institution {
+Table institutions {
   id int [pk]
   name VARCHAR
   description VARCHAR
 }
 
-Table insititution_in_event{
-  id_institution int [ref: > institution.id]
-  id_event int [ref: > scientific_event.id]
-  vinculation_type VARCHAR
+Table insititution_event{
+  id_institution int [pk, ref: > institutions.id]
+  id_event int [pk, ref: > scientific_events.id]
+  vinculation_type VARCHAR [pk]
 }
