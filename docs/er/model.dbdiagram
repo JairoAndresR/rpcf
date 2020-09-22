@@ -96,7 +96,7 @@ Table books{
 }
 
 Table book_authors{
-  id_book bigint [ref: > books.isbn]
+  id_book VARCHAR(36) [ref: > books.isbn]
   id_author VARCHAR(36) [ref: > authors.id]
 }
 
@@ -114,7 +114,7 @@ Table articles{
 }
 
 Table article_authors{
-  article_id int [ref: > articles.id]
+  article_id VARCHAR(36) [ref: > articles.id]
   author_id VARCHAR(36) [ref: > authors.id]
 }
 
@@ -132,15 +132,15 @@ Table software{
 }
 
 Table software_authors{
-  id_sofware int [ref: > software.id]
+  id_sofware VARCHAR(36) [ref: > software.id]
   id_author VARCHAR(36) [ref: > authors.id]
 }
 
 Table scientific_events {
-  id int [pk]
-  event_type VARCHAR
-  event_name VARCHAR
-  event_country VARCHAR
+  id VARCHAR(36) [pk]
+  type VARCHAR
+  name VARCHAR
+  country VARCHAR
   start_date datetime
   end_date datetime
   scope VARCHAR
@@ -149,13 +149,13 @@ Table scientific_events {
 }
 
 Table institutions {
-  id int [pk]
+  id VARCHAR(36) [pk]
   name VARCHAR
   description VARCHAR
 }
 
 Table insititution_event{
-  id_institution int [pk, ref: > institutions.id]
-  id_event int [pk, ref: > scientific_events.id]
+  id_institution VARCHAR(36) [pk, ref: > institutions.id]
+  id_event VARCHAR(36) [pk, ref: > scientific_events.id]
   vinculation_type VARCHAR [pk]
 }
