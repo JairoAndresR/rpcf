@@ -1,70 +1,70 @@
 Table managed_works_authors {
-  authors_id string [ref: > authors.id] // inline relationship (many-to-one)
+  authors_id VARCHAR(36) [ref: > authors.id] // inline relationship (many-to-one)
   directed_work_id int
 }
 
 Ref: managed_works_authors.directed_work_id > managed_works.id
 
 Table authors {
-  id string [pk] // primary key
-  names varchar
-  created_at varchar [note: 'When order created']
-  updated_at varchar [note: 'When order created']
+  id VARCHAR(36) [pk] // primary key
+  names VARCHAR
+  created_at VARCHAR [note: 'When order created']
+  updated_at VARCHAR [note: 'When order created']
 }
 
 Table managed_works {
-  id string [pk]
-  name varchar
+  id VARCHAR(36) [pk]
+  name VARCHAR
   initial_date datetime [default: `now()`]
   ending_date datetime [default: `now()`]
-  orientation varchar
-  institution varchar
+  orientation VARCHAR
+  institution VARCHAR
   pages int
-  type string [ref: - type_managed_works.id] // inline relationship (one-to-one)
+  type VARCHAR [ref: - type_managed_works.id] // inline relationship (one-to-one)
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
 }
 
 // Enum for 'managed_works' types
 Table type_managed_works {
-  id string [pk]
-  name varchar
-  description varchar
+  id VARCHAR(36) [pk]
+  name VARCHAR
+  description VARCHAR
 }
 
 // Product: Industrial design
 Table industrial_designs{
 
   id VARCHAR(36) [pk]
-  name varchar
+  name VARCHAR
   year int
-  availability varchar
-  funding_institution varchar
+  availability VARCHAR
+  funding_institution VARCHAR
 }
 
 // Product: Prototypes
 Table prototypes{
   
   id VARCHAR(36) [pk]
-  name varchar
+  name VARCHAR
   year int
-  availability varchar
-  funding_institution varchar
+  availability VARCHAR
+  funding_institution VARCHAR
 }
 
 // Product: Technology-based companies
 Table companies{
   id VARCHAR(36) [pk]
-  type varchar //Spin-off
-  name varchar
+  type VARCHAR //Spin-off
+  name VARCHAR
   //created_year int
-  nit varchar
+  nit VARCHAR
   registred_at datetime  // Chamber of Commerce register
   has_market_products boolean // have products on the market?
 }
 
 Table companies_authors {
-  authors_id string [ref: > authors.id] // inline relationship (many-to-one)
+  authors_id VARCHAR(36) [ref: > authors.id] // inline relationship (many-to-one)
   companie_id VARCHAR(36)
 }
 
@@ -72,16 +72,90 @@ Table companies_authors {
 Ref: "companies"."id" < "companies_authors"."companie_id"
 
 Table prototypes_authors {
-  authors_id string [ref: > authors.id] // inline relationship (many-to-one)
+  authors_id VARCHAR(36) [ref: > authors.id] // inline relationship (many-to-one)
   prototype_id VARCHAR(36)
 }
 
 Ref: "prototypes"."id" < "prototypes_authors"."prototype_id"
 
 Table industrial_designs_authors {
-  authors_id string [ref: > authors.id] // inline relationship (many-to-one)
+  authors_id VARCHAR(36) [ref: > authors.id] // inline relationship (many-to-one)
   industrial_designs_id VARCHAR(36)
 }
 
 
 Ref: "industrial_designs"."id" < "industrial_designs_authors"."industrial_designs_id"
+
+Table books{
+  id VARCHAR(36) [pk]
+  isbn VARCHAR
+  name VARCHAR
+  published_country VARCHAR
+  published_year datetime
+  editorial VARCHAR
+}
+
+Table book_authors{
+  id_book VARCHAR(36) [ref: > books.isbn]
+  id_author VARCHAR(36) [ref: > authors.id]
+}
+
+Table articles{
+  id VARCHAR(36) [pk]
+  name VARCHAR
+  published_country VARCHAR
+  magazine_name VARCHAR
+  magazine_issn int
+  published_year datetime
+  vol int
+  fasc int
+  pags VARCHAR
+  doi VARCHAR
+}
+
+Table article_authors{
+  article_id VARCHAR(36) [ref: > articles.id]
+  author_id VARCHAR(36) [ref: > authors.id]
+}
+
+Table software{
+  id VARCHAR(36) [pk]
+  type VARCHAR
+  name VARCHAR
+  release_country VARCHAR
+  release_year datetime
+  disponibility VARCHAR
+  web_site VARCHAR
+  comercial_name VARCHAR
+  project_name VARCHAR
+  funding_institution VARCHAR
+}
+
+Table software_authors{
+  id_sofware VARCHAR(36) [ref: > software.id]
+  id_author VARCHAR(36) [ref: > authors.id]
+}
+
+Table scientific_events {
+  id VARCHAR(36) [pk]
+  type VARCHAR
+  name VARCHAR
+  country VARCHAR
+  start_date datetime
+  end_date datetime
+  scope VARCHAR
+  participation_type VARCHAR
+  associated_institutions VARCHAR
+}
+
+Table institutions {
+  id VARCHAR(36) [pk]
+  name VARCHAR
+  description VARCHAR
+}
+
+Table insititution_event{
+  id_institution VARCHAR(36) [pk, ref: > institutions.id]
+  id_event VARCHAR(36) [pk, ref: > scientific_events.id]
+  vinculation_type VARCHAR [pk]
+}
