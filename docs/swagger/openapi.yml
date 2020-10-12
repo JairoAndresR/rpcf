@@ -1,0 +1,222 @@
+openapi: 3.0.0
+info:
+  title: Research product collector framework
+  version: "1.0.0"
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+
+  /v1/accounts/register/:
+    post:
+      operationId: api.jxm.register
+      summary: It creates a new user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: This service will create a new account and a new user asociated with that account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignResponse'
+        '422':
+          $ref: '#/components/responses/422'
+        '400':
+          $ref: '#/components/responses/400'
+
+  /v1/accounts/login/:
+    post:
+      operationId: api.jxm.login
+      summary: It generates a credentials to be log in.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: This will validate the user credentials and if is valid will return the token and user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+
+components:
+  parameters:
+    platform:
+      in: header
+      name: platform
+      required: true
+      description: Platform sending the request.
+      schema:
+        type: string
+    language:
+      in: header
+      name: language
+      required: true
+      description: language
+      schema:
+        type: string
+  responses:
+    '400':
+      description: 'Bad request, client error.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '422':
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '404':
+      description: resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '500':
+      description: internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: 'Error code, usually equivalent to the HTTP status code.'
+          example: 422
+        title:
+          type: string
+          description: 'Human-readable error explanation, if available.'
+          example: 'user already exist'
+        invalid_params:
+          type: array
+          description: 'Invalid params'
+          items:
+            $ref: '#/components/schemas/InvalidParam'
+
+    InvalidParam:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'email'
+        reason:
+          type: string
+          example: 'The user with the request email already exists'
+        code:
+          type: string
+          example: 'email-duplicated'
+          enum:
+            - "required_field"
+            - "email_duplicated"
+            - "invalid_captcha"
+            - "invalid_token"
+            - "invalid_password"
+            - "user_doesnt_exist"
+            - "invalid_multipart_file"
+            - "invalid_csv_file"
+            - "api_token_required"
+            - "invalid_api_token"
+            - "invalid_file_extension"
+            - "invalid_account_id"
+            - "invalid_content_type"
+
+
+    SignResponse:
+      $ref: '#/components/schemas/User'
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "366ae73c-876d-11ea-bc55-0242ac130003"
+        names:
+          type: string
+          example: 'John Doe'
+        email:
+          type: string
+          example: "example@domain.com"
+        company_name:
+          type: string
+          example: 'Example company'
+        phone:
+          type: string
+          example: +12025550102
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlL"
+        account:
+          type: string
+          example: "f0164004-2762-4e9e-ab7d-7a10c0899383"
+        created_at:
+          type: number
+          example: 1587871387
+          description: It's the date in wich is created the register in Unix format.
+        updated_at:
+          type: number
+          example: 1587871381
+          description: It's the date in wich is update the register in Unix format
+        role:
+          type: string
+          example: company
+          description: it defines the role of the user.
+        photo_url:
+          type: string
+          description: it is the url to retrieve the photo profile image.
+          example: "https://api.juntosxmexico.mx/static/photos/03f3276a-9585-4b5a-9c93-b7d37329b8d0-2020-05-08T23:47:33-profile.png"
+
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "da@f.er"
+        password:
+          type: string
+          example: "mysecretpass"
+
+    RegisterRequest:
+      type: object
+      properties:
+        captcha:
+          type: string
+          description: It is the reCaptchaResponse
+        names:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: "example@domain.com"
+        company_name:
+          type: string
+          example: "Example company"
+        password:
+          type: string
+          example: "mysecretpass"
+
+        phone:
+          type: string
+          example: +1-202-555-0102
