@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"os"
 	accountInitializer "rpcf/app/accounts/initializer"
+	gruplacInitializer "rpcf/app/gruplacs/initializers"
 )
 
 type server struct {
@@ -31,6 +32,7 @@ func (s *server) setupRoutes() {
 
 func (s *server) migrations() {
 	accountInitializer.Migrate()
+	gruplacInitializer.Migrate()
 }
 
 func (s *server) Run() {
