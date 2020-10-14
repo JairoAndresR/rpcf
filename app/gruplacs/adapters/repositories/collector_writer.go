@@ -13,7 +13,7 @@ func init() {
 }
 
 type collectorWriter struct {
-	 queue queue.Client
+	queue queue.Client
 }
 
 func newCollectorWriter(queue queue.Client) ports.CollectorWriter {

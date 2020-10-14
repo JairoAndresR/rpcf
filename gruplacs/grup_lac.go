@@ -3,6 +3,7 @@ package gruplacs
 import (
 	"regexp"
 	"strings"
+	"time"
 )
 
 const (
@@ -10,8 +11,11 @@ const (
 )
 
 type GrupLAC struct {
-	Name string
-	URL  string
+	ID        string
+	Name      string
+	URL       string
+	CreatedAt *time.Time
+	UpdatedAt *time.Time
 }
 
 func (g *GrupLAC) GetCode() string {
