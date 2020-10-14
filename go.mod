@@ -10,6 +10,7 @@ require (
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.4.0
+	github.com/go-redis/redis/v8 v8.3.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
