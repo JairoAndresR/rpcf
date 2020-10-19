@@ -25,12 +25,20 @@ func newCollectorManager(gr ports.GrupLACReader, cr ports.CollectorReader, cw po
 	}
 }
 
-func (c *collectorManager) Collect(researchGroup string) {
+func (c *collectorManager) CollectAll() {
 
-	groups := c.grupLACReader.GetAll()
+	groups, err := c.grupLACReader.GetAll()
+
+	if err != nil {
+
+	}
 
 	for _, g := range groups {
-		content := c.collectorReader.GetContent(g.URL)
+		content, err := c.collectorReader.GetContent(g.URL)
+		if err != nil {
+			// TODO log it and marks as not readable
+			continue
+		}
 		code := g.GetCode()
 		payload := gruplacs.NewCollectorPayload(content, code)
 		c.collectorWriter.Write(*payload)

@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"github.com/udistritali3plus/collector"
 	"rpcf/core"
 	"rpcf/gruplacs/ports"
 )
@@ -10,12 +11,18 @@ func init() {
 	core.CheckInjection(err, "CollectorReader")
 }
 
-type collectorReader struct{}
-
-func newCollectorReader() ports.CollectorReader {
-	return &collectorReader{}
+type collectorReader struct {
+	collector collector.Collector
 }
 
-func (c *collectorReader) GetContent(URL string) string {
-	return ""
+func newCollectorReader() ports.CollectorReader {
+	c := collector.NewCollector()
+
+	return &collectorReader{
+		collector: c,
+	}
+}
+
+func (c *collectorReader) GetContent(url string) (string, error) {
+	return c.collector.GetContent(url)
 }

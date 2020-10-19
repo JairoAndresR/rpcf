@@ -18,6 +18,7 @@ require (
 	github.com/selvatico/go-mocket v1.0.7
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stretchr/testify v1.6.1
+	github.com/udistritali3plus/collector v0.0.2
 	go.uber.org/dig v1.10.0
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
