@@ -9,7 +9,7 @@ import (
 // Account contains the information related an user inside of room.
 type Account struct {
 	ID        string
-	Name      string
+	Names     string
 	Email     string
 	Password  string
 	CreatedAt *time.Time

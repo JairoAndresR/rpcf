@@ -41,7 +41,7 @@ func (r *RegisterUserRequest) IsValid() *handlers.Error {
 
 func (r *RegisterUserRequest) ToDomain() *accounts.Account {
 	return &accounts.Account{
-		Name:     r.Name,
+		Names:    r.Name,
 		Email:    r.Email,
 		Password: r.Password,
 	}

@@ -25,7 +25,7 @@ func (l *LoginHandler) Login(c *gin.Context) {
 
 	req, err := newLoginRequest(c)
 	if err != nil {
-		generateError(c, http.StatusBadRequest, err)
+		GenerateError(c, http.StatusBadRequest, err)
 		return
 	}
 
@@ -39,7 +39,7 @@ func (l *LoginHandler) Login(c *gin.Context) {
 	acc, t, err := l.manager.Login(acc)
 
 	if err != nil {
-		generateError(c, http.StatusUnprocessableEntity, err)
+		GenerateError(c, http.StatusUnprocessableEntity, err)
 		return
 	}
 

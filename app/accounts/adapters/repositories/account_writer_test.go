@@ -32,7 +32,7 @@ func (s *accountWriterSuite) TestAccountWriter_Create() {
 	userExpected = userExpected.SetHashPassword(userExpected.Password)
 
 	s.Equal(userExpected.Email, userCreated.Email)
-	s.Equal(userExpected.Name, userCreated.Name)
+	s.Equal(userExpected.Names, userCreated.Names)
 	s.Equal(userExpected.CreatedAt, userCreated.CreatedAt)
 	s.Equal(userExpected.UpdatedAt, userCreated.UpdatedAt)
 }

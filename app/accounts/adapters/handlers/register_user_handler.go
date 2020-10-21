@@ -26,7 +26,7 @@ func (h *RegisterUserHandler) Create(c *gin.Context) {
 	req, err := newLoginRequestFromContext(c)
 
 	if err != nil {
-		generateError(c, http.StatusBadRequest, err)
+		GenerateError(c, http.StatusBadRequest, err)
 		return
 	}
 
@@ -41,7 +41,7 @@ func (h *RegisterUserHandler) Create(c *gin.Context) {
 	acc, token, err := h.manager.Register(account)
 
 	if err != nil {
-		generateError(c, http.StatusUnprocessableEntity, err)
+		GenerateError(c, http.StatusUnprocessableEntity, err)
 		return
 	}
 

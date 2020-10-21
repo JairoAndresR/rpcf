@@ -44,7 +44,7 @@ func (a *Account) getPasswordHash() string {
 func NewFromDomain(u *accounts.Account) *Account {
 	return &Account{
 		ID:        u.ID,
-		Name:      u.Name,
+		Name:      u.Names,
 		Email:     u.Email,
 		Password:  u.Password,
 		CreatedAt: u.CreatedAt,
@@ -58,7 +58,7 @@ func (u *Account) ToDomain() *accounts.Account {
 	}
 	return &accounts.Account{
 		ID:        u.ID,
-		Name:      u.Name,
+		Names:     u.Name,
 		Password:  u.Password,
 		Email:     u.Email,
 		CreatedAt: u.CreatedAt,

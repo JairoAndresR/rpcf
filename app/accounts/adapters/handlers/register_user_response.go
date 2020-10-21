@@ -17,7 +17,7 @@ func newRegisterUserResponse(acc *accounts.Account, token string) *RegisterUserR
 		ID:        acc.ID,
 		Token:     token,
 		Email:     acc.Email,
-		Name:      acc.Name,
+		Name:      acc.Names,
 		Password:  acc.Password,
 		CreatedAt: acc.CreatedAt.Unix(),
 		UpdatedAt: acc.UpdatedAt.Unix(),

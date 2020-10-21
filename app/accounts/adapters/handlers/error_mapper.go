@@ -5,12 +5,12 @@ import (
 	"rpcf/core/handlers"
 )
 
-func generateError(c *gin.Context, status int, err error) {
+func GenerateError(c *gin.Context, status int, err error) {
 	e := mapError(err, status)
 	handlers.GenerateError(c, e)
 }
 
-func abortWithError(c *gin.Context, status int, err error) {
+func AbortWithError(c *gin.Context, status int, err error) {
 	e := mapError(err, status)
 	handlers.AbortWithError(c, status, e)
 }

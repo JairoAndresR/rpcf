@@ -33,3 +33,47 @@ func (_m *TokenManager) Generate(acc *accounts.Account) (string, error) {
 
 	return r0, r1
 }
+
+// GetMetadata provides a mock function with given fields: tokenString
+func (_m *TokenManager) GetMetadata(tokenString string) (*accounts.Account, error) {
+	ret := _m.Called(tokenString)
+
+	var r0 *accounts.Account
+	if rf, ok := ret.Get(0).(func(string) *accounts.Account); ok {
+		r0 = rf(tokenString)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*accounts.Account)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(tokenString)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// Validate provides a mock function with given fields: token
+func (_m *TokenManager) Validate(token string) (bool, error) {
+	ret := _m.Called(token)
+
+	var r0 bool
+	if rf, ok := ret.Get(0).(func(string) bool); ok {
+		r0 = rf(token)
+	} else {
+		r0 = ret.Get(0).(bool)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(token)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}

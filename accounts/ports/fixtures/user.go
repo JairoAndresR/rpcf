@@ -10,7 +10,7 @@ func GetAccount() *accounts.Account {
 	now := time.Now()
 	return &accounts.Account{
 		ID:        uuid.NewV1().String(),
-		Name:      "John Doe",
+		Names:     "John Doe",
 		Email:     "johndoe@gmail.com",
 		Password:  "12345",
 		CreatedAt: &now,
