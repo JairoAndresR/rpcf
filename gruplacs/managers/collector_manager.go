@@ -25,7 +25,7 @@ func newCollectorManager(gr ports.GrupLACReader, cr ports.CollectorReader, cw po
 	}
 }
 
-func (c *collectorManager) CollectAll() {
+func (c *collectorManager) CollectAll() error {
 
 	groups, err := c.grupLACReader.GetAll()
 
@@ -37,10 +37,11 @@ func (c *collectorManager) CollectAll() {
 		content, err := c.collectorReader.GetContent(g.URL)
 		if err != nil {
 			// TODO log it and marks as not readable
-			continue
+			return err
 		}
 		code := g.GetCode()
 		payload := gruplacs.NewCollectorPayload(content, code)
 		c.collectorWriter.Write(*payload)
 	}
+	return nil
 }
