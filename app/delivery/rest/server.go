@@ -13,6 +13,7 @@ type server struct {
 
 func NewServer() *server {
 	r := gin.Default()
+	r.Use(CORSMiddleware())
 	s := &server{router: r}
 	s.setup()
 	s.migrations()
