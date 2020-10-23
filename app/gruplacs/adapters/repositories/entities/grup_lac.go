@@ -45,7 +45,7 @@ func (g *GrupLAC) ToDomain() gruplacs.GrupLAC {
 	}
 }
 func MapListToDomain(list []*GrupLAC) []gruplacs.GrupLAC {
-	result := make([]gruplacs.GrupLAC, len(list))
+	result := make([]gruplacs.GrupLAC, len(list)-1)
 	for _, g := range list {
 		result = append(result, g.ToDomain())
 	}

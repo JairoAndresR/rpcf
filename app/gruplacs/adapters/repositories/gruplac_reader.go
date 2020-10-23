@@ -24,11 +24,20 @@ func newGrupLACReader(con sql.Connection) ports.GrupLACReader {
 }
 
 func (g *grupLACReader) GetAll() ([]gruplacs.GrupLAC, error) {
-	var groupLacs []*entities.GrupLAC
+	groupLacs := make([]*entities.GrupLAC, 0)
+
+	group := &entities.GrupLAC{
+		Name: "jira",
+		URL:  "https://scienti.minciencias.gov.co/gruplac/jsp/visualiza/visualizagr.jsp?nro=00000000001394",
+	}
+
+	groupLacs = append(groupLacs, group)
+	/*var groupLacs []*entities.GrupLAC
+
 	err := g.db.Find(&groupLacs).Error
 
 	if err != nil {
 		return []gruplacs.GrupLAC{}, err
-	}
+	}*/
 	return entities.MapListToDomain(groupLacs), nil
 }

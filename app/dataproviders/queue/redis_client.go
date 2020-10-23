@@ -2,7 +2,8 @@ package queue
 
 import (
 	"context"
-	"github.com/go-redis/redis/v8"
+	"github.com/AgileBits/go-redis-queue/redisqueue"
+	"github.com/gomodule/redigo/redis"
 	"os"
 	"rpcf/core"
 	"strconv"
@@ -14,8 +15,8 @@ func init() {
 }
 
 type redisClient struct {
-	rdb *redis.Client
-	ctx context.Context
+	ctx  context.Context
+	conn redis.Conn
 }
 
 func newRedisClient() (Client, error) {
@@ -28,17 +29,17 @@ func newRedisClient() (Client, error) {
 		return nil, err
 	}
 
-	opts := &redis.Options{
-		Addr:     addr,
-		Password: password,
-		DB:       database,
-	}
-	rdb := redis.NewClient(opts)
 	ctx := context.Background()
-
-	return &redisClient{rdb: rdb, ctx: ctx}, nil
+	c, err := redis.Dial("tcp", addr, redis.DialDatabase(database), redis.DialPassword(password))
+	return &redisClient{conn: c, ctx: ctx}, nil
 }
 
-func (r redisClient) Push(key, content string) error {
-	return r.rdb.Set(r.ctx, key, content, 0).Err()
+func (r redisClient) GetQueue(name string) *redisqueue.Queue {
+	return redisqueue.New(name, r.conn)
+}
+
+func (r redisClient) Push(name, content string) error {
+	q := r.GetQueue(name)
+	_, err := q.Push(content)
+	return err
 }

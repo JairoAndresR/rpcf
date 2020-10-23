@@ -1,6 +1,7 @@
 package managers
 
 import (
+	"errors"
 	"rpcf/core"
 	"rpcf/gruplacs"
 	"rpcf/gruplacs/ports"
@@ -30,7 +31,7 @@ func (c *collectorManager) CollectAll() error {
 	groups, err := c.grupLACReader.GetAll()
 
 	if err != nil {
-
+		return errors.New(NotPossibleRetrieveGrupLACsError)
 	}
 
 	for _, g := range groups {

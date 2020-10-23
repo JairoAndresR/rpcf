@@ -9,5 +9,5 @@ import (
 func setupScrapingRoutes(s *server) {
 	handler, err := loadScrapingHandler()
 	checkError(err)
-	s.router.GET("/v1/scraping", handler.Scrap)
+	s.router.POST("/v1/gruplacs/scraping", handler.Scrap)
 }

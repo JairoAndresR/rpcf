@@ -3,7 +3,9 @@ module rpcf
 go 1.14
 
 require (
+	github.com/AgileBits/go-redis-queue v0.0.0-20190528184534-321b38e2f24c
 	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/agilebits/go-redis-queue v0.0.0-20190528184534-321b38e2f24c // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/contrib v0.0.0-20201005132743-ca038bbf2944
 	github.com/gin-gonic/gin v1.6.3
@@ -11,6 +13,7 @@ require (
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.4.0
 	github.com/go-redis/redis/v8 v8.3.1
+	github.com/gomodule/redigo v1.8.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
