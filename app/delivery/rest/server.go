@@ -6,6 +6,7 @@ import (
 	"os"
 	accountInitializer "rpcf/app/accounts/initializer"
 	gruplacInitializer "rpcf/app/gruplacs/initializers"
+	productsInitializer "rpcf/app/products/initializers"
 )
 
 type server struct {
@@ -34,6 +35,7 @@ func (s *server) setupRoutes() {
 func (s *server) migrations() {
 	accountInitializer.Migrate()
 	gruplacInitializer.Migrate()
+	productsInitializer.Migrate()
 }
 
 func (s *server) Run() {
