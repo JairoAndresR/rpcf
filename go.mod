@@ -12,8 +12,9 @@ require (
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.4.0
-	github.com/go-redis/redis/v8 v8.3.1
+	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gomodule/redigo v1.8.2
+	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
@@ -24,5 +25,6 @@ require (
 	github.com/udistritali3plus/collector v0.0.2
 	go.uber.org/dig v1.10.0
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
+	golang.org/x/sys v0.0.0-20200519105757-fe76b779f299 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )

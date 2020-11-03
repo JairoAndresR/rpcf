@@ -7,9 +7,9 @@ import (
 
 func main() {
 
-	var queue queue.Client
-	invokeFunc := func(queue queue.Client) {
-		queue = queue
+	var q queue.Client
+	invokeFunc := func(qq queue.Client) {
+		q = qq
 	}
 
 	err := core.Injector.Invoke(invokeFunc)
@@ -17,6 +17,6 @@ func main() {
 		panic(err)
 	}
 
-	w := newProductsWorker(queue)
+	w := newProductsWorker(q)
 	w.Execute()
 }

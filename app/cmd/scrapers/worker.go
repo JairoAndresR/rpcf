@@ -17,7 +17,7 @@ func newProductsWorker(client queue.Client) *productsWorker {
 }
 
 func (w *productsWorker) Execute() {
-	name := "colector_queue"
+	name := "collector_queue"
 	q := w.queue.GetQueue(name)
 
 	if q != nil {
