@@ -20,16 +20,17 @@ func (w *productsWorker) Execute() {
 	name := "collector_queue"
 	q := w.queue.GetQueue(name)
 
-	if q != nil {
-		for true {
-			job, err := q.Pop()
-			if err != nil {
-				panic(err)
-			}
-			if job != "" {
-				fmt.Println(job)
-			}
-			time.Sleep(2 * time.Second)
+	if q == nil {
+		return
+	}
+	for true {
+		job, err := q.Pop()
+		if err != nil {
+			panic(err)
 		}
+		if job != "" {
+			fmt.Println(job)
+		}
+		time.Sleep(2 * time.Second)
 	}
 }
