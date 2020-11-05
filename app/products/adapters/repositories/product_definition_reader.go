@@ -14,23 +14,17 @@ func init(){
 	core.CheckInjection(err, "newProductReader")
 }
 
-type productReader struct {
+type productDefinitionReader struct {
 	db *gorm.DB
 }
 
-func newProductReader(con sql.Connection) ports.ProductReader{
+func newProductReader(con sql.Connection) ports.ProductDefinitionReader {
 	db := con.GetDatabase()
-	return &productReader{db: db}
+	return &productDefinitionReader{db: db}
 }
 
-func (g *productReader) GetAll() ([]products.Product, error){
-	products := make([]*entities.Product, 0)
-
-	product:= &entities.Product{
-		Name: "Product 1",
-		Definition: "Definition product 1",
-	}
-	products =  append(products, product)
-
-	return entities.MapListToDomain(products), nil
+func (r *productDefinitionReader) GetAll() ([]products.ProductDefinition, error){
+	var definitions []*entities.ProductDefinition
+	err:= r.db.Find(&definitions).Error
+	return entities.MapListToDomain(definitions), err
 }

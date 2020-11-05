@@ -6,14 +6,14 @@ import (
 	"rpcf/products"
 )
 
-type Product struct {
+type ProductDefinition struct {
 	*entities.Base
 	ID string
 	Name string
 	Definition string
 }
 
-func (p *Product) BeforeCreate(scope *gorm.Scope) error{
+func (p *ProductDefinition) BeforeCreate(scope *gorm.Scope) error{
 	id := p.GenerateID()
 	err := scope.SetColumn("ID", id)
 	if err != nil {
@@ -22,24 +22,24 @@ func (p *Product) BeforeCreate(scope *gorm.Scope) error{
 	return nil
 }
 
-func newProduct(p products.Product) *Product{
-	return &Product{
+func newProductDefinition(p products.ProductDefinition) *ProductDefinition {
+	return &ProductDefinition{
 		ID: p.ID,
 		Name: p.Name,
 		Definition: p.Definition,
 	}
 }
 
-func (p *Product) ToDomain() products.Product {
-	return products.Product{
+func (p *ProductDefinition) ToDomain() products.ProductDefinition {
+	return products.ProductDefinition{
 		ID: p.ID,
 		Name: p.Name,
 		Definition: p.Definition,
 	}
 }
 
-func MapListToDomain(list []*Product) []products.Product {
-	result := make([]products.Product, len(list)-1)
+func MapListToDomain(list []*ProductDefinition) []products.ProductDefinition {
+	result := make([]products.ProductDefinition, len(list)-1)
 	for _, p := range list{
 		result = append(result, p.ToDomain())
 	}

@@ -2,7 +2,7 @@ package ports
 
 import "rpcf/products"
 
-type ProductReader interface {
+type ProductDefinitionReader interface {
 	// GetAll retrieves all products
-	GetAll() ([]products.Product, error)
+	GetAll() ([]products.ProductDefinition, error)
 }

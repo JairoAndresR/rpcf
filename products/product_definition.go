@@ -1,6 +1,6 @@
 package products
 
-type Product struct {
+type ProductDefinition struct {
 	ID string
 	Name string
 	Definition string
