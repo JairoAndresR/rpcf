@@ -13,7 +13,7 @@ func newProductBuilder() ports.ProductsBuilder {
 }
 
 func (p *productBuilder) Build(name string) (interface{}, error) {
-	product, ok := products[name]
+	product, ok := productEntities[name]
 
 	if ok {
 		return product, nil
