@@ -1,7 +1,7 @@
 package products
 
 type ProductDefinition struct {
-	ID string
-	Name string
+	ID         string
+	Name       string
 	Definition string
 }
