@@ -12,6 +12,7 @@ type ProductDefinitionResponse struct {
 
 type ProductDefinitionListResponse struct {
 	definitions []*ProductDefinitionResponse `json:"definitions"`
+	total       int                          `json:"total"`
 }
 
 func newProductDefinitionResponse(p *products.ProductDefinition) *ProductDefinitionResponse {
@@ -31,5 +32,7 @@ func newProductDefinitionListResponse(p []*products.ProductDefinition) ProductDe
 		definitions = append(definitions, newProductDefinitionResponse(d))
 	}
 
-	return ProductDefinitionListResponse{definitions: definitions}
+	return ProductDefinitionListResponse{
+		definitions: definitions,
+		total:       len(definitions)}
 }

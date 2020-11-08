@@ -54,7 +54,7 @@ func (p *ProductDefinition) GetDomainReference() *products.ProductDefinition {
 }
 
 func MapProductDefinitionListToDomain(list []*ProductDefinition) []*products.ProductDefinition {
-	result := make([]*products.ProductDefinition, len(list)-1)
+	result := make([]*products.ProductDefinition, 0)
 	for _, p := range list {
 		result = append(result, p.GetDomainReference())
 	}
