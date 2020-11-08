@@ -30,6 +30,7 @@ func (s *server) setup() {
 func (s *server) setupRoutes() {
 	setupLoginRoutes(s)
 	setupScrapingRoutes(s)
+	setupProductDefinitionRoutes(s)
 }
 
 func (s *server) migrations() {
