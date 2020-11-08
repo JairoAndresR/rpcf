@@ -11,7 +11,7 @@ type ProductDefinition struct {
 	*entities.Base
 	ID         string
 	Name       string
-	Definition string
+	Definition string `gorm:"type:text"`
 	CreatedAt  *time.Time
 	UpdatedAt  *time.Time
 }

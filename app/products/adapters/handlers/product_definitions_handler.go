@@ -63,7 +63,6 @@ func (h *ProductDefinitionsHandler) GetAll(ctx *gin.Context) {
 func (h *ProductDefinitionsHandler) GetByName(ctx *gin.Context) {}
 
 func (h *ProductDefinitionsHandler) Delete(ctx *gin.Context) {
-
 }
 
 func (h *ProductDefinitionsHandler) Update(ctx *gin.Context) {}
