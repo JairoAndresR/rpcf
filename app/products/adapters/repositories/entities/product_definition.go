@@ -22,7 +22,7 @@ func (p *ProductDefinition) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
-func newProductDefinition(p products.ProductDefinition) *ProductDefinition {
+func NewProductDefinition(p *products.ProductDefinition) *ProductDefinition {
 	return &ProductDefinition{
 		ID:         p.ID,
 		Name:       p.Name,
@@ -46,7 +46,7 @@ func (p *ProductDefinition) GetDomainReference() *products.ProductDefinition {
 	}
 }
 
-func MapListToDomain(list []*ProductDefinition) []products.ProductDefinition {
+func MapProductDefinitionListToDomain(list []*ProductDefinition) []products.ProductDefinition {
 	result := make([]products.ProductDefinition, len(list)-1)
 	for _, p := range list {
 		result = append(result, p.ToDomain())

@@ -26,7 +26,7 @@ func newProductReader(con sql.Connection) ports.ProductDefinitionReader {
 func (r *productDefinitionReader) GetAll() ([]products.ProductDefinition, error) {
 	var definitions []*entities.ProductDefinition
 	err := r.db.Find(&definitions).Error
-	return entities.MapListToDomain(definitions), err
+	return entities.MapProductDefinitionListToDomain(definitions), err
 }
 
 func (r *productDefinitionReader) GetById(id string) (*products.ProductDefinition, error) {
