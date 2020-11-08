@@ -1,12 +1,22 @@
 package handlers
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"rpcf/core"
+	"rpcf/products/ports"
+)
 
-type ProductDefinitionsHandler struct {
+func init() {
+	err := core.Injector.Provide(newProductDefinitionHandler)
+	core.CheckInjection(err, "newProductDefinitionHandler")
 }
 
-func newProductDefinitionHandler() *ProductDefinitionsHandler {
-	return &ProductDefinitionsHandler{}
+type ProductDefinitionsHandler struct {
+	manager ports.ProductDefinitionManager
+}
+
+func newProductDefinitionHandler(manager ports.ProductDefinitionManager) *ProductDefinitionsHandler {
+	return &ProductDefinitionsHandler{manager: manager}
 }
 
 func (h *ProductDefinitionsHandler) Create(ctx *gin.Context) {}
