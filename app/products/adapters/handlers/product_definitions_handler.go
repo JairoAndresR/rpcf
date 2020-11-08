@@ -57,7 +57,7 @@ func (h *ProductDefinitionsHandler) GetAll(ctx *gin.Context) {
 	}
 
 	response := newProductDefinitionListResponse(definitions)
-	ctx.JSON(http.StatusCreated, response)
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (h *ProductDefinitionsHandler) GetByName(ctx *gin.Context) {}

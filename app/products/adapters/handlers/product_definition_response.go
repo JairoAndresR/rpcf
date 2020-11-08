@@ -25,14 +25,14 @@ func newProductDefinitionResponse(p *products.ProductDefinition) *ProductDefinit
 	}
 }
 
-func newProductDefinitionListResponse(p []*products.ProductDefinition) ProductDefinitionListResponse {
+func newProductDefinitionListResponse(p []*products.ProductDefinition) *ProductDefinitionListResponse {
 	definitions := make([]*ProductDefinitionResponse, 0)
 
 	for _, d := range p {
 		definitions = append(definitions, newProductDefinitionResponse(d))
 	}
 
-	return ProductDefinitionListResponse{
+	return &ProductDefinitionListResponse{
 		definitions: definitions,
 		total:       len(definitions)}
 }
