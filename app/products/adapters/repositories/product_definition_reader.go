@@ -6,7 +6,7 @@ import (
 	"rpcf/app/products/adapters/repositories/entities"
 	"rpcf/core"
 	"rpcf/products"
-	ports2 "rpcf/products/ports"
+	"rpcf/products/ports"
 )
 
 func init() {
@@ -18,7 +18,7 @@ type productDefinitionReader struct {
 	db *gorm.DB
 }
 
-func newProductReader(con sql.Connection) ports2.ProductDefinitionReader {
+func newProductReader(con sql.Connection) ports.ProductDefinitionReader {
 	db := con.GetDatabase()
 	return &productDefinitionReader{db: db}
 }
@@ -30,9 +30,13 @@ func (r *productDefinitionReader) GetAll() ([]products.ProductDefinition, error)
 }
 
 func (r *productDefinitionReader) GetById(id string) (*products.ProductDefinition, error) {
-	panic("implement me")
+	var definition entities.ProductDefinition
+	err := r.db.First(&definition).Where("id = ?", id).Error
+	return definition.GetDomainReference(), err
 }
 
 func (r *productDefinitionReader) GetByName(name string) (*products.ProductDefinition, error) {
-	panic("implement me")
+	var definition entities.ProductDefinition
+	err := r.db.First(&definition).Where("name = ?", id).Error
+	return definition.GetDomainReference(), err
 }

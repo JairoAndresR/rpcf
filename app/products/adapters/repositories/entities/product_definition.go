@@ -38,6 +38,14 @@ func (p *ProductDefinition) ToDomain() products.ProductDefinition {
 	}
 }
 
+func (p *ProductDefinition) GetDomainReference() *products.ProductDefinition {
+	return &products.ProductDefinition{
+		ID:         p.ID,
+		Name:       p.Name,
+		Definition: p.Definition,
+	}
+}
+
 func MapListToDomain(list []*ProductDefinition) []products.ProductDefinition {
 	result := make([]products.ProductDefinition, len(list)-1)
 	for _, p := range list {
