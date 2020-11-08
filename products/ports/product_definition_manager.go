@@ -10,4 +10,6 @@ type ProductDefinitionManager interface {
 	Delete(id string) error
 
 	GetAll() ([]*products.ProductDefinition, error)
+
+	GetByName(name string) (*products.ProductDefinition, error)
 }

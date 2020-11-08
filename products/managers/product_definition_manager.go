@@ -22,7 +22,8 @@ func newProductDefinitionManager(
 
 	return &productDefinitionManager{
 		writer,
-		reader}
+		reader,
+	}
 }
 
 func (m *productDefinitionManager) Create(p *products.ProductDefinition) (*products.ProductDefinition, error) {
@@ -39,4 +40,8 @@ func (m *productDefinitionManager) Delete(id string) error {
 
 func (m *productDefinitionManager) GetAll() ([]*products.ProductDefinition, error) {
 	return m.reader.GetAll()
+}
+
+func (m *productDefinitionManager) GetByName(name string) (*products.ProductDefinition, error) {
+	return m.reader.GetByName(name)
 }

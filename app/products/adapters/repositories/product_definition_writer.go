@@ -36,5 +36,5 @@ func (w productDefinitionWriter) Update(p *products.ProductDefinition) (*product
 }
 
 func (w productDefinitionWriter) Delete(id string) error {
-	return w.db.Delete(&entities.ProductDefinition{}, id).Error
+	return w.db.Delete(entities.ProductDefinition{}, "id = ?", id).Error
 }

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"rpcf/core"
@@ -60,9 +61,37 @@ func (h *ProductDefinitionsHandler) GetAll(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (h *ProductDefinitionsHandler) GetByName(ctx *gin.Context) {}
+func (h *ProductDefinitionsHandler) GetByName(ctx *gin.Context) {
+	name := ctx.Param("name")
+	definition, err := h.manager.GetByName(name)
+	if err != nil {
+		generateError(ctx, http.StatusUnprocessableEntity, err)
+		return
+	}
 
-func (h *ProductDefinitionsHandler) Delete(ctx *gin.Context) {
+	response := newProductDefinitionResponse(definition)
+	ctx.JSON(http.StatusOK, response)
 }
 
-func (h *ProductDefinitionsHandler) Update(ctx *gin.Context) {}
+func (h *ProductDefinitionsHandler) Delete(ctx *gin.Context) {
+	id := ctx.Param("id")
+
+	if len(id) == 0 {
+		err := errors.New("product definition id empty")
+		generateError(ctx, http.StatusNotFound, err)
+		return
+	}
+
+	err := h.manager.Delete(id)
+	if err != nil {
+		err := errors.New("product definition id doesn't exist")
+		generateError(ctx, http.StatusUnprocessableEntity, err)
+
+		return
+	}
+	ctx.Writer.WriteHeader(http.StatusOK)
+}
+
+func (h *ProductDefinitionsHandler) Update(ctx *gin.Context) {
+
+}
