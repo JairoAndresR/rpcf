@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	contentType            = "Content-Type"
+	contentType            = "Definition-Type"
 	ProblemJSONContentType = "application/problem+json"
 )
 

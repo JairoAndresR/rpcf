@@ -4,6 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"rpcf/core/entities"
 	"rpcf/products"
+	"time"
 )
 
 type ProductDefinition struct {
@@ -11,6 +12,8 @@ type ProductDefinition struct {
 	ID         string
 	Name       string
 	Definition string
+	CreatedAt  *time.Time
+	UpdatedAt  *time.Time
 }
 
 func (p *ProductDefinition) BeforeCreate(scope *gorm.Scope) error {
@@ -35,6 +38,8 @@ func (p *ProductDefinition) ToDomain() products.ProductDefinition {
 		ID:         p.ID,
 		Name:       p.Name,
 		Definition: p.Definition,
+		CreatedAt:  p.CreatedAt,
+		UpdatedAt:  p.UpdatedAt,
 	}
 }
 
@@ -43,6 +48,8 @@ func (p *ProductDefinition) GetDomainReference() *products.ProductDefinition {
 		ID:         p.ID,
 		Name:       p.Name,
 		Definition: p.Definition,
+		CreatedAt:  p.CreatedAt,
+		UpdatedAt:  p.UpdatedAt,
 	}
 }
 
