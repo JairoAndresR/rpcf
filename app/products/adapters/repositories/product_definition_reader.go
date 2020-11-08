@@ -37,6 +37,6 @@ func (r *productDefinitionReader) GetById(id string) (*products.ProductDefinitio
 
 func (r *productDefinitionReader) GetByName(name string) (*products.ProductDefinition, error) {
 	var definition entities.ProductDefinition
-	err := r.db.First(&definition).Where("name = ?", id).Error
+	err := r.db.First(&definition).Where("name = ?", name).Error
 	return definition.GetDomainReference(), err
 }
