@@ -93,5 +93,25 @@ func (h *ProductDefinitionsHandler) Delete(ctx *gin.Context) {
 }
 
 func (h *ProductDefinitionsHandler) Update(ctx *gin.Context) {
+	req, err := newProductDefinitionUpdateRequest(ctx)
+
+	if err != nil {
+		generateError(ctx, http.StatusBadRequest, err)
+		return
+	}
+
+	error := req.IsValid()
+	if error != nil {
+		handlers.GenerateFullError(ctx, error)
+		return
+	}
+
+	definition := req.GetProductDefinition()
+	_, err = h.manager.Update(definition)
+	if err != nil {
+		generateError(ctx, http.StatusUnprocessableEntity, err)
+		return
+	}
+	ctx.Writer.WriteHeader(http.StatusOK)
 
 }
