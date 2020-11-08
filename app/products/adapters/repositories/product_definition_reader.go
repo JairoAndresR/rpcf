@@ -23,7 +23,7 @@ func newProductReader(con sql.Connection) ports.ProductDefinitionReader {
 	return &productDefinitionReader{db: db}
 }
 
-func (r *productDefinitionReader) GetAll() ([]products.ProductDefinition, error) {
+func (r *productDefinitionReader) GetAll() ([]*products.ProductDefinition, error) {
 	var definitions []*entities.ProductDefinition
 	err := r.db.Find(&definitions).Error
 	return entities.MapProductDefinitionListToDomain(definitions), err

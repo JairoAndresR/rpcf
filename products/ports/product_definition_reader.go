@@ -4,7 +4,7 @@ import "rpcf/products"
 
 type ProductDefinitionReader interface {
 	// GetAll retrieves all products
-	GetAll() ([]products.ProductDefinition, error)
+	GetAll() ([]*products.ProductDefinition, error)
 
 	// GetById retrieves a product if exist.
 	GetById(id string) (*products.ProductDefinition, error)

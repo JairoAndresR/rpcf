@@ -10,6 +10,10 @@ type ProductDefinitionResponse struct {
 	UpdatedAt  int64  `json:"updated_at"`
 }
 
+type ProductDefinitionListResponse struct {
+	definitions []*ProductDefinitionResponse `json:"definitions"`
+}
+
 func newProductDefinitionResponse(p *products.ProductDefinition) *ProductDefinitionResponse {
 	return &ProductDefinitionResponse{
 		ID:         p.ID,
@@ -18,4 +22,14 @@ func newProductDefinitionResponse(p *products.ProductDefinition) *ProductDefinit
 		CreatedAt:  p.CreatedAt.Unix(),
 		UpdatedAt:  p.UpdatedAt.Unix(),
 	}
+}
+
+func newProductDefinitionListResponse(p []*products.ProductDefinition) ProductDefinitionListResponse {
+	definitions := make([]*ProductDefinitionResponse, 0)
+
+	for _, d := range p {
+		definitions = append(definitions, newProductDefinitionResponse(d))
+	}
+
+	return ProductDefinitionListResponse{definitions: definitions}
 }

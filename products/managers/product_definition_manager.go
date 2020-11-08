@@ -36,3 +36,7 @@ func (m *productDefinitionManager) Update(p *products.ProductDefinition) (*produ
 func (m *productDefinitionManager) Delete(id string) error {
 	return m.writer.Delete(id)
 }
+
+func (m *productDefinitionManager) GetAll() ([]*products.ProductDefinition, error) {
+	return m.reader.GetAll()
+}

@@ -8,4 +8,6 @@ type ProductDefinitionManager interface {
 	Update(p *products.ProductDefinition) (*products.ProductDefinition, error)
 
 	Delete(id string) error
+
+	GetAll() ([]*products.ProductDefinition, error)
 }

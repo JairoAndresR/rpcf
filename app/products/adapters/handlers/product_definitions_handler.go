@@ -49,10 +49,21 @@ func (h *ProductDefinitionsHandler) Create(ctx *gin.Context) {
 
 }
 
-func (h *ProductDefinitionsHandler) GetAll(ctx *gin.Context) {}
+func (h *ProductDefinitionsHandler) GetAll(ctx *gin.Context) {
+	definitions, err := h.manager.GetAll()
+	if err != nil {
+		generateError(ctx, http.StatusUnprocessableEntity, err)
+		return
+	}
+
+	response := newProductDefinitionListResponse(definitions)
+	ctx.JSON(http.StatusCreated, response)
+}
 
 func (h *ProductDefinitionsHandler) GetByName(ctx *gin.Context) {}
 
-func (h *ProductDefinitionsHandler) Delete(ctx *gin.Context) {}
+func (h *ProductDefinitionsHandler) Delete(ctx *gin.Context) {
+
+}
 
 func (h *ProductDefinitionsHandler) Update(ctx *gin.Context) {}
