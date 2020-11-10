@@ -67,8 +67,8 @@ func (r *GruplacDefinitionCreateRequest) HasValidFields() []handlers.InvalidPara
 	return params
 }
 
-func (r *GruplacDefinitionCreateRequest) GetGruplacDefinition() *gruplacs.GrupLAC {
-	return &gruplacs.GrupLAC{
+func (r *GruplacDefinitionCreateRequest) GetGruplacDefinition() *gruplacs.GruplacDefinition {
+	return &gruplacs.GruplacDefinition{
 		Name:      r.Name,
 		URL:       r.Url,
 		CreatedAt: r.CreatedAt,

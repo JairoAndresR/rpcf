@@ -23,14 +23,14 @@ func newGrupLACReader(con sql.Connection) ports.GrupLACReader {
 	return &grupLACReader{db: db}
 }
 
-func (g *grupLACReader) GetAll() ([]gruplacs.GrupLAC, error) {
+func (g *grupLACReader) GetAll() ([]gruplacs.GruplacDefinition, error) {
 
 	var groupLacs []*entities.GrupLAC
 
 	err := g.db.Find(&groupLacs).Error
 
 	if err != nil {
-		return []gruplacs.GrupLAC{}, err
+		return []gruplacs.GruplacDefinition{}, err
 	}
 	return entities.MapListToDomain(groupLacs), nil
 }

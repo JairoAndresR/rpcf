@@ -3,13 +3,13 @@ package ports
 import "rpcf/gruplacs"
 
 type GruplacDefinitionManager interface {
-	Create(g *gruplacs.GrupLAC) (*gruplacs.GrupLAC, error)
+	Create(g *gruplacs.GruplacDefinition) (*gruplacs.GruplacDefinition, error)
 
-	Update(g *gruplacs.GrupLAC) (*gruplacs.GrupLAC, error)
+	Update(g *gruplacs.GruplacDefinition) (*gruplacs.GruplacDefinition, error)
 
 	Delete(id string) error
 
-	GetAll() ([]*gruplacs.GrupLAC, error)
+	GetAll() ([]*gruplacs.GruplacDefinition, error)
 
-	GetByName(name string) (*gruplacs.GrupLAC, error)
+	GetByName(name string) (*gruplacs.GruplacDefinition, error)
 }

@@ -10,7 +10,7 @@ const (
 	codePattern = "(=).*"
 )
 
-type GrupLAC struct {
+type GruplacDefinition struct {
 	ID        string
 	Name      string
 	URL       string
@@ -18,7 +18,7 @@ type GrupLAC struct {
 	UpdatedAt *time.Time
 }
 
-func (g *GrupLAC) GetCode() string {
+func (g *GruplacDefinition) GetCode() string {
 	re := regexp.MustCompile(codePattern)
 	code := re.FindString(g.URL)
 	return strings.ReplaceAll(code, "=", "")

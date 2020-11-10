@@ -18,7 +18,7 @@ type GruplacDefinitionListResponse struct {
 	total       int                          `json:"total"`
 }
 
-func newGruplacDefinitionResponse(g *gruplacs.GrupLAC) *GruplacDefinitionResponse {
+func newGruplacDefinitionResponse(g *gruplacs.GruplacDefinition) *GruplacDefinitionResponse {
 	return &GruplacDefinitionResponse{
 		ID:        g.ID,
 		Name:      g.Name,
@@ -28,7 +28,7 @@ func newGruplacDefinitionResponse(g *gruplacs.GrupLAC) *GruplacDefinitionRespons
 	}
 }
 
-func newGruplacDefinitionListResponse(g []*gruplacs.GrupLAC) *GruplacDefinitionListResponse {
+func newGruplacDefinitionListResponse(g []*gruplacs.GruplacDefinition) *GruplacDefinitionListResponse {
 	definitions := make([]*GruplacDefinitionResponse, 0)
 
 	for _, d := range g {

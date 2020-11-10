@@ -25,7 +25,7 @@ func (g *GrupLAC) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
-func NewGrupLAC(g gruplacs.GrupLAC) *GrupLAC {
+func NewGrupLAC(g gruplacs.GruplacDefinition) *GrupLAC {
 	return &GrupLAC{
 		ID:        g.ID,
 		Name:      g.Name,
@@ -35,8 +35,8 @@ func NewGrupLAC(g gruplacs.GrupLAC) *GrupLAC {
 	}
 }
 
-func (g *GrupLAC) ToDomain() gruplacs.GrupLAC {
-	return gruplacs.GrupLAC{
+func (g *GrupLAC) ToDomain() gruplacs.GruplacDefinition {
+	return gruplacs.GruplacDefinition{
 		ID:        g.ID,
 		Name:      g.Name,
 		URL:       g.URL,
@@ -44,8 +44,8 @@ func (g *GrupLAC) ToDomain() gruplacs.GrupLAC {
 		UpdatedAt: g.UpdatedAt,
 	}
 }
-func MapListToDomain(list []*GrupLAC) []gruplacs.GrupLAC {
-	result := make([]gruplacs.GrupLAC, len(list)-1)
+func MapListToDomain(list []*GrupLAC) []gruplacs.GruplacDefinition {
+	result := make([]gruplacs.GruplacDefinition, len(list)-1)
 	for _, g := range list {
 		result = append(result, g.ToDomain())
 	}
