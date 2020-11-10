@@ -9,10 +9,10 @@ import (
 	"time"
 )
 
-type GruplacDefinitionUpdateRequest struct{
-	ID string `json:"id", validate:"required"`
-	Name string `json:"name" validate:"required"`
-	Url string `json:"url", validate:"required"`
+type GruplacDefinitionUpdateRequest struct {
+	ID        string     `json:"id", validate:"required"`
+	Name      string     `json:"name" validate:"required"`
+	Url       string     `json:"url", validate:"required"`
 	CreatedAt *time.Time `json:"created_at", validate:"required"`
 	UpdatedAt *time.Time `json:"updated_at", validate:"required"`
 }
@@ -28,7 +28,7 @@ func newGruplacDefinitionUpdateRequest(c *gin.Context) (*GruplacDefinitionUpdate
 	return &req, nil
 }
 
-func (r *GruplacDefinitionUpdateRequest) IsValid() *handlers.Error{
+func (r *GruplacDefinitionUpdateRequest) IsValid() *handlers.Error {
 	params := make([]handlers.InvalidParam, 0)
 
 	validFields := r.HasValidFields()
@@ -69,9 +69,9 @@ func (r *GruplacDefinitionUpdateRequest) HasValidFields() []handlers.InvalidPara
 }
 func (r *GruplacDefinitionUpdateRequest) GetGruplacDefinition() *gruplacs.GrupLAC {
 	return &gruplacs.GrupLAC{
-		ID: r.ID,
-		Name: r.Name,
-		URL: r.Url,
+		ID:        r.ID,
+		Name:      r.Name,
+		URL:       r.Url,
 		CreatedAt: r.CreatedAt,
 		UpdatedAt: r.UpdatedAt,
 	}

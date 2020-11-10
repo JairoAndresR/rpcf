@@ -5,7 +5,7 @@ import (
 	"rpcf/core/handlers"
 )
 
-func generateError(c *gin.Context, status int, err error){
+func generateError(c *gin.Context, status int, err error) {
 	e := mapError(err, status)
 	handlers.GenerateError(c, e)
 }

@@ -7,7 +7,7 @@ import (
 
 func loadGruplacDefinitionsHandler() (*handlers.GruplacDefinitionsHandler, error) {
 	var handler *handlers.GruplacDefinitionsHandler
-	invokeFun := func(h *handlers.GruplacDefinitionsHandler	) {
+	invokeFun := func(h *handlers.GruplacDefinitionsHandler) {
 		handler = h
 	}
 	err := core.Injector.Invoke(invokeFun)

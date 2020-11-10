@@ -9,7 +9,7 @@ import (
 	"rpcf/gruplacs/ports"
 )
 
-func init()  {
+func init() {
 	err := core.Injector.Provide(newGruplacDefinitionHandler)
 	core.CheckInjection(err, "newGruplacDefinitionHandler")
 }
@@ -18,11 +18,11 @@ type GruplacDefinitionsHandler struct {
 	manager ports.GruplacDefinitionManager
 }
 
-func newGruplacDefinitionHandler(manager ports.GruplacDefinitionManager) *GruplacDefinitionsHandler{
+func newGruplacDefinitionHandler(manager ports.GruplacDefinitionManager) *GruplacDefinitionsHandler {
 	return &GruplacDefinitionsHandler{manager: manager}
 }
 
-func (h *GruplacDefinitionsHandler) Create(ctx *gin.Context)  {
+func (h *GruplacDefinitionsHandler) Create(ctx *gin.Context) {
 	req, err := newGruplacDefinitionCreateRequest(ctx)
 
 	if err != nil {
@@ -89,10 +89,10 @@ func (h *GruplacDefinitionsHandler) Delete(ctx *gin.Context) {
 	ctx.Writer.WriteHeader(http.StatusOK)
 }
 
-func (h *GruplacDefinitionsHandler) Update (ctx *gin.Context) {
+func (h *GruplacDefinitionsHandler) Update(ctx *gin.Context) {
 	req, err := newGruplacDefinitionUpdateRequest(ctx)
 
-	if err!= nil {
+	if err != nil {
 		generateError(ctx, http.StatusBadRequest, err)
 		return
 	}

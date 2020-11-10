@@ -9,7 +9,7 @@ type GruplacDefinitionManager interface {
 
 	Delete(id string) error
 
-	GetAll()([]*gruplacs.GrupLAC, error)
+	GetAll() ([]*gruplacs.GrupLAC, error)
 
 	GetByName(name string) (*gruplacs.GrupLAC, error)
 }

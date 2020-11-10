@@ -10,8 +10,8 @@ import (
 )
 
 type GruplacDefinitionCreateRequest struct {
-	Name string `json:"name" validate:"required"`
-	Url string `json:"url", validate:"required"`
+	Name      string     `json:"name" validate:"required"`
+	Url       string     `json:"url", validate:"required"`
 	CreatedAt *time.Time `json:"created_at", validate:"required"`
 	UpdatedAt *time.Time `json:"updated_at", validate:"required"`
 }
@@ -69,8 +69,8 @@ func (r *GruplacDefinitionCreateRequest) HasValidFields() []handlers.InvalidPara
 
 func (r *GruplacDefinitionCreateRequest) GetGruplacDefinition() *gruplacs.GrupLAC {
 	return &gruplacs.GrupLAC{
-		Name: r.Name,
-		URL: r.Url,
+		Name:      r.Name,
+		URL:       r.Url,
 		CreatedAt: r.CreatedAt,
 		UpdatedAt: r.UpdatedAt,
 	}
