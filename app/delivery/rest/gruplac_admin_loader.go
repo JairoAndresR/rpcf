@@ -2,7 +2,9 @@ package rest
 
 import (
 	"rpcf/app/gruplacs/adapters/handlers"
+	_ "rpcf/app/gruplacs/adapters/repositories"
 	"rpcf/core"
+	_ "rpcf/gruplacs/managers"
 )
 
 func loadGruplacDefinitionsHandler() (*handlers.GruplacDefinitionsHandler, error) {
