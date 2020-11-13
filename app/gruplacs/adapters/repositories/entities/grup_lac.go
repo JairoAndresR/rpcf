@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type GrupLAC struct {
+type GruplacDefinition struct {
 	*entities.Base
 	ID        string
 	Name      string
@@ -16,7 +16,7 @@ type GrupLAC struct {
 	UpdatedAt *time.Time
 }
 
-func (g *GrupLAC) BeforeCreate(scope *gorm.Scope) error {
+func (g *GruplacDefinition) BeforeCreate(scope *gorm.Scope) error {
 	id := g.GenerateID()
 	err := scope.SetColumn("ID", id)
 	if err != nil {
@@ -25,8 +25,8 @@ func (g *GrupLAC) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
-func NewGrupLAC(g gruplacs.GruplacDefinition) *GrupLAC {
-	return &GrupLAC{
+func NewGruplacDefinition(g *gruplacs.GruplacDefinition) *GruplacDefinition {
+	return &GruplacDefinition{
 		ID:        g.ID,
 		Name:      g.Name,
 		URL:       g.URL,
@@ -35,7 +35,7 @@ func NewGrupLAC(g gruplacs.GruplacDefinition) *GrupLAC {
 	}
 }
 
-func (g *GrupLAC) ToDomain() gruplacs.GruplacDefinition {
+func (g *GruplacDefinition) ToDomain() gruplacs.GruplacDefinition {
 	return gruplacs.GruplacDefinition{
 		ID:        g.ID,
 		Name:      g.Name,
@@ -44,10 +44,21 @@ func (g *GrupLAC) ToDomain() gruplacs.GruplacDefinition {
 		UpdatedAt: g.UpdatedAt,
 	}
 }
-func MapListToDomain(list []*GrupLAC) []gruplacs.GruplacDefinition {
-	result := make([]gruplacs.GruplacDefinition, len(list)-1)
+
+func (g *GruplacDefinition) GetDomainReference() *gruplacs.GruplacDefinition {
+	return &gruplacs.GruplacDefinition{
+		ID:        g.ID,
+		Name:      g.Name,
+		URL:       g.URL,
+		CreatedAt: g.CreatedAt,
+		UpdatedAt: g.UpdatedAt,
+	}
+}
+
+func MapGruplacDefinitionListToDomain(list []*GruplacDefinition) []*gruplacs.GruplacDefinition {
+	result := make([]*gruplacs.GruplacDefinition, len(list)-1)
 	for _, g := range list {
-		result = append(result, g.ToDomain())
+		result = append(result, g.GetDomainReference())
 	}
 	return result
 }

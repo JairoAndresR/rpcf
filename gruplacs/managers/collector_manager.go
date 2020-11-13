@@ -13,12 +13,12 @@ func init() {
 }
 
 type collectorManager struct {
-	grupLACReader   ports.GrupLACReader
+	grupLACReader   ports.GruplacDefinitionReader
 	collectorReader ports.CollectorReader
 	collectorWriter ports.CollectorWriter
 }
 
-func newCollectorManager(gr ports.GrupLACReader, cr ports.CollectorReader, cw ports.CollectorWriter) ports.CollectorManager {
+func newCollectorManager(gr ports.GruplacDefinitionReader, cr ports.CollectorReader, cw ports.CollectorWriter) ports.CollectorManager {
 	return &collectorManager{
 		grupLACReader:   gr,
 		collectorReader: cr,
