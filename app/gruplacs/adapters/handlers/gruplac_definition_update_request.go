@@ -13,8 +13,8 @@ type GruplacDefinitionUpdateRequest struct {
 	ID        string     `json:"id", validate:"required"`
 	Name      string     `json:"name" validate:"required"`
 	Url       string     `json:"url", validate:"required"`
-	CreatedAt *time.Time `json:"created_at", validate:"required"`
-	UpdatedAt *time.Time `json:"updated_at", validate:"required"`
+	CreatedAt *time.Time `json:"created_at"`
+	UpdatedAt *time.Time `json:"updated_at"`
 }
 
 func newGruplacDefinitionUpdateRequest(c *gin.Context) (*GruplacDefinitionUpdateRequest, error) {
