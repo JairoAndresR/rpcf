@@ -1,36 +1,41 @@
 package main
 
 import (
-	"fmt"
 	"rpcf/app/dataproviders/queue"
-	"time"
+	"rpcf/products/ports"
+)
+
+const (
+	productsQueue = "collector_queue"
 )
 
 type productsWorker struct {
-	queue queue.Client
+	queue     queue.Client
+	collector ports.ProductCollector
 }
 
 func newProductsWorker(client queue.Client) *productsWorker {
+	collector := NewCollector()
 	return &productsWorker{
-		queue: client,
+		queue:     client,
+		collector: collector,
 	}
 }
 
 func (w *productsWorker) Execute() {
-	name := "collector_queue"
-	q := w.queue.GetQueue(name)
+	q := w.queue.GetQueue(productsQueue)
 
 	if q == nil {
 		return
 	}
 	for true {
-		job, err := q.Pop()
+		content, err := q.Pop()
 		if err != nil {
 			panic(err)
 		}
-		if job != "" {
-			fmt.Println(job)
+
+		if content != "" {
+			w.collector.Parse(content)
 		}
-		time.Sleep(2 * time.Second)
 	}
 }
