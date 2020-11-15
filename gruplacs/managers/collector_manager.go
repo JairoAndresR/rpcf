@@ -44,5 +44,6 @@ func (c *collectorManager) CollectAll() error {
 		payload := gruplacs.NewCollectorPayload(content, code)
 		c.collectorWriter.Write(*payload)
 	}
+
 	return nil
 }
