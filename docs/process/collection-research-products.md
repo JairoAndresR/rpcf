@@ -65,8 +65,9 @@ It's a process manually right now. It should be executed with:
 go run /path/rpfc/app/cmd/products.scrapers/*.go
 ```
    
-**Note**: should be the backend up at the same time in which it would be executed.
- 
+**Note**: 
+1. It should be the backend up at the same time in which it would be executed.
+2. It should have the environment variables configured.
  
 4- **Retrieving the contents**, in this step the idea is get all the GrupLAC definitions stored in the application
 and take the URL and scrap the content on it. After that the content should be sent to queue configured in

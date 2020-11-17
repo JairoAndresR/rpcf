@@ -6,14 +6,11 @@ import (
 	"net/http"
 	"rpcf/core/handlers"
 	"rpcf/gruplacs"
-	"time"
 )
 
 type GruplacDefinitionCreateRequest struct {
-	Name      string     `json:"name" validate:"required"`
-	Url       string     `json:"url", validate:"required"`
-	CreatedAt *time.Time `json:"created_at"`
-	UpdatedAt *time.Time `json:"updated_at"`
+	Name string `json:"name" validate:"required"`
+	Url  string `json:"url", validate:"required"`
 }
 
 func newGruplacDefinitionCreateRequest(c *gin.Context) (*GruplacDefinitionCreateRequest, error) {
@@ -69,9 +66,7 @@ func (r *GruplacDefinitionCreateRequest) HasValidFields() []handlers.InvalidPara
 
 func (r *GruplacDefinitionCreateRequest) GetGruplacDefinition() *gruplacs.GruplacDefinition {
 	return &gruplacs.GruplacDefinition{
-		Name:      r.Name,
-		URL:       r.Url,
-		CreatedAt: r.CreatedAt,
-		UpdatedAt: r.UpdatedAt,
+		Name: r.Name,
+		URL:  r.Url,
 	}
 }

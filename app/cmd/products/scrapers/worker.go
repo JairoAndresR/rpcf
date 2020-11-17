@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"rpcf/app/dataproviders/queue"
 	"rpcf/products/ports"
 )
@@ -28,14 +29,24 @@ func (w *productsWorker) Execute() {
 	if q == nil {
 		return
 	}
-	for true {
+
+	for {
 		content, err := q.Pop()
 		if err != nil {
 			panic(err)
 		}
 
-		if content != "" {
-			w.collector.Parse(content)
+		if content == "" {
+			continue
 		}
+
+		results, errs := w.collector.Parse(content)
+
+		if len(errs) > 0 {
+			fmt.Print(errs)
+			continue
+		}
+
+		fmt.Println(len(results))
 	}
 }
