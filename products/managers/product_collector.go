@@ -15,13 +15,33 @@ func init() {
 type productCollector struct {
 	parser                  collector.Parser
 	productDefinitionReader ports.ProductDefinitionReader
+	productWriter           ports.ProductWriter
 }
 
-func newProductCollector(pdr ports.ProductDefinitionReader) ports.ProductCollector {
+func newProductCollector(pdr ports.ProductDefinitionReader, pw ports.ProductWriter) ports.ProductCollector {
 	parser := collector.NewParser()
 	return &productCollector{
 		parser:                  parser,
-		productDefinitionReader: pdr}
+		productDefinitionReader: pdr,
+		productWriter:           pw,
+	}
+}
+
+func (c *productCollector) Process(content string) []error {
+	products, errs := c.Parse(content)
+
+	if len(errs) > 0 {
+		return errs
+	}
+
+	errors := make([]error, 0)
+	for _, p := range products {
+		es := c.productWriter.Writes(p.Results, p.Name)
+		if len(es) > 0 {
+			errors = append(errors, es...)
+		}
+	}
+	return errors
 }
 
 func (c *productCollector) Parse(content string) ([]*products.ParsedProducts, []error) {

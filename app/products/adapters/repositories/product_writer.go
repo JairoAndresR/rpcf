@@ -32,3 +32,16 @@ func (w *productWriter) Write(product map[string]string, name string) error {
 	err = w.db.Model(p).Create(product).Error
 	return err
 }
+
+func (w *productWriter) Writes(products []map[string]string, name string) []error {
+	errs := make([]error, 0)
+
+	for _, p := range products {
+		err := w.Write(p, name)
+
+		if err != nil {
+			errs = append(errs, err)
+		}
+	}
+	return errs
+}

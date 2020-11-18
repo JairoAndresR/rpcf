@@ -40,13 +40,11 @@ func (w *productsWorker) Execute() {
 			continue
 		}
 
-		results, errs := w.collector.Parse(content)
+		errs := w.collector.Process(content)
 
 		if len(errs) > 0 {
 			fmt.Print(errs)
 			continue
 		}
-
-		fmt.Println(len(results))
 	}
 }
