@@ -23,13 +23,13 @@ func newProductWriter(conn sql.Connection, b ports.ProductsBuilder) ports.Produc
 }
 
 func (w *productWriter) Write(product map[string]string, name string) error {
-	p, err := w.builder.Build(name)
+	p, err := w.builder.Build(product, name)
 
 	if err != nil {
 		return err
 	}
 
-	err = w.db.Model(p).Create(product).Error
+	err = w.db.Table(name).Create(p).Error
 	return err
 }
 

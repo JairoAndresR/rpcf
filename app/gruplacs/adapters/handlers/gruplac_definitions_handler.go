@@ -60,9 +60,9 @@ func (h *GruplacDefinitionsHandler) GetAll(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (h *GruplacDefinitionsHandler) GetByName(ctx *gin.Context) {
-	name := ctx.Param("name")
-	definition, err := h.manager.GetByName(name)
+func (h *GruplacDefinitionsHandler) GetById(ctx *gin.Context) {
+	id := ctx.Param("id")
+	definition, err := h.manager.GetById(id)
 	if err != nil {
 		generateError(ctx, http.StatusUnprocessableEntity, err)
 		return

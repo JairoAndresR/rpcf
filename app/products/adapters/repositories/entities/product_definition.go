@@ -9,9 +9,9 @@ import (
 
 type ProductDefinition struct {
 	*entities.Base
-	ID         string
-	Name       string
-	Definition string `gorm:"type:text"`
+	ID         string `gorm:PRIMARY_KEY"`
+	Name       string `gorm:"UNIQUE;not null"`
+	Definition string `gorm:"type:text;not null"`
 	CreatedAt  *time.Time
 	UpdatedAt  *time.Time
 }

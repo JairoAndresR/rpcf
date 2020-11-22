@@ -81,7 +81,7 @@ func (c *productCollector) Parse(content string) ([]*products.ParsedProducts, []
 			continue
 		}
 
-		pp := products.NewParsedProducts(result, definition.Name, payload.GrupLACCode)
+		pp := products.NewParsedProducts(result, pd.Name, payload.GrupLACCode)
 		results = append(results, pp)
 	}
 	return results, errors

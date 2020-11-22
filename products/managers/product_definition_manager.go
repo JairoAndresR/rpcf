@@ -45,3 +45,7 @@ func (m *productDefinitionManager) GetAll() ([]*products.ProductDefinition, erro
 func (m *productDefinitionManager) GetByName(name string) (*products.ProductDefinition, error) {
 	return m.reader.GetByName(name)
 }
+
+func (m *productDefinitionManager) GetById(id string) (*products.ProductDefinition, error) {
+	return m.reader.GetById(id)
+}

@@ -61,9 +61,9 @@ func (h *ProductDefinitionsHandler) GetAll(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (h *ProductDefinitionsHandler) GetByName(ctx *gin.Context) {
-	name := ctx.Param("name")
-	definition, err := h.manager.GetByName(name)
+func (h *ProductDefinitionsHandler) GetById(ctx *gin.Context) {
+	name := ctx.Param("id")
+	definition, err := h.manager.GetById(name)
 	if err != nil {
 		generateError(ctx, http.StatusUnprocessableEntity, err)
 		return

@@ -12,4 +12,6 @@ type ProductDefinitionManager interface {
 	GetAll() ([]*products.ProductDefinition, error)
 
 	GetByName(name string) (*products.ProductDefinition, error)
+
+	GetById(id string) (*products.ProductDefinition, error)
 }

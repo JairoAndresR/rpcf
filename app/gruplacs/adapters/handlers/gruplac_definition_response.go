@@ -14,8 +14,8 @@ type GruplacDefinitionResponse struct {
 }
 
 type GruplacDefinitionListResponse struct {
-	definitions []*GruplacDefinitionResponse `json:"definitions"`
-	total       int                          `json:"total"`
+	Definitions []*GruplacDefinitionResponse `json:"definitions"`
+	Total       int                          `json:"total"`
 }
 
 func newGruplacDefinitionResponse(g *gruplacs.GruplacDefinition) *GruplacDefinitionResponse {
@@ -35,7 +35,7 @@ func newGruplacDefinitionListResponse(g []*gruplacs.GruplacDefinition) *GruplacD
 		definitions = append(definitions, newGruplacDefinitionResponse(d))
 	}
 	return &GruplacDefinitionListResponse{
-		definitions: definitions,
-		total:       len(definitions),
+		Definitions: definitions,
+		Total:       len(definitions),
 	}
 }

@@ -45,3 +45,7 @@ func (m *gruplacDefinitionManager) GetAll() ([]*gruplacs.GruplacDefinition, erro
 func (m *gruplacDefinitionManager) GetByName(name string) (*gruplacs.GruplacDefinition, error) {
 	return m.reader.GetByName(name)
 }
+
+func (m *gruplacDefinitionManager) GetById(id string) (*gruplacs.GruplacDefinition, error) {
+	return m.reader.GetById(id)
+}

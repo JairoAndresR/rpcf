@@ -11,10 +11,10 @@ import (
 
 type Account struct {
 	*entities.Base
-	ID        string
-	Name      string
-	Email     string
-	Password  string
+	ID        string `gorm:"primaryKey"`
+	Name      string `gorm:"not null"`
+	Email     string `gorm:"not null"`
+	Password  string `gorm:"not null"`
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
 }

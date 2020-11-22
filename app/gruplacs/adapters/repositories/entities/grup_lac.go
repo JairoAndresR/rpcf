@@ -9,9 +9,9 @@ import (
 
 type GruplacDefinition struct {
 	*entities.Base
-	ID        string
-	Name      string
-	URL       string
+	ID        string `gorm:"primaryKey"`
+	Name      string `gorm:"unique; not null"`
+	URL       string `gorm:"not null"`
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
 }
@@ -56,7 +56,7 @@ func (g *GruplacDefinition) GetDomainReference() *gruplacs.GruplacDefinition {
 }
 
 func MapGruplacDefinitionListToDomain(list []*GruplacDefinition) []*gruplacs.GruplacDefinition {
-	result := make([]*gruplacs.GruplacDefinition, len(list)-1)
+	result := make([]*gruplacs.GruplacDefinition, 0)
 	for _, g := range list {
 		result = append(result, g.GetDomainReference())
 	}
