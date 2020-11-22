@@ -24,13 +24,15 @@ func (p *productBuilder) Build(product map[string]string, name string) (interfac
 	articlesBuilder := builders.NewArticlesBuilder()
 	booksBuilder := builders.NewBooksBuilder()
 	companiesBuilder := builders.NewCompaniesBuilder()
+	doctoralThesisBuilder := builders.NewDoctoralThesisBuilder()
 
 	unIdentifiedBuilder := builders.NewUnIdentifiedBuilder()
 
 	articlesBuilder.SetNext(booksBuilder)
 	booksBuilder.SetNext(companiesBuilder)
+	companiesBuilder.SetNext(doctoralThesisBuilder)
 	// The unIdentifiedBuilder must be the last assigned
-	companiesBuilder.SetNext(unIdentifiedBuilder)
+	doctoralThesisBuilder.SetNext(unIdentifiedBuilder)
 
 	return articlesBuilder.Build(product, name)
 }
