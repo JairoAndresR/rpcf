@@ -1,8 +1,7 @@
 package repositories
 
 import (
-	"errors"
-	"rpcf/app/products/adapters/repositories/entities"
+	"rpcf/app/products/adapters/repositories/builders"
 	"rpcf/core"
 	"rpcf/products/ports"
 )
@@ -16,18 +15,17 @@ type productBuilder struct {
 }
 
 func newProductBuilder() ports.ProductsBuilder {
+
 	return &productBuilder{}
 }
 
 func (p *productBuilder) Build(product map[string]string, name string) (interface{}, error) {
 
-	if entities.ArticlesTableName == name {
-		p, err := entities.NewArticle(product)
-		if err != nil {
-			return nil, err
-		}
-		return p, nil
-	}
+	articlesBuilder := builders.NewArticlesBuilder()
 
-	return nil, errors.New(UnidentifiedProductError)
+	// The unIdentifiedBuilder must be the last builder always. 
+	unIdentifiedBuilder := builders.NewUnIdentifiedBuilder()
+	articlesBuilder.SetNext(unIdentifiedBuilder)
+
+	return unIdentifiedBuilder.Build(product, name)
 }
