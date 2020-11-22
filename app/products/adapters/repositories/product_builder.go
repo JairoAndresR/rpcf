@@ -22,10 +22,11 @@ func newProductBuilder() ports.ProductsBuilder {
 func (p *productBuilder) Build(product map[string]string, name string) (interface{}, error) {
 
 	articlesBuilder := builders.NewArticlesBuilder()
+	booksBuilder := builders.NewBooksBuilder()
+	booksBuilder.SetNext(articlesBuilder)
 
-	// The unIdentifiedBuilder must be the last builder always. 
 	unIdentifiedBuilder := builders.NewUnIdentifiedBuilder()
-	articlesBuilder.SetNext(unIdentifiedBuilder)
+	booksBuilder.SetNext(unIdentifiedBuilder)
 
-	return unIdentifiedBuilder.Build(product, name)
+	return booksBuilder.Build(product, name)
 }

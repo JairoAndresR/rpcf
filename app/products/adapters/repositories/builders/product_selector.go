@@ -1,4 +1,4 @@
-package repositories
+package builders
 
 type ProductSelector interface {
 	SetNext(s ProductSelector)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"rpcf/app/dataproviders/queue"
 	"rpcf/products/ports"
 )
@@ -24,6 +25,7 @@ func newProductsWorker(client queue.Client) *productsWorker {
 }
 
 func (w *productsWorker) Execute() {
+	log.Printf("Worker for products parsing")
 	q := w.queue.GetQueue(productsQueue)
 
 	if q == nil {
