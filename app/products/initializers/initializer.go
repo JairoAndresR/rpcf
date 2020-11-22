@@ -22,4 +22,5 @@ func Migrate() {
 	db.AutoMigrate(entities.Articles{})
 	db.AutoMigrate(entities.Books{})
 	db.AutoMigrate(entities.ProductDefinition{})
+	db.AutoMigrate(entities.Companies{})
 }
