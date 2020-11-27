@@ -1,0 +1,102 @@
+table dimResearcher{
+  SK_researcher VARCHAR(36) [pk, note: "self-generated"]
+  name VARCHAR
+  created_at datetime
+  updated_at datetime
+}
+
+ref: dimResearcher.SK_researcher > factProduct.SK_researcher
+
+table factProduct{
+  id VARCHAR(36) [pk, note: "self-generated"]
+  SK_researcher VARCHAR(36)
+  SK_group_Name VARCHAR
+  GLOB_title VARCHAR
+  GLOB_created_at datetime
+  GLOB_updated_at datetime
+  
+  // Managed works (MANA) - type_managed_works (MANA_TYPE)
+  MANA_id VARCHAR(36)
+  MANA_name VARCHAR
+  MANA_initial_date datetime [default: `now()`]
+  MANA_ending_date datetime [default: `now()`]
+  MANA_orientation VARCHAR
+  MANA_institution VARCHAR
+  MANA_pages int
+  MANA_created_at datetime [default: `now()`]
+  MANA_updated_at datetime [default: `now()`]
+  MANA_TYPE_id VARCHAR(36)
+  MANA_TYPE_name VARCHAR
+  MANA_TYPE_description VARCHAR
+  
+  
+  // Industrial desings (INDU)
+  INDU_id VARCHAR(36)
+  INDU_name VARCHAR
+  INDU_year int
+  INDU_availability VARCHAR
+  INDU_funding_institution VARCHAR
+  
+  // Prototype (PROT)
+  PROT_id VARCHAR(36)
+  PROT_name VARCHAR
+  PROT_year int
+  PROT_availability VARCHAR
+  PROT_funding_institution VARCHAR
+  
+  // Technology-based companies (COMP)
+  COMP_id VARCHAR(36)
+  COMP_type VARCHAR //Spin-off
+  COMP_name VARCHAR
+    //COMP_created_year int
+  COMP_nit VARCHAR
+  COMP_registred_at datetime  // Chamber of Commerce register
+  COMP_has_market_products boolean // have products on the market?
+  
+  // Books (BOOK)
+  BOOK_id VARCHAR(36)
+  BOOK_isbn VARCHAR
+  BOOK_name VARCHAR
+  BOOK_published_country VARCHAR
+  BOOK_published_year datetime
+  BOOK_editorial VARCHAR
+  
+  //Articles (ARTI)
+  ARTI_id VARCHAR(36)
+  ARTI_name VARCHAR
+  ARTI_published_country VARCHAR
+  ARTI_magazine_name VARCHAR
+  ARTI_magazine_issn int
+  ARTI_published_year datetime
+  ARTI_vol int
+  ARTI_fasc int
+  ARTI_pags VARCHAR
+  ARTI_doi VARCHAR
+  
+  //Software (SOFT)
+  SOFT_id VARCHAR(36)
+  SOFT_type VARCHAR
+  SOFT_name VARCHAR
+  SOFT_release_country VARCHAR
+  SOFT_release_year datetime
+  SOFT_disponibility VARCHAR
+  SOFT_web_site VARCHAR
+  SOFT_comercial_name VARCHAR
+  SOFT_project_name VARCHAR
+  SOFT_funding_institution VARCHAR
+  
+  //Scientific events (SCIE)
+  SCIE_id VARCHAR(36)
+  SCIE_type VARCHAR
+  SCIE_name VARCHAR
+  SCIE_country VARCHAR
+  SCIE_start_date datetime
+  SCIE_end_date datetime
+  SCIE_scope VARCHAR
+  SCIE_participation_type VARCHAR
+  SCIE_associated_institutions VARCHAR
+  SCIE_INST_id VARCHAR(36)
+  SCIE_INST_name VARCHAR
+  SCIE_INST_description VARCHAR
+  SCIE_INEV_vinculation_type VARCHAR
+} 

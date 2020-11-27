@@ -1,0 +1,13 @@
+|PREFIX|    - |MEANING|
+GLOP_       - common attribute
+MANA_       - managed work
+MANA_TYPE_  - type_managed_works table
+INDU_       - Industrial designs
+PROT_       - Prototypes
+COMP_       - Technology-based companies
+BOOK_       - Book
+ARTI_       - Articles
+SOFT_       - Software
+SCIE_       - Scientific events
+SCIE_INST_  - Institutions table
+SCIE_INEV_  - institution_event table
