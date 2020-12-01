@@ -22,7 +22,7 @@ func newProductWriter(conn sql.Connection, b ports.ProductsBuilder) ports.Produc
 	return &productWriter{db: db, builder: b}
 }
 
-func (w *productWriter) Write(product map[string]string, name string) error {
+func (w *productWriter) WriteMap(product map[string]string, name string) error {
 	p, err := w.builder.Build(product, name)
 
 	if err != nil {
@@ -33,11 +33,11 @@ func (w *productWriter) Write(product map[string]string, name string) error {
 	return err
 }
 
-func (w *productWriter) Writes(products []map[string]string, name string) []error {
+func (w *productWriter) WriteMaps(products []map[string]string, name string) []error {
 	errs := make([]error, 0)
 
 	for _, p := range products {
-		err := w.Write(p, name)
+		err := w.WriteMap(p, name)
 
 		if err != nil {
 			errs = append(errs, err)

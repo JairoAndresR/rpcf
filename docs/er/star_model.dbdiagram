@@ -7,7 +7,7 @@ table research_group_dimension{
 }
 
 ref: researcher_dimension.sk_research_group > research_group_dimension.sk_research_group
-ref: research_group_dimension.sk_research_group > fact_product.sk_research_group
+ref: research_group_dimension.sk_research_group > products_fact.sk_research_group
 
 table researcher_dimension{
   sk_researcher varchar(36) [pk, note: "self-generated"]
@@ -17,9 +17,9 @@ table researcher_dimension{
   updated_at datetime
 }
 
-ref: researcher_dimension.sk_researcher > fact_product.sk_researcher
+ref: researcher_dimension.sk_researcher > products_fact.sk_researcher
 
-table fact_product{
+table products_fact{
   id varchar(36) [pk, note: "self-generated"]
   sk_researcher varchar(36)
   sk_research_group varchar(36)

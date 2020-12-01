@@ -1,4 +1,5 @@
 |PREFIX|    - |MEANING|
+SK          - Surrogate key
 GLOB_       - common attribute
 MANA_       - managed work
 MANA_TYPE_  - type_managed_works table

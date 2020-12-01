@@ -1,0 +1,33 @@
+table research_group_dimension{
+  sk_research_group varchar(36) [pk, note: "self-generated"]
+  name varchar
+  url varchar
+  created_at datetime
+  updated_at datetime
+}
+
+ref: researcher_dimension.sk_research_group > research_group_dimension.sk_research_group
+ref: research_group_dimension.sk_research_group > products_fact.sk_research_group
+
+table researcher_dimension{
+  sk_researcher varchar(36) [pk, note: "self-generated"]
+  sk_research_group varchar(36)
+  name varchar
+  created_at datetime
+  updated_at datetime
+}
+
+ref: researcher_dimension.sk_researcher > products_fact.sk_researcher
+
+table products_fact {
+  id varchar(36) [pk, note: "self-generated"]
+  sk_researcher varchar(36)
+  sk_research_group varchar(36)
+  type_id varchar // uuid
+  type_name  varchar // example articles
+  title varchar
+  start_year varchar // example: 2020
+  end_year varchar // example 2022
+  created_at datetime
+  updated_at datetime
+}

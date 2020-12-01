@@ -8,8 +8,8 @@ type ProductWriter interface {
 	//
 	// If all is ok it returns a id of the resource saved and a nil error,
 	// in other case it should returns an specific error.
-	Write(product map[string]string, name string) error
+	WriteMap(product map[string]string, name string) error
 
 	// It writes multiples products.
-	Writes(products []map[string]string, name string) []error
+	WriteMaps(products []map[string]string, name string) []error
 }
