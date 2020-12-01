@@ -15,15 +15,15 @@ func init() {
 type productCollector struct {
 	parser                  collector.Parser
 	productDefinitionReader ports.ProductDefinitionReader
-	productWriter           ports.ProductWriter
+	productGenericWriter    ports.ProductGenericWriter
 }
 
-func newProductCollector(pdr ports.ProductDefinitionReader, pw ports.ProductWriter) ports.ProductCollector {
+func newProductCollector(pdr ports.ProductDefinitionReader, pw ports.ProductGenericWriter) ports.ProductCollector {
 	parser := collector.NewParser()
 	return &productCollector{
 		parser:                  parser,
 		productDefinitionReader: pdr,
-		productWriter:           pw,
+		productGenericWriter:    pw,
 	}
 }
 
@@ -36,7 +36,7 @@ func (c *productCollector) Process(content string) []error {
 
 	errors := make([]error, 0)
 	for _, p := range products {
-		es := c.productWriter.Writes(p.Results, p.Name)
+		es := c.productGenericWriter.WriteMaps(p.Results, p.Name)
 		if len(es) > 0 {
 			errors = append(errors, es...)
 		}
