@@ -23,6 +23,7 @@ table fact_product{
   id varchar(36) [pk, note: "self-generated"]
   sk_researcher varchar(36)
   sk_research_group varchar(36)
+  glob_type  varchar
   glob_title varchar
   glob_created_at datetime
   glob_updated_at datetime
