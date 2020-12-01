@@ -8,21 +8,21 @@ import (
 )
 
 func init() {
-	err := core.Injector.Provide(newProductWriter)
-	core.CheckInjection(err, "newProductWriter")
+	err := core.Injector.Provide(newProductGenericWriter)
+	core.CheckInjection(err, "newProductGenericWriter")
 }
 
-type productWriter struct {
+type productGenericWriter struct {
 	db      *gorm.DB
 	builder ports.ProductsBuilder
 }
 
-func newProductWriter(conn sql.Connection, b ports.ProductsBuilder) ports.ProductWriter {
+func newProductGenericWriter(conn sql.Connection, b ports.ProductsBuilder) ports.ProductGenericWriter {
 	db := conn.GetDatabase()
-	return &productWriter{db: db, builder: b}
+	return &productGenericWriter{db: db, builder: b}
 }
 
-func (w *productWriter) WriteMap(product map[string]string, name string) error {
+func (w *productGenericWriter) WriteMap(product map[string]string, name string) error {
 	p, err := w.builder.Build(product, name)
 
 	if err != nil {
@@ -33,7 +33,7 @@ func (w *productWriter) WriteMap(product map[string]string, name string) error {
 	return err
 }
 
-func (w *productWriter) WriteMaps(products []map[string]string, name string) []error {
+func (w *productGenericWriter) WriteMaps(products []map[string]string, name string) []error {
 	errs := make([]error, 0)
 
 	for _, p := range products {

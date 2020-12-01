@@ -1,7 +1,7 @@
 package ports
 
-// ProductWriter is in charge to save any product
-type ProductWriter interface {
+// ProductGenericWriter is in charge to save any product
+type ProductGenericWriter interface {
 
 	// Write is in charge to save a product.
 	// It recognizes where put the product according to the name.
