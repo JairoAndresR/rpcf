@@ -1,0 +1,113 @@
+table research_group_dimension{
+  sk_research_group varchar(36) [pk, note: "self-generated"]
+  name varchar
+  url varchar
+  created_at datetime
+  updated_at datetime
+}
+
+ref: researcher_dimension.sk_research_group > research_group_dimension.sk_research_group
+ref: research_group_dimension.sk_research_group > fact_product.sk_research_group
+
+table researcher_dimension{
+  sk_researcher varchar(36) [pk, note: "self-generated"]
+  sk_research_group varchar(36)
+  name varchar
+  created_at datetime
+  updated_at datetime
+}
+
+ref: researcher_dimension.sk_researcher > fact_product.sk_researcher
+
+table fact_product{
+  id varchar(36) [pk, note: "self-generated"]
+  sk_researcher varchar(36)
+  sk_research_group varchar(36)
+  glob_title varchar
+  glob_created_at datetime
+  glob_updated_at datetime
+  
+  // managed works (mana) - type_managed_works (mana_type)
+  mana_id varchar(36)
+  mana_name varchar
+  mana_initial_date datetime [default: `now()`]
+  mana_ending_date datetime [default: `now()`]
+  mana_orientation varchar
+  mana_institution varchar
+  mana_pages int
+  mana_created_at datetime [default: `now()`]
+  mana_updated_at datetime [default: `now()`]
+  mana_type_id varchar(36)
+  mana_type_name varchar
+  mana_type_description varchar
+    
+  // industrial desings (indu)
+  indu_id varchar(36)
+  indu_name varchar
+  indu_year int
+  indu_availability varchar
+  indu_funding_institution varchar
+  
+  // prototype (prot)
+  prot_id varchar(36)
+  prot_name varchar
+  prot_year int
+  prot_availability varchar
+  prot_funding_institution varchar
+  
+  // Technology-based companies (comp)
+  comp_id varchar(36)
+  comp_type varchar //Spin-off
+  comp_name varchar
+    //comp_created_year int
+  comp_nit varchar
+  comp_registred_at datetime  // Chamber of Commerce register
+  comp_has_market_products boolean // have products on the market?
+  
+  // Books (book)
+  book_id varchar(36)
+  book_isbn varchar
+  book_name varchar
+  book_published_country varchar
+  book_published_year datetime
+  book_editorial varchar
+  
+  //Articles (arti)
+  arti_id varchar(36)
+  arti_name varchar
+  arti_published_country varchar
+  arti_magazine_name varchar
+  arti_magazine_issn int
+  arti_published_year datetime
+  arti_vol int
+  arti_fasc int
+  arti_pags varchar
+  arti_doi varchar
+  
+  //Software (soft)
+  soft_id varchar(36)
+  soft_type varchar
+  soft_name varchar
+  soft_release_country varchar
+  soft_release_year datetime
+  soft_disponibility varchar
+  soft_web_site varchar
+  soft_comercial_name varchar
+  soft_project_name varchar
+  soft_funding_institution varchar
+  
+  //Scientific events (scie)
+  scie_id varchar(36)
+  scie_type varchar
+  scie_name varchar
+  scie_country varchar
+  scie_start_date datetime
+  scie_end_date datetime
+  scie_scope varchar
+  scie_participation_type varchar
+  scie_associated_institutions varchar
+  scie_inst_id varchar(36)
+  scie_inst_name varchar
+  scie_inst_description varchar
+  scie_inev_vinculation_type varchar
+} 
