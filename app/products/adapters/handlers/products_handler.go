@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"rpcf/core"
 	"rpcf/products/ports"
 )
@@ -22,5 +23,13 @@ func NewProductsHandler(manager ports.ProductsManager) *ProductsHandler {
 }
 
 func (h *ProductsHandler) GetAll(c *gin.Context) {
+	ps, err := h.manager.GetAll()
 
+	if err != nil {
+		generateError(c, http.StatusUnprocessableEntity, err)
+		return
+	}
+
+	response := MapListResponse(ps)
+	c.JSON(http.StatusOK, response)
 }
