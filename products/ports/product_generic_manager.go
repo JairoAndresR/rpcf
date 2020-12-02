@@ -1,5 +1,5 @@
 package ports
 
-type ProductManager interface {
+type ProductGenericManager interface {
 	Write(product map[string]string, name string) error
 }
