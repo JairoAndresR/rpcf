@@ -11,7 +11,5 @@ type GruplacDefinitionManager interface {
 
 	GetAll() ([]*gruplacs.GruplacDefinition, error)
 
-	GetByName(name string) (*gruplacs.GruplacDefinition, error)
-
 	GetById(id string) (*gruplacs.GruplacDefinition, error)
 }
