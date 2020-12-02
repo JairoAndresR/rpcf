@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/gin-gonic/gin"
 	"rpcf/core"
+	"rpcf/products/ports"
 )
 
 func init() {
@@ -11,10 +12,13 @@ func init() {
 }
 
 type ProductsHandler struct {
+	manager ports.ProductsManager
 }
 
-func NewProductsHandler() *ProductsHandler {
-	return &ProductsHandler{}
+func NewProductsHandler(manager ports.ProductsManager) *ProductsHandler {
+	return &ProductsHandler{
+		manager: manager,
+	}
 }
 
 func (h *ProductsHandler) GetAll(c *gin.Context) {
