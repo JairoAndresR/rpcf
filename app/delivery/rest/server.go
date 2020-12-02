@@ -32,6 +32,7 @@ func (s *server) setupRoutes() {
 	setupScrapingRoutes(s)
 	setupProductDefinitionRoutes(s)
 	setupGruplacDefinitionRoutes(s)
+	setupProductsRoutes(s)
 }
 
 func (s *server) migrations() {
