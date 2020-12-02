@@ -32,7 +32,7 @@ func (g *gruplacDefinitionReader) GetAll() ([]*gruplacs.GruplacDefinition, error
 
 func (g *gruplacDefinitionReader) GetById(id string) (*gruplacs.GruplacDefinition, error) {
 	var definition entities.GruplacDefinition
-	err := g.db.First(&definition).Where("id = ?", id).Error
+	err := g.db.Where("id = ?", id).First(&definition).Error
 	return definition.GetDomainReference(), err
 }
 
