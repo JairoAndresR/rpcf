@@ -10,15 +10,15 @@ import (
 )
 
 func init() {
-	err := core.Injector.Provide(newProductReader)
-	core.CheckInjection(err, "newProductReader")
+	err := core.Injector.Provide(newProductDefinitionReader)
+	core.CheckInjection(err, "newProductDefinitionReader")
 }
 
 type productDefinitionReader struct {
 	db *gorm.DB
 }
 
-func newProductReader(con sql.Connection) ports.ProductDefinitionReader {
+func newProductDefinitionReader(con sql.Connection) ports.ProductDefinitionReader {
 	db := con.GetDatabase()
 	return &productDefinitionReader{db: db}
 }

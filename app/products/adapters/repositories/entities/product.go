@@ -54,3 +54,14 @@ func (p *Product) ToDomain() *products.Product {
 		UpdatedAt:       p.UpdatedAt,
 	}
 }
+
+func MapListToDomain(list []*Product) []*products.Product {
+	var results []*products.Product
+
+	for _, p := range list {
+		product := p.ToDomain()
+		results = append(results, product)
+	}
+
+	return results
+}
