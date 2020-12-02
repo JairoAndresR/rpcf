@@ -38,7 +38,6 @@ func MapListResponse(list []*products.Product) []*ProductResponse {
 
 	for _, p := range list {
 		product := NewProductResponse(p)
-
 		results = append(results, product)
 	}
 
@@ -48,4 +47,11 @@ func MapListResponse(list []*products.Product) []*ProductResponse {
 type ProductListResponse struct {
 	Products []*ProductResponse `json:"products"`
 	Total    int                `json:"total"`
+}
+
+func NewProductListResponse(list []*products.Product) *ProductListResponse {
+	return &ProductListResponse{
+		Products: MapListResponse(list),
+		Total:    len(list),
+	}
 }

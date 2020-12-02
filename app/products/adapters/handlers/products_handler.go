@@ -30,6 +30,6 @@ func (h *ProductsHandler) GetAll(c *gin.Context) {
 		return
 	}
 
-	response := MapListResponse(ps)
+	response := NewProductListResponse(ps)
 	c.JSON(http.StatusOK, response)
 }
