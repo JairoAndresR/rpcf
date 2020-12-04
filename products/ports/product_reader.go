@@ -5,5 +5,5 @@ import "rpcf/products"
 type ProductReader interface {
 
 	// GetAll retrieves all products in the database.
-	GetAll() ([]*products.Product, error)
+	GetAll(filters map[string]string) ([]*products.Product, error)
 }

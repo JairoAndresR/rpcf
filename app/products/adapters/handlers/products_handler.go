@@ -23,7 +23,8 @@ func NewProductsHandler(manager ports.ProductsManager) *ProductsHandler {
 }
 
 func (h *ProductsHandler) GetAll(c *gin.Context) {
-	ps, err := h.manager.GetAll()
+	req := NewProductRequest(c)
+	ps, err := h.manager.GetAll(req.Filters)
 
 	if err != nil {
 		generateError(c, http.StatusUnprocessableEntity, err)

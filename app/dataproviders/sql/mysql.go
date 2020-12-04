@@ -3,10 +3,11 @@ package sql
 import (
 	"fmt"
 	"gorm.io/driver/mysql"
+	"gorm.io/gorm/logger"
+	"log"
 	"os"
 	"rpcf/core"
-
-	log "github.com/sirupsen/logrus"
+	"time"
 
 	_ "gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -40,9 +41,21 @@ func NewMySQLConnection() (Connection, error) {
 		dbHost,
 		dbPort,
 		dbName)
+
 	log.Println(url)
 
-	db, err := gorm.Open(mysql.Open(url), &gorm.Config{})
+	l := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold: time.Second, // Slow SQL threshold
+			LogLevel:      logger.Info, // Log level
+			Colorful:      false,       // Disable color
+		},
+	)
+
+	db, err := gorm.Open(mysql.Open(url), &gorm.Config{
+		Logger: l,
+	})
 	if err != nil {
 		return nil, err
 	}

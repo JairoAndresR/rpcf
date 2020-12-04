@@ -10,16 +10,16 @@ const (
 )
 
 type Product struct {
-	ID              string `gorm:"primaryKey"`
-	SKResearcher    string `gorm:"type:varchar(36)"`
-	SKResearchGroup string `gorm:"type:varchar(36)"`
-	TypeId          string `gorm:"UNIQUE"`
-	TypeName        string
-	Title           string
-	StartYear       string
-	EndYear         string
-	CreatedAt       *time.Time
-	UpdatedAt       *time.Time
+	ID           string `gorm:"primaryKey"`
+	SKResearcher string `gorm:"type:varchar(36)"`
+	Group        string `gorm:"type:varchar(36)"`
+	TypeId       string `gorm:"unique"`
+	TypeName     string
+	Title        string
+	StartYear    string
+	EndYear      string
+	CreatedAt    *time.Time
+	UpdatedAt    *time.Time
 }
 
 func (Product) TableName() string {
@@ -27,16 +27,16 @@ func (Product) TableName() string {
 }
 func NewProduct(p *products.Product) *Product {
 	return &Product{
-		ID:              p.ID,
-		SKResearcher:    p.SKResearcher,
-		SKResearchGroup: p.SKResearchGroup,
-		TypeId:          p.TypeId,
-		TypeName:        p.TypeName,
-		Title:           p.Title,
-		StartYear:       p.StartYear,
-		EndYear:         p.EndYear,
-		CreatedAt:       p.CreatedAt,
-		UpdatedAt:       p.UpdatedAt,
+		ID:           p.ID,
+		SKResearcher: p.SKResearcher,
+		Group:        p.SKResearchGroup,
+		TypeId:       p.TypeId,
+		TypeName:     p.TypeName,
+		Title:        p.Title,
+		StartYear:    p.StartYear,
+		EndYear:      p.EndYear,
+		CreatedAt:    p.CreatedAt,
+		UpdatedAt:    p.UpdatedAt,
 	}
 }
 
@@ -44,7 +44,7 @@ func (p *Product) ToDomain() *products.Product {
 	return &products.Product{
 		ID:              p.ID,
 		SKResearcher:    p.SKResearcher,
-		SKResearchGroup: p.SKResearchGroup,
+		SKResearchGroup: p.Group,
 		TypeId:          p.TypeId,
 		TypeName:        p.TypeName,
 		Title:           p.Title,

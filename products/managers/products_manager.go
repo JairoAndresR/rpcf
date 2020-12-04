@@ -21,6 +21,6 @@ func newProductsManager(reader ports.ProductReader) ports.ProductsManager {
 	}
 }
 
-func (m *productsManager) GetAll() ([]*products.Product, error) {
-	return m.reader.GetAll()
+func (m *productsManager) GetAll(filters map[string]string) ([]*products.Product, error) {
+	return m.reader.GetAll(filters)
 }

@@ -3,6 +3,7 @@ package repositories
 import (
 	"gorm.io/gorm"
 	"rpcf/app/dataproviders/sql"
+	"rpcf/app/products/adapters/repositories/clauses"
 	"rpcf/app/products/adapters/repositories/entities"
 	"rpcf/core"
 	"rpcf/products"
@@ -22,9 +23,12 @@ func newProductReader(conn sql.Connection) ports.ProductReader {
 	return &productReader{db: conn.GetDatabase()}
 }
 
-func (r *productReader) GetAll() ([]*products.Product, error) {
+func (r *productReader) GetAll(filters map[string]string) ([]*products.Product, error) {
 	var list []*entities.Product
-	err := r.db.Find(&list).Error
+
+	predicate := clauses.NewProductFilterPredicate(r.db)
+	values, sql := predicate.Build(filters)
+	err := r.db.Raw(sql, values).Scan(&list).Error
 
 	if err != nil {
 		return []*products.Product{}, err
