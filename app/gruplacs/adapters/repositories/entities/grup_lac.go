@@ -1,7 +1,7 @@
 package entities
 
 import (
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"rpcf/core/entities"
 	"rpcf/gruplacs"
 	"time"
@@ -16,12 +16,9 @@ type GruplacDefinition struct {
 	UpdatedAt *time.Time
 }
 
-func (g *GruplacDefinition) BeforeCreate(scope *gorm.Scope) error {
+func (g *GruplacDefinition) BeforeCreate(tx *gorm.DB) error {
 	id := g.GenerateID()
-	err := scope.SetColumn("ID", id)
-	if err != nil {
-		return err
-	}
+	g.ID = id
 	return nil
 }
 

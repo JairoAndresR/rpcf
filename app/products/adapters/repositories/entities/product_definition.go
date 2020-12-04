@@ -1,7 +1,7 @@
 package entities
 
 import (
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"rpcf/core/entities"
 	"rpcf/products"
 	"time"
@@ -9,19 +9,16 @@ import (
 
 type ProductDefinition struct {
 	*entities.Base
-	ID         string `gorm:PRIMARY_KEY"`
-	Name       string `gorm:"UNIQUE;not null"`
+	ID         string `gorm:primaryKey"`
+	Name       string `gorm:"unique;not null"`
 	Definition string `gorm:"type:text;not null"`
 	CreatedAt  *time.Time
 	UpdatedAt  *time.Time
 }
 
-func (p *ProductDefinition) BeforeCreate(scope *gorm.Scope) error {
+func (p *ProductDefinition) BeforeCreate(tx *gorm.DB) error {
 	id := p.GenerateID()
-	err := scope.SetColumn("ID", id)
-	if err != nil {
-		return err
-	}
+	p.ID = id
 	return nil
 }
 

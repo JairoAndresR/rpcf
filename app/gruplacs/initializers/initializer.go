@@ -19,5 +19,5 @@ func Migrate() {
 
 	db := conn.GetDatabase()
 
-	db.AutoMigrate(entities.GruplacDefinition{})
+	db.AutoMigrate(&entities.GruplacDefinition{})
 }

@@ -2,7 +2,7 @@ package entities
 
 import (
 	"encoding/json"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"rpcf/core/entities"
 	"time"
 )
@@ -13,7 +13,7 @@ const (
 
 type Articles struct {
 	*entities.Base
-	ID               string `gorm:"PRIMARY_KEY"`
+	ID               string `gorm:"primaryKey"`
 	Title            string
 	PublishedCountry string `json:"published_country"`
 	MagazineName     string `json:"maganize_name"`
@@ -41,12 +41,9 @@ func NewArticle(product map[string]string) (*Articles, error) {
 	a.ID = a.GenerateID()
 	return &a, nil
 }
-func (p *Articles) BeforeCreate(scope *gorm.Scope) error {
+func (p *Articles) BeforeCreate(tx *gorm.DB) error {
 	id := p.GenerateID()
-	err := scope.SetColumn("ID", id)
-	if err != nil {
-		return err
-	}
+	p.ID = id
 	return nil
 }
 

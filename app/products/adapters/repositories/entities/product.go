@@ -10,7 +10,7 @@ const (
 )
 
 type Product struct {
-	ID              string `gorm:"PRIMARY_KEY"`
+	ID              string `gorm:"primaryKey"`
 	SKResearcher    string `gorm:"type:varchar(36)"`
 	SKResearchGroup string `gorm:"type:varchar(36)"`
 	TypeId          string `gorm:"UNIQUE"`

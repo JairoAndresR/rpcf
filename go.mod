@@ -15,7 +15,6 @@ require (
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gomodule/redigo v1.8.2
 	github.com/google/go-cmp v0.5.2 // indirect
-	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/satori/go.uuid v1.2.0
@@ -27,4 +26,6 @@ require (
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
 	golang.org/x/sys v0.0.0-20200519105757-fe76b779f299 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
+	gorm.io/driver/mysql v1.0.3
+	gorm.io/gorm v1.20.8
 )

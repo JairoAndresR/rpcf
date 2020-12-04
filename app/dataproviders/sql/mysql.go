@@ -2,13 +2,14 @@ package sql
 
 import (
 	"fmt"
+	"gorm.io/driver/mysql"
 	"os"
 	"rpcf/core"
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func init() {
@@ -41,9 +42,7 @@ func NewMySQLConnection() (Connection, error) {
 		dbName)
 	log.Println(url)
 
-	db, err := gorm.Open("mysql", url)
-	db.LogMode(true)
-
+	db, err := gorm.Open(mysql.Open(url), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}

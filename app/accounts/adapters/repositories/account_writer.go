@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"rpcf/accounts"
 	"rpcf/accounts/ports"
 	"rpcf/app/accounts/adapters/repositories/entities"
@@ -25,7 +25,7 @@ func newAccountWriter(conn sql.Connection) ports.AccountWriter {
 
 func (u *accountWriter) Create(account *accounts.Account) (*accounts.Account, error) {
 	entity := entities.NewFromDomain(account)
-	err := u.db.Model(entities.Account{}).Save(&entity).Error
+	err := u.db.Model(entities.Account{}).Create(&entity).Error
 
 	if err != nil {
 		return nil, err

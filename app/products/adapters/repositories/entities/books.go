@@ -11,7 +11,7 @@ const (
 
 type Books struct {
 	*entities.Base
-	ID               string `gorm:"PRIMARY_KEY"`
+	ID               string `gorm:"primaryKey"`
 	Name             string
 	PublishedCountry string `json:"published_country"`
 	Editorial        string

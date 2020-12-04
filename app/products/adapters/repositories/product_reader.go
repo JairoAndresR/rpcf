@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"rpcf/app/dataproviders/sql"
 	"rpcf/app/products/adapters/repositories/entities"
 	"rpcf/core"

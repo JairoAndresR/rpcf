@@ -11,7 +11,7 @@ const (
 
 type IndustrialDesigns struct {
 	*entities.Base
-	ID                 string `gorm:"PRIMARY_KEY"`
+	ID                 string `gorm:"primaryKey"`
 	Title              string
 	Availability       string
 	FundingInstitution string `json:"funding_institution"`

@@ -11,7 +11,7 @@ const (
 
 type DoctoralThesis struct {
 	*entities.Base
-	ID          string `gorm:"PRIMARY_KEY"`
+	ID          string `gorm:"primaryKey"`
 	Type        string
 	Orientation string
 	Institution string

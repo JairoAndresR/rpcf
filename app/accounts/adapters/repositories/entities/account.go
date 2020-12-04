@@ -1,9 +1,9 @@
 package entities
 
 import (
-	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 	"rpcf/accounts"
 	"rpcf/core/entities"
 	"time"
@@ -22,18 +22,11 @@ type Account struct {
 // BeforeCreate will set the followings fields:
 // - ID with uuid generated randomly.
 // - Password: it will be save as a hash.
-func (a *Account) BeforeCreate(scope *gorm.Scope) error {
+func (a *Account) BeforeCreate(tx *gorm.DB) error {
 	id := a.GenerateID()
-	err := scope.SetColumn("ID", id)
-	if err != nil {
-		return err
-	}
-
 	password := a.getPasswordHash()
-	err = scope.SetColumn("Password", password)
-	if err != nil {
-		return err
-	}
+	a.ID = id
+	a.Password = password
 	return nil
 }
 
