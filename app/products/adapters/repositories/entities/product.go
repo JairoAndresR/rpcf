@@ -28,7 +28,6 @@ func (Product) TableName() string {
 func NewProduct(p *products.Product) *Product {
 	return &Product{
 		ID:           p.ID,
-		ResearcherId: p.ResearcherId,
 		GroupId:      p.GroupId,
 		TypeId:       p.TypeId,
 		TypeName:     p.TypeName,
@@ -37,13 +36,13 @@ func NewProduct(p *products.Product) *Product {
 		EndYear:      p.EndYear,
 		CreatedAt:    p.CreatedAt,
 		UpdatedAt:    p.UpdatedAt,
+		ResearcherId: p.ResearcherId,
 	}
 }
 
 func (p *Product) ToDomain() *products.Product {
 	return &products.Product{
 		ID:           p.ID,
-		ResearcherId: p.ResearcherId,
 		GroupId:      p.GroupId,
 		TypeId:       p.TypeId,
 		TypeName:     p.TypeName,
@@ -52,6 +51,7 @@ func (p *Product) ToDomain() *products.Product {
 		EndYear:      p.EndYear,
 		CreatedAt:    p.CreatedAt,
 		UpdatedAt:    p.UpdatedAt,
+		ResearcherId: p.ResearcherId,
 	}
 }
 

@@ -7,12 +7,12 @@ import (
 )
 
 const (
-	titleParam      = "title"
-	groupParam      = "group"
-	researcherParam = "researcher"
-	startYearParam  = "startYear"
-	endYearParam    = "endYear"
-	typeNameParam   = "typeName"
+	titleParam        = "title"
+	groupIdParam      = "groupId"
+	researcherIdParam = "researcherId"
+	startYearParam    = "startYear"
+	endYearParam      = "endYear"
+	typeNameParam     = "typeName"
 )
 
 type ProductsRequest struct {
@@ -23,8 +23,8 @@ func NewProductRequest(c *gin.Context) *ProductsRequest {
 	filters := make(map[string]string, 0)
 
 	title := c.Query(titleParam)
-	group := c.Query(groupParam)
-	researcher := c.Query(researcherParam)
+	groupId := c.Query(groupIdParam)
+	researcherId := c.Query(researcherIdParam)
 	startYear := c.Query(startYearParam)
 	endYear := c.Query(endYearParam)
 	typeName := c.Query(typeNameParam)
@@ -33,12 +33,12 @@ func NewProductRequest(c *gin.Context) *ProductsRequest {
 		filters[titleParam] = title
 	}
 
-	if !funk.IsEmpty(group) {
-		filters[strcase.ToSnake(groupParam)] = group
+	if !funk.IsEmpty(groupId) {
+		filters[strcase.ToSnake(groupIdParam)] = groupId
 	}
 
-	if !funk.IsEmpty(researcher) {
-		filters[strcase.ToSnake(researcherParam)] = researcher
+	if !funk.IsEmpty(researcherId) {
+		filters[strcase.ToSnake(researcherIdParam)] = researcherId
 	}
 
 	if !funk.IsEmpty(startYear) {
