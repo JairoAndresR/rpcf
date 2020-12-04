@@ -11,8 +11,8 @@ const (
 
 type Product struct {
 	ID           string `gorm:"primaryKey"`
-	SKResearcher string `gorm:"type:varchar(36)"`
-	Group        string `gorm:"type:varchar(36)"`
+	ResearcherId string `gorm:"type:varchar(36)"`
+	GroupId      string `gorm:"type:varchar(36)"`
 	TypeId       string `gorm:"unique"`
 	TypeName     string
 	Title        string
@@ -28,8 +28,8 @@ func (Product) TableName() string {
 func NewProduct(p *products.Product) *Product {
 	return &Product{
 		ID:           p.ID,
-		SKResearcher: p.SKResearcher,
-		Group:        p.SKResearchGroup,
+		ResearcherId: p.ResearcherId,
+		GroupId:      p.GroupId,
 		TypeId:       p.TypeId,
 		TypeName:     p.TypeName,
 		Title:        p.Title,
@@ -42,16 +42,16 @@ func NewProduct(p *products.Product) *Product {
 
 func (p *Product) ToDomain() *products.Product {
 	return &products.Product{
-		ID:              p.ID,
-		SKResearcher:    p.SKResearcher,
-		SKResearchGroup: p.Group,
-		TypeId:          p.TypeId,
-		TypeName:        p.TypeName,
-		Title:           p.Title,
-		StartYear:       p.StartYear,
-		EndYear:         p.EndYear,
-		CreatedAt:       p.CreatedAt,
-		UpdatedAt:       p.UpdatedAt,
+		ID:           p.ID,
+		ResearcherId: p.ResearcherId,
+		GroupId:      p.GroupId,
+		TypeId:       p.TypeId,
+		TypeName:     p.TypeName,
+		Title:        p.Title,
+		StartYear:    p.StartYear,
+		EndYear:      p.EndYear,
+		CreatedAt:    p.CreatedAt,
+		UpdatedAt:    p.UpdatedAt,
 	}
 }
 

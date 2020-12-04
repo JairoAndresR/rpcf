@@ -1,28 +1,28 @@
 table research_group_dimension{
-  sk_research_group varchar(36) [pk, note: "self-generated"]
+  id varchar(36) [pk, note: "self-generated"]
   name varchar
   url varchar
   created_at datetime
   updated_at datetime
 }
 
-ref: researcher_dimension.sk_research_group > research_group_dimension.sk_research_group
-ref: research_group_dimension.sk_research_group > products_fact.sk_research_group
+ref: researcher_dimension.group_id > research_group_dimension.id
+ref: research_group_dimension.id > products_fact.group_id
 
 table researcher_dimension{
-  sk_researcher varchar(36) [pk, note: "self-generated"]
-  sk_research_group varchar(36)
+  id varchar(36) [pk, note: "self-generated"]
+  group_id varchar(36)
   name varchar
   created_at datetime
   updated_at datetime
 }
 
-ref: researcher_dimension.sk_researcher > products_fact.sk_researcher
+ref: researcher_dimension.id > products_fact.researcher_id
 
 table products_fact {
   id varchar(36) [pk, note: "self-generated"]
-  sk_researcher varchar(36)
-  sk_research_group varchar(36)
+  researcher_id varchar(36)
+  group_id varchar(36)
   type_id varchar // uuid
   type_name  varchar // example articles
   title varchar
