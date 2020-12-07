@@ -31,7 +31,7 @@ func (r *productDefinitionReader) GetAll() ([]*products.ProductDefinition, error
 
 func (r *productDefinitionReader) GetById(id string) (*products.ProductDefinition, error) {
 	var definition entities.ProductDefinition
-	err := r.db.First(&definition).Where("id = ?", id).Error
+	err := r.db.Where("id = ?", id).First(&definition).Error
 	return definition.GetDomainReference(), err
 }
 
