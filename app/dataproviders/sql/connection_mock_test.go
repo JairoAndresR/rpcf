@@ -10,6 +10,8 @@ func TestNewMockConnection(t *testing.T) {
 	conn := NewMockConnection()
 	db := conn.GetDatabase()
 
-	isAlive := db.DB().Ping()
+	sqlDB, err := db.DB()
+	assert.Nil(t, err)
+	isAlive := sqlDB.Ping()
 	assert.Nil(t, isAlive)
 }

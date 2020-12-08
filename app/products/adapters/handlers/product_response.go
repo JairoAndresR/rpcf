@@ -6,30 +6,29 @@ import (
 )
 
 type ProductResponse struct {
-	ID              string     `json:"id"`
-	SKResearcher    string     `json:"sk_researcher"`
-	SKResearchGroup string     `json:"sk_research_group"`
-	TypeId          string     `json:"type_id"`
-	TypeName        string     `json:"type_name"`
-	Title           string     `json:"title"`
-	StartYear       string     `json:"start_year"`
-	EndYear         string     `json:"end_year"`
-	CreatedAt       *time.Time `json:"created_at"`
-	UpdatedAt       *time.Time `json:"updated_at"`
+	ID        string            `json:"id"`
+	GroupID   string            `json:"group_id"`
+	TypeId    string            `json:"type_id"`
+	TypeName  string            `json:"type_name"`
+	Title     string            `json:"title"`
+	StartYear string            `json:"start_year"`
+	EndYear   string            `json:"end_year"`
+	Authors   []*AuthorResponse `json:"authors"`
+	CreatedAt *time.Time        `json:"created_at"`
+	UpdatedAt *time.Time        `json:"updated_at"`
 }
 
 func NewProductResponse(p *products.Product) *ProductResponse {
 	return &ProductResponse{
-		ID:              p.ID,
-		SKResearcher:    p.ResearcherId,
-		SKResearchGroup: p.GroupId,
-		TypeId:          p.TypeId,
-		TypeName:        p.TypeName,
-		Title:           p.Title,
-		StartYear:       p.StartYear,
-		EndYear:         p.EndYear,
-		CreatedAt:       p.CreatedAt,
-		UpdatedAt:       p.UpdatedAt,
+		ID:        p.ID,
+		GroupID:   p.GroupId,
+		TypeId:    p.TypeId,
+		TypeName:  p.TypeName,
+		Title:     p.Title,
+		StartYear: p.StartYear,
+		EndYear:   p.EndYear,
+		CreatedAt: p.CreatedAt,
+		UpdatedAt: p.UpdatedAt,
 	}
 }
 
@@ -52,6 +51,6 @@ type ProductListResponse struct {
 func NewProductListResponse(list []*products.Product) *ProductListResponse {
 	return &ProductListResponse{
 		Products: MapListResponse(list),
-		Total:    len(list),
+		Total:    len(list), // TODO: change this value from the query result
 	}
 }

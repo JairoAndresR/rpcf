@@ -33,6 +33,7 @@ func (s *server) setupRoutes() {
 	setupProductDefinitionRoutes(s)
 	setupGruplacDefinitionRoutes(s)
 	setupProductsRoutes(s)
+	setupAuthorsRoutes(s)
 }
 
 func (s *server) migrations() {

@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// MockConnection is an usefull connection for unit testing
+// MockConnection is an useful connection for unit testing
 type MockConnection struct {
 	db *gorm.DB
 }

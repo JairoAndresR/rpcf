@@ -10,16 +10,17 @@ const (
 )
 
 type Product struct {
-	ID           string `gorm:"primaryKey"`
-	ResearcherId string `gorm:"type:varchar(36)"`
-	GroupId      string `gorm:"type:varchar(36)"`
-	TypeId       string `gorm:"unique"`
-	TypeName     string
-	Title        string
-	StartYear    string
-	EndYear      string
-	CreatedAt    *time.Time
-	UpdatedAt    *time.Time
+	ID        string `gorm:"primaryKey"`
+	GroupId   string `gorm:"type:varchar(36)"`
+	TypeId    string `gorm:"unique"`
+	TypeName  string
+	Title     string
+	StartYear string
+	EndYear   string
+	CreatedAt *time.Time
+	UpdatedAt *time.Time
+	Authors   []Author  `gorm:"many2many:authors_products;"`
+	GrupLACS  []GrupLAC `gorm:"many2many:products_gruplacs;"`
 }
 
 func (Product) TableName() string {
@@ -27,31 +28,29 @@ func (Product) TableName() string {
 }
 func NewProduct(p *products.Product) *Product {
 	return &Product{
-		ID:           p.ID,
-		GroupId:      p.GroupId,
-		TypeId:       p.TypeId,
-		TypeName:     p.TypeName,
-		Title:        p.Title,
-		StartYear:    p.StartYear,
-		EndYear:      p.EndYear,
-		CreatedAt:    p.CreatedAt,
-		UpdatedAt:    p.UpdatedAt,
-		ResearcherId: p.ResearcherId,
+		ID:        p.ID,
+		GroupId:   p.GroupId,
+		TypeId:    p.TypeId,
+		TypeName:  p.TypeName,
+		Title:     p.Title,
+		StartYear: p.StartYear,
+		EndYear:   p.EndYear,
+		CreatedAt: p.CreatedAt,
+		UpdatedAt: p.UpdatedAt,
 	}
 }
 
 func (p *Product) ToDomain() *products.Product {
 	return &products.Product{
-		ID:           p.ID,
-		GroupId:      p.GroupId,
-		TypeId:       p.TypeId,
-		TypeName:     p.TypeName,
-		Title:        p.Title,
-		StartYear:    p.StartYear,
-		EndYear:      p.EndYear,
-		CreatedAt:    p.CreatedAt,
-		UpdatedAt:    p.UpdatedAt,
-		ResearcherId: p.ResearcherId,
+		ID:        p.ID,
+		GroupId:   p.GroupId,
+		TypeId:    p.TypeId,
+		TypeName:  p.TypeName,
+		Title:     p.Title,
+		StartYear: p.StartYear,
+		EndYear:   p.EndYear,
+		CreatedAt: p.CreatedAt,
+		UpdatedAt: p.UpdatedAt,
 	}
 }
 
