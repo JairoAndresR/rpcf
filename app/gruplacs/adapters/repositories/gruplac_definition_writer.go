@@ -31,7 +31,7 @@ func (w gruplacDefinitionWriter) Create(g *gruplacs.GruplacDefinition) (*gruplac
 
 func (w gruplacDefinitionWriter) Update(g *gruplacs.GruplacDefinition) (*gruplacs.GruplacDefinition, error) {
 	definition := entities.NewGruplacDefinition(g)
-	err := w.db.Model(&entities.GruplacDefinition{}).Updates(definition).Error
+	err := w.db.Model(&definition).Updates(definition).Error
 	return definition.GetDomainReference(), err
 }
 
