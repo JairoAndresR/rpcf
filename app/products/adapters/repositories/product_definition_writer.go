@@ -31,7 +31,7 @@ func (w productDefinitionWriter) Create(p *products.ProductDefinition) (*product
 
 func (w productDefinitionWriter) Update(p *products.ProductDefinition) (*products.ProductDefinition, error) {
 	definition := entities.NewProductDefinition(p)
-	err := w.db.Model(&entities.ProductDefinition{}).Updates(definition).Error
+	err := w.db.Model(&definition).Updates(definition).Error
 	return definition.GetDomainReference(), err
 }
 
