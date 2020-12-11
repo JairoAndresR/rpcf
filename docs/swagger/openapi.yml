@@ -10,15 +10,173 @@ paths:
     get:
       tags:
         - "Gruplac definitions"
-      summary: Get all gruplacs definitions
-      produces:
-        - "application/json"
+      summary: Get all GrupLAC's definitions
       responses:
         "200":
-          description: "successful operation"
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllGruplacResponse" 
+    post:
+      tags:
+        - "Gruplac definitions"
+      summary: "Creates a new GrupLAC definition"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/GruplacResponse"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/GruplacResponse"
+  
+  /v1/gruplac-definitions/{GruplacID}:
+    put:
+      tags:
+        - "Gruplac definitions"
+      summary: "Edit a GrupLAC definition"
+      parameters:
+        - in: path
+          name: GruplacID
+          required: true
+          schema:
+            type: string
+            example: "9f0a2402-276f-4903-b62b-f13533164e85"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/GruplacResponse"
+      responses:
+        "200":
+          description: "OK"
+    get:
+      tags:
+        - "Gruplac definitions"
+      summary: "Get a specific GrupLAC Definition"
+      parameters:
+        - in: path
+          name: GruplacID
+          required: true
+          schema:
+            type: string
+            example: "9f0a2402-276f-4903-b62b-f13533164e85"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/GruplacResponse"
+    delete:
+      tags:
+        - "Gruplac definitions"
+      summary: "Delete a specific GrupLAC Definition"
+      parameters:
+        - in: path
+          name: GruplacID
+          required: true
+          schema:
+            type: string
+            example: "9f0a2402-276f-4903-b62b-f13533164e85"
+      responses:
+        "200":
+          description: "OK"
+            
+  /v1/product-definitions/:
+    get:
+      tags:
+        - "Product definitions"
+      summary: "Get all product definitions"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/AllProductResponse"
+    post:
+      tags:
+        - "Product definitions"
+      summary: "Creates a new product definition"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/ProductResponse"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/ProductResponse"
+  /v1/product-definitions/{ProductID}:
+    put:
+      tags:
+        - "Product definitions"
+      summary: "Edit a product definition"
+      parameters:
+        - in: path
+          name: ProductID
+          required: true
+          schema:
+            type: string
+            example: "9f0a2402-276f-4903-b62b-f13533164e85"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/ProductResponse"
+      responses:
+        "200":
+          description: "OK"
+    get:
+      tags:
+        - "Product definitions"
+      summary: "Get a specific product definition"
+      parameters:
+        - in: path
+          name: ProductID
+          required: true
+          schema:
+            type: string
+            example: "9f0a2402-276f-4903-b62b-f13533164e85"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/ProductResponse"
+    delete:
+      tags:
+        - "Product definitions"
+      summary: "Delete a specific product definition"
+      parameters:
+        - in: path
+          name: ProductID
+          required: true
+          schema:
+            type: string
+            example: "9f0a2402-276f-4903-b62b-f13533164e85"
+      responses:
+        "200":
+          description: "OK"
 
   /v1/accounts/register/:
     post:
+      tags:
+        - "Users"
       operationId: api.jxm.register
       summary: It creates a new user.
       requestBody:
@@ -40,6 +198,8 @@ paths:
 
   /v1/accounts/login/:
     post:
+      tags:
+        - "Users"
       operationId: api.jxm.login
       summary: It generates a credentials to be log in.
       requestBody:
@@ -227,3 +387,69 @@ components:
         phone:
           type: string
           example: +1-202-555-0102
+
+    GruplacResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "9f0a2402-276f-4903-b62b-f13533164e85"
+          readOnly: true
+        name:
+          type: string
+          example: "GIIRA"
+        url:
+          type: string
+          example: "https://scienti.minciencias.gov.co/gruplac/jsp/visualiza/visualizagr.jsp?nro=00000000001394"
+        created_at:
+          type: string
+          example: "2020-11-22T02:29:07Z"
+          readOnly: true
+        updated_at:
+          type: string
+          example: "2020-11-22T02:29:07Z"
+          readOnly: true
+    
+    AllGruplacResponse:
+      type: object
+      properties:
+        definitions:
+          type: array
+          items:
+            $ref:  "#/components/schemas/GruplacResponse"
+        total:
+          type: integer
+          example: 1
+    
+    ProductResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "9f0a2402-276f-4903-b62b-f13533164e85"
+          readOnly: true
+        name:
+          type: string
+          example: "companies"
+        definition:
+          type: string
+          example: "name: Empresas de base tecnológica\npath: \"/html[1]/body[1]/table[46]/tbody[1]/tr\"\n\nparser:\n  lookahead-manual: true\nfields:\n  -\n    name: type\n    ex: (<strong>)(.*)(</strong> :)\n  -\n    name: title\n    ex: (</strong> :)(.*)(<br/>)\n  -\n    name: nit\n    ex: (NIT:)(.*)(, Fecha)\n  -\n    name: registred_at\n    ex: (cámara:).*( <br/>)\n  -\n    name: has_market_products\n    ex: (<br/> )(\\012).* \n  -\n    name: authors\n    ex: (Autores:)(.*)(,)"
+        created_at:
+          type: string
+          example: "2020-11-22T02:29:07Z"
+          readOnly: true
+        updated_at:
+          type: string
+          example: "2020-11-22T02:29:07Z"
+          readOnly: true
+    
+    AllProductResponse:
+      type: object
+      properties:
+        definitions:
+          type: array
+          items:
+            $ref:  "#/components/schemas/ProductResponse"
+        total:
+          type: integer
+          example: 1
