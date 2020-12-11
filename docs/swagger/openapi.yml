@@ -4,8 +4,18 @@ info:
   version: "1.0.0"
   license:
     name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 paths:
+  /v1/gruplac-definitions/:
+    get:
+      tags:
+        - "Gruplac definitions"
+      summary: Get all gruplacs definitions
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
 
   /v1/accounts/register/:
     post:
@@ -15,18 +25,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RegisterRequest'
+              $ref: "#/components/schemas/RegisterRequest"
       responses:
-        '201':
+        "201":
           description: This service will create a new account and a new user asociated with that account
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignResponse'
-        '422':
-          $ref: '#/components/responses/422'
-        '400':
-          $ref: '#/components/responses/400'
+                $ref: "#/components/schemas/SignResponse"
+        "422":
+          $ref: "#/components/responses/422"
+        "400":
+          $ref: "#/components/responses/400"
 
   /v1/accounts/login/:
     post:
@@ -36,19 +46,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginRequest'
+              $ref: "#/components/schemas/LoginRequest"
       responses:
-        '200':
+        "200":
           description: This will validate the user credentials and if is valid will return the token and user information
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignResponse'
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-
+                $ref: "#/components/schemas/SignResponse"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
 
 components:
   parameters:
@@ -67,66 +76,66 @@ components:
       schema:
         type: string
   responses:
-    '400':
-      description: 'Bad request, client error.'
+    "400":
+      description: "Bad request, client error."
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-    '422':
+            $ref: "#/components/schemas/Error"
+    "422":
       description: Unprocessable Entity
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-    '401':
+            $ref: "#/components/schemas/Error"
+    "401":
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-    '404':
+            $ref: "#/components/schemas/Error"
+    "404":
       description: resource not found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-    '500':
+            $ref: "#/components/schemas/Error"
+    "500":
       description: internal error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
   schemas:
     Error:
       type: object
       properties:
         status:
           type: integer
-          description: 'Error code, usually equivalent to the HTTP status code.'
+          description: "Error code, usually equivalent to the HTTP status code."
           example: 422
         title:
           type: string
-          description: 'Human-readable error explanation, if available.'
-          example: 'user already exist'
+          description: "Human-readable error explanation, if available."
+          example: "user already exist"
         invalid_params:
           type: array
-          description: 'Invalid params'
+          description: "Invalid params"
           items:
-            $ref: '#/components/schemas/InvalidParam'
+            $ref: "#/components/schemas/InvalidParam"
 
     InvalidParam:
       type: object
       properties:
         name:
           type: string
-          example: 'email'
+          example: "email"
         reason:
           type: string
-          example: 'The user with the request email already exists'
+          example: "The user with the request email already exists"
         code:
           type: string
-          example: 'email-duplicated'
+          example: "email-duplicated"
           enum:
             - "required_field"
             - "email_duplicated"
@@ -142,9 +151,8 @@ components:
             - "invalid_account_id"
             - "invalid_content_type"
 
-
     SignResponse:
-      $ref: '#/components/schemas/User'
+      $ref: "#/components/schemas/User"
 
     User:
       type: object
@@ -154,13 +162,13 @@ components:
           example: "366ae73c-876d-11ea-bc55-0242ac130003"
         names:
           type: string
-          example: 'John Doe'
+          example: "John Doe"
         email:
           type: string
           example: "example@domain.com"
         company_name:
           type: string
-          example: 'Example company'
+          example: "Example company"
         phone:
           type: string
           example: +12025550102
@@ -186,7 +194,6 @@ components:
           type: string
           description: it is the url to retrieve the photo profile image.
           example: "https://api.juntosxmexico.mx/static/photos/03f3276a-9585-4b5a-9c93-b7d37329b8d0-2020-05-08T23:47:33-profile.png"
-
 
     LoginRequest:
       type: object
