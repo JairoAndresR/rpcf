@@ -16,7 +16,7 @@ jobs:
         env:
           HOST: ${{secrets.PRO_SERVER_HOST}}
           USERNAME: ${{secrets.PRO_SERVER_USERNAME}}
-          PORT: ${{secrets.PRO_SERVER_PCOLLECTOR_QUEUE_NAMEORT}}
+          PORT: ${{secrets.PRO_SERVER_PORT}}
           KEY: ${{secrets.PRO_SERVER_PRIVATE_KEY}}
         with:
           rm: true
