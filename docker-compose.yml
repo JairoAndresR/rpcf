@@ -9,6 +9,8 @@ services:
       MYSQL_DATABASE: rpcf
     ports:
       - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
 
   redis:
     image: "redis:alpine"
@@ -17,3 +19,41 @@ services:
       - "6379:6379"
     environment:
       - REDIS_REPLICATION_MODE=master
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - 8081:8080
+    volumes:
+      - ./docs/swagger:/spec
+    environment:
+      SWAGGER_JSON: /spec/openapi.yaml
+
+  app:
+    build:  ./
+    ports:
+      - 8080:8080
+    environment:
+      SERVER_PORT: 8080
+
+      # Database configuration
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER_NAME: ${DB_USER_NAME}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD}
+      DB_NAME: ${DB_NAME}
+
+      # QUEUE configuration
+      QUEUE_ADDR: ${QUEUE_ADDR}
+      QUEUE_PASSWORD: ${QUEUE_PASSWORD}
+      QUEUE_DB: ${QUEUE_DB}
+      COLLECTOR_QUEUE_NAME: ${COLLECTOR_QUEUE_NAME}
+
+    links:
+      - mysqldb:mysqldb
+    depends_on:
+      - mysqldb
+      - redis
+
+volumes:
+  db_data:
