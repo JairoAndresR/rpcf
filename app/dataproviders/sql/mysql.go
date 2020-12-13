@@ -36,6 +36,12 @@ func NewMySQLConnection() (Connection, error) {
 	dbPort := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_NAME")
 
+	fmt.Printf("host=%s \n", dbHost)
+	fmt.Printf("port=%s \n", dbPort )
+	fmt.Printf("username=%s \n", dbUsername)
+	fmt.Printf("pass=%s \n", dbPassword)
+	fmt.Printf("name=%s \n", dbName)
+
 	url := getURL(dbUsername,
 		dbPassword,
 		dbHost,
