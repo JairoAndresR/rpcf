@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rpcf
+    ports:
+      - 3306:3306
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server --requirepass BUA2WBYgWq9ALAG3
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_REPLICATION_MODE=master
