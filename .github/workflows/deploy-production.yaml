@@ -1,0 +1,47 @@
+name: PROD - Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Update the machine
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{secrets.PRO_SERVER_HOST}}
+          USERNAME: ${{secrets.PRO_SERVER_USERNAME}}
+          PORT: ${{secrets.PRO_SERVER_PORT}}
+          KEY: ${{secrets.PRO_SERVER_PRIVATE_KEY}}
+        with:
+          rm: true
+          source: "."
+          target: "/opt/app"
+
+      - name: Build the container and run it.
+        uses: appleboy/ssh-action@master
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
+          DB_USER_PASSWORD: ${{ secrets.DB_USER_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          QUEUE_ADDR: ${{ secrets.QUEUE_ADDR }}
+          QUEUE_PASSWORD: ${{ secrets.QUEUE_PASSWORD }}
+          QUEUE_DB: ${{ secrets.QUEUE_DB }}
+          COLLECTOR_QUEUE_NAME: ${{ secrets.COLLECTOR_QUEUE_NAME }}
+
+        with:
+          host: ${{ secrets.PRO_SERVER_HOST }}
+          username: ${{ secrets.PRO_SERVER_USERNAME }}
+          key: ${{ secrets.PRO_SERVER_PRIVATE_KEY }}
+          port: ${{ secrets.PRO_SERVER_PORT }}
+          envs: DB_HOST, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME, QUEUE_ADDR, QUEUE_PASSWORD, COLLECTOR_QUEUE_NAME
+          script: |
+            DB_HOST=$DB_HOST  DB_PORT=$DB_PORT DB_USER_PASSWORD=$DB_USER_PASSWORD  DB_NAME=$DB_NAME QUEUE_ADDR=$QUEUE_ADDR  QUEUE_PASSWORD=$QUEUE_PASSWORD $COLLECTOR_QUEUE_NAME=COLLECTOR_QUEUE_NAME sh /opt/app/run-pro.sh
+          debug: true
