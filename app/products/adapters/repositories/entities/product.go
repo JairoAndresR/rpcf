@@ -5,10 +5,6 @@ import (
 	"time"
 )
 
-const (
-	ProductTableName = "products_fact"
-)
-
 type Product struct {
 	ID        string `gorm:"primaryKey"`
 	GroupId   string `gorm:"type:varchar(36)"`
@@ -19,13 +15,9 @@ type Product struct {
 	EndYear   string
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
-	Authors   []Author  `gorm:"many2many:authors_products;"`
-	GrupLACS  []GrupLAC `gorm:"many2many:products_gruplacs;"`
+	Authors   []Author `gorm:"many2many:authors_products;"`
 }
 
-func (Product) TableName() string {
-	return ProductTableName
-}
 func NewProduct(p *products.Product) *Product {
 	return &Product{
 		ID:        p.ID,

@@ -18,15 +18,20 @@ require (
 	github.com/iancoleman/strcase v0.1.2
 	github.com/joho/godotenv v1.3.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/nsf/gocode v0.0.0-20190302080247-5bee97b48836 // indirect
+	github.com/ramya-rao-a/go-outline v0.0.0-20200117021646-2a048b4510eb // indirect
 	github.com/satori/go.uuid v1.2.0
 	github.com/selvatico/go-mocket v1.0.7
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stretchr/testify v1.6.1
 	github.com/thoas/go-funk v0.7.0
 	github.com/udistritali3plus/collector v0.0.2
+	github.com/zmb3/gogetdoc v0.0.0-20190228002656-b37376c5da6a // indirect
 	go.uber.org/dig v1.10.0
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
-	golang.org/x/sys v0.0.0-20200519105757-fe76b779f299 // indirect
+	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
+	golang.org/x/mod v0.4.0 // indirect
+	golang.org/x/tools v0.0.0-20210101214203-2dba1e4ea05c // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gorm.io/driver/mysql v1.0.3
 	gorm.io/gorm v1.20.8

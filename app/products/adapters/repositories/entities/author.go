@@ -5,6 +5,7 @@ import "rpcf/products"
 type Author struct {
 	ID       string `gorm:"primaryKey"`
 	Names    string
+	GrupLACS []GrupLAC  `gorm:"many2many:authors_gruplacs;"`
 	Products []*Product `gorm:"many2many:authors_products;"`
 }
 

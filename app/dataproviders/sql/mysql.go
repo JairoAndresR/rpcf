@@ -36,12 +36,6 @@ func NewMySQLConnection() (Connection, error) {
 	dbPort := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_NAME")
 
-	fmt.Printf("host=%s \n", dbHost)
-	fmt.Printf("port=%s \n", dbPort )
-	fmt.Printf("username=%s \n", dbUsername)
-	fmt.Printf("pass=%s \n", dbPassword)
-	fmt.Printf("name=%s \n", dbName)
-
 	url := getURL(dbUsername,
 		dbPassword,
 		dbHost,
@@ -53,15 +47,16 @@ func NewMySQLConnection() (Connection, error) {
 	l := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
-			SlowThreshold: time.Second,  // Slow SQL threshold
-			LogLevel:      logger.Error, // Log level
-			Colorful:      false,        // Disable color
+			SlowThreshold: time.Second, // Slow SQL threshold
+			LogLevel:      logger.Info, // Log level
+			Colorful:      false,       // Disable color
 		},
 	)
 
 	db, err := gorm.Open(mysql.Open(url), &gorm.Config{
 		Logger: l,
 	})
+
 	if err != nil {
 		return nil, err
 	}
