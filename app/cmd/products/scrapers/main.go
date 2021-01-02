@@ -8,12 +8,7 @@ import (
 )
 
 func main() {
-
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
+	
 	var q queue.Client
 	invokeFunc := func(qq queue.Client) {
 		q = qq
