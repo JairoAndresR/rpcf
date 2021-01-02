@@ -1,9 +1,11 @@
 package products
 
-import "time"
+import (
+	"time"
+)
 
 type Product struct {
-	ID        string
+	ID        string `json:"id"`
 	GroupId   string
 	TypeId    string
 	TypeName  string
@@ -14,4 +16,8 @@ type Product struct {
 	UpdatedAt *time.Time
 	Authors   []Author
 	GrupLACS  []GrupLAC
+}
+
+func (p Product) GetID() string {
+	return p.ID
 }

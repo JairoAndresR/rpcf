@@ -11,7 +11,7 @@ const (
 
 type Companies struct {
 	*entities.Base
-	ID    string `gorm:"primaryKey"`
+	ID    string `gorm:"primaryKey" json:"id"`
 	Type  string
 	Title string
 	NIT   string

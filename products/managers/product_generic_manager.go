@@ -11,13 +11,13 @@ func init() {
 }
 
 type productGenericManager struct {
-	writer ports.ProductGenericWriter
+	writer ports.GenericProductWriter
 }
 
-func newProductGenericManager(writer ports.ProductGenericWriter) ports.ProductGenericManager {
+func newProductGenericManager(writer ports.GenericProductWriter) ports.ProductGenericManager {
 	return &productGenericManager{writer: writer}
 }
 
-func (m productGenericManager) Write(product map[string]string, name string) error {
+func (m productGenericManager) Write(product map[string]string, name string) (ports.GenericProduct, error) {
 	return m.writer.WriteMap(product, name)
 }
