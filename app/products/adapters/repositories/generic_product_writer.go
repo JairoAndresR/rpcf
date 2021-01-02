@@ -3,7 +3,9 @@ package repositories
 import (
 	"gorm.io/gorm"
 	"rpcf/app/dataproviders/sql"
+	"rpcf/app/products/adapters/repositories/entities"
 	"rpcf/core"
+	"rpcf/products"
 	"rpcf/products/ports"
 )
 
@@ -22,7 +24,30 @@ func newGenericProductWriter(conn sql.Connection, b ports.ProductsBuilder) ports
 	return &genericProductWriter{db: db, builder: b}
 }
 
-func (w *genericProductWriter) WriteMap(product map[string]string, name string) (ports.GenericProduct, error) {
+func (w *genericProductWriter) WriteGeneric(product map[string]string, name string) (*products.Product, error) {
+	p, err := w.WriteMap(product, name)
+	if err != nil {
+		return nil, err
+	}
+
+	p, err = w.Write(p)
+	if err != nil {
+		return nil, err
+	}
+	return p, nil
+}
+
+func (w *genericProductWriter) Write(product *products.Product) (*products.Product, error) {
+	p := entities.NewProduct(product)
+	err := w.db.Model(p).Create(p).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return p.ToDomain(), nil
+}
+
+func (w *genericProductWriter) WriteMap(product map[string]string, name string) (*products.Product, error) {
 	p, err := w.builder.Build(product, name)
 
 	if err != nil {
@@ -33,16 +58,16 @@ func (w *genericProductWriter) WriteMap(product map[string]string, name string) 
 	if err != nil {
 		return nil, err
 	}
-	generic := ports.NewGenericProduct(p)
+	generic := ports.NewGenericProduct(p, name)
 	return generic, err
 }
 
-func (w *genericProductWriter) WriteMaps(products []map[string]string, name string) ([]ports.GenericProduct, []error) {
+func (w *genericProductWriter) WriteGenerics(ps []map[string]string, name string) ([]*products.Product, []error) {
 	errs := make([]error, 0)
-	results := make([]ports.GenericProduct, 0)
+	results := make([]*products.Product, 0)
 
-	for _, p := range products {
-		r, err := w.WriteMap(p, name)
+	for _, p := range ps {
+		r, err := w.WriteGeneric(p, name)
 
 		if err != nil {
 			errs = append(errs, err)

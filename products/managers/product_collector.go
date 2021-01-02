@@ -28,19 +28,23 @@ func newProductCollector(pdr ports.ProductDefinitionReader, pw ports.GenericProd
 }
 
 func (c *productCollector) Process(content string) []error {
-	products, errs := c.Parse(content)
+	ps, errs := c.Parse(content)
 
 	if len(errs) > 0 {
 		return errs
 	}
 
 	errors := make([]error, 0)
-	for _, p := range products {
-		_, es := c.productGenericWriter.WriteMaps(p.Results, p.Name)
+
+	// save each
+	for _, p := range ps {
+		_, es := c.productGenericWriter.WriteGenerics(p.Results, p.Name)
+
 		if len(es) > 0 {
 			errors = append(errors, es...)
 		}
 	}
+
 	return errors
 }
 

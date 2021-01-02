@@ -10,7 +10,7 @@ type GenericProduct interface {
 	GetID() string
 }
 
-func NewGenericProduct(generic interface{}) GenericProduct {
+func NewGenericProduct(generic interface{}, typeName string) *products.Product {
 	b, err := json.Marshal(generic)
 
 	if err != nil {
@@ -23,6 +23,7 @@ func NewGenericProduct(generic interface{}) GenericProduct {
 	if err != nil {
 		return nil
 	}
-
-	return product
+	product.TypeId = product.ID
+	product.TypeName = typeName
+	return &product
 }
