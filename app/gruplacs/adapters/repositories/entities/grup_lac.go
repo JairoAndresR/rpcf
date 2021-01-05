@@ -12,6 +12,7 @@ type GruplacDefinition struct {
 	ID        string `gorm:"primaryKey"`
 	Name      string `gorm:"unique; not null"`
 	URL       string `gorm:"not null"`
+	Code      string `gorm:"unique; not null"`
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
 }
@@ -27,19 +28,23 @@ func NewGruplacDefinition(g *gruplacs.GruplacDefinition) *GruplacDefinition {
 		ID:        g.ID,
 		Name:      g.Name,
 		URL:       g.URL,
+		Code:      g.Code,
 		CreatedAt: g.CreatedAt,
 		UpdatedAt: g.UpdatedAt,
 	}
 }
 
 func (g *GruplacDefinition) ToDomain() gruplacs.GruplacDefinition {
-	return gruplacs.GruplacDefinition{
+	def := gruplacs.GruplacDefinition{
 		ID:        g.ID,
 		Name:      g.Name,
 		URL:       g.URL,
+		Code:      g.Code,
 		CreatedAt: g.CreatedAt,
 		UpdatedAt: g.UpdatedAt,
 	}
+	def.Code = def.GetCode()
+	return def
 }
 
 func (g *GruplacDefinition) GetDomainReference() *gruplacs.GruplacDefinition {
@@ -47,6 +52,7 @@ func (g *GruplacDefinition) GetDomainReference() *gruplacs.GruplacDefinition {
 		ID:        g.ID,
 		Name:      g.Name,
 		URL:       g.URL,
+		Code:      g.Code,
 		CreatedAt: g.CreatedAt,
 		UpdatedAt: g.UpdatedAt,
 	}

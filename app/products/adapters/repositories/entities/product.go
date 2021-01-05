@@ -21,7 +21,7 @@ type Product struct {
 func NewProduct(p *products.Product) *Product {
 	return &Product{
 		ID:        p.ID,
-		GroupId:   p.GroupId,
+		GroupId:   p.GrouplacCode,
 		TypeId:    p.TypeId,
 		TypeName:  p.TypeName,
 		Title:     p.Title,
@@ -34,15 +34,15 @@ func NewProduct(p *products.Product) *Product {
 
 func (p *Product) ToDomain() *products.Product {
 	return &products.Product{
-		ID:        p.ID,
-		GroupId:   p.GroupId,
-		TypeId:    p.TypeId,
-		TypeName:  p.TypeName,
-		Title:     p.Title,
-		StartYear: p.StartYear,
-		EndYear:   p.EndYear,
-		CreatedAt: p.CreatedAt,
-		UpdatedAt: p.UpdatedAt,
+		ID:           p.ID,
+		GrouplacCode: p.GroupId,
+		TypeId:       p.TypeId,
+		TypeName:     p.TypeName,
+		Title:        p.Title,
+		StartYear:    p.StartYear,
+		EndYear:      p.EndYear,
+		CreatedAt:    p.CreatedAt,
+		UpdatedAt:    p.UpdatedAt,
 	}
 }
 

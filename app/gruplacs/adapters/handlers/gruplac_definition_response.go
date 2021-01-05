@@ -9,6 +9,7 @@ type GruplacDefinitionResponse struct {
 	ID        string     `json:"id"`
 	Name      string     `json:"name"`
 	URL       string     `json:"url"`
+	Code      string     `json:"code"`
 	CreatedAt *time.Time `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
 }
@@ -23,6 +24,7 @@ func newGruplacDefinitionResponse(g *gruplacs.GruplacDefinition) *GruplacDefinit
 		ID:        g.ID,
 		Name:      g.Name,
 		URL:       g.URL,
+		Code:      g.Code,
 		CreatedAt: g.CreatedAt,
 		UpdatedAt: g.UpdatedAt,
 	}

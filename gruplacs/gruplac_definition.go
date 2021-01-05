@@ -14,6 +14,7 @@ type GruplacDefinition struct {
 	ID        string
 	Name      string
 	URL       string
+	Code      string
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
 }

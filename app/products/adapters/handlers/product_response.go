@@ -21,7 +21,7 @@ type ProductResponse struct {
 func NewProductResponse(p *products.Product) *ProductResponse {
 	return &ProductResponse{
 		ID:        p.ID,
-		GroupID:   p.GroupId,
+		GroupID:   p.GrouplacCode,
 		TypeId:    p.TypeId,
 		TypeName:  p.TypeName,
 		Title:     p.Title,
