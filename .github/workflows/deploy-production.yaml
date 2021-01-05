@@ -26,15 +26,15 @@ jobs:
       - name: Build the container and run it.
         uses: appleboy/ssh-action@master
         env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
-          DB_USER_PASSWORD: ${{ secrets.DB_USER_PASSWORD }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          QUEUE_ADDR: ${{ secrets.QUEUE_ADDR }}
-          QUEUE_PASSWORD: ${{ secrets.QUEUE_PASSWORD }}
-          QUEUE_DB: ${{ secrets.QUEUE_DB }}
-          COLLECTOR_QUEUE_NAME: ${{ secrets.COLLECTOR_QUEUE_NAME }}
+          DB_HOST: ${{ secrets.PRO_DB_HOST }}
+          DB_PORT: ${{ secrets.PRO_DB_PORT }}
+          DB_USER_NAME: ${{ secrets.PRO_DB_USER_NAME }}
+          DB_USER_PASSWORD: ${{ secrets.PRO_DB_USER_PASSWORD }}
+          DB_NAME: ${{ secrets.PRO_DB_NAME }}
+          QUEUE_ADDR: ${{ secrets.PRO_QUEUE_ADDR }}
+          QUEUE_PASSWORD: ${{ secrets.PRO_QUEUE_PASSWORD }}
+          QUEUE_DB: ${{ secrets.PRO_QUEUE_DB }}
+          COLLECTOR_QUEUE_NAME: ${{ secrets.PRO_COLLECTOR_QUEUE_NAME }}
 
         with:
           host: ${{ secrets.PRO_SERVER_HOST }}
