@@ -18,6 +18,7 @@ jobs:
           username: ${{ secrets.PRO_SERVER_USERNAME }}
           key: ${{ secrets.PRO_SERVER_PRIVATE_KEY }}
           port: ${{ secrets.PRO_SERVER_PORT }}
+          debug: true
           rm: true
           source: "."
           target: "/opt/app"
