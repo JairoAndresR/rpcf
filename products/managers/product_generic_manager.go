@@ -18,6 +18,6 @@ func newProductGenericManager(writer ports.GenericProductWriter) ports.ProductGe
 	return &productGenericManager{writer: writer}
 }
 
-func (m productGenericManager) Write(product map[string]string, name string) (ports.GenericProduct, error) {
-	return m.writer.WriteMap(product, name)
+func (m productGenericManager) Write(product map[string]string, grouplacCode, productName string) (ports.GenericProduct, error) {
+	return m.writer.WriteMap(product, grouplacCode, productName)
 }
