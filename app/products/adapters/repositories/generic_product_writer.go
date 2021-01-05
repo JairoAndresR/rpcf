@@ -58,7 +58,7 @@ func (w *genericProductWriter) WriteMap(product map[string]string, gruplacCode, 
 	if err != nil {
 		return nil, err
 	}
-	generic := ports.NewGenericProduct(p, productName)
+	generic := ports.NewGenericProduct(p, gruplacCode, productName)
 	return generic, err
 }
 

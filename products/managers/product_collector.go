@@ -38,7 +38,7 @@ func (c *productCollector) Process(content string) []error {
 
 	// save each
 	for _, p := range ps {
-		_, es := c.productGenericWriter.WriteGenerics(p.Results, p.Name)
+		_, es := c.productGenericWriter.WriteGenerics(p.Results, p.GrupLACCode, p.Name)
 
 		if len(es) > 0 {
 			errors = append(errors, es...)
