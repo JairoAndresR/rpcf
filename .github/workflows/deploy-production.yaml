@@ -13,12 +13,11 @@ jobs:
 
       - name: Update the machine
         uses: appleboy/scp-action@master
-        env:
-          HOST: ${{secrets.PRO_SERVER_HOST}}
-          USERNAME: ${{secrets.PRO_SERVER_USERNAME}}
-          PORT: ${{secrets.PRO_SERVER_PORT}}
-          KEY: ${{secrets.PRO_SERVER_PRIVATE_KEY}}
         with:
+          host: ${{ secrets.PRO_SERVER_HOST }}
+          username: ${{ secrets.PRO_SERVER_USERNAME }}
+          key: ${{ secrets.PRO_SERVER_PRIVATE_KEY }}
+          port: ${{ secrets.PRO_SERVER_PORT }}
           rm: true
           source: "."
           target: "/opt/app"
