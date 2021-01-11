@@ -17,7 +17,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AllGruplacResponse" 
+                $ref: "#/components/schemas/AllGruplacResponse"
     post:
       tags:
         - "Gruplac definitions"
@@ -35,7 +35,7 @@ paths:
             application/json:
               schema:
                 $ref:  "#/components/schemas/GruplacResponse"
-  
+
   /v1/gruplac-definitions/{GruplacID}:
     put:
       tags:
@@ -89,7 +89,7 @@ paths:
       responses:
         "200":
           description: "OK"
-            
+
   /v1/product-definitions/:
     get:
       tags:
@@ -368,25 +368,16 @@ components:
     RegisterRequest:
       type: object
       properties:
-        captcha:
-          type: string
-          description: It is the reCaptchaResponse
         names:
           type: string
           example: John Doe
         email:
           type: string
           example: "example@domain.com"
-        company_name:
-          type: string
-          example: "Example company"
         password:
           type: string
           example: "mysecretpass"
 
-        phone:
-          type: string
-          example: +1-202-555-0102
 
     GruplacResponse:
       type: object
@@ -409,7 +400,7 @@ components:
           type: string
           example: "2020-11-22T02:29:07Z"
           readOnly: true
-    
+
     AllGruplacResponse:
       type: object
       properties:
@@ -420,7 +411,7 @@ components:
         total:
           type: integer
           example: 1
-    
+
     ProductResponse:
       type: object
       properties:
@@ -442,7 +433,7 @@ components:
           type: string
           example: "2020-11-22T02:29:07Z"
           readOnly: true
-    
+
     AllProductResponse:
       type: object
       properties:
