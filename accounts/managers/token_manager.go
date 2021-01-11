@@ -36,6 +36,7 @@ func (m *tokenManager) Generate(acc *accounts.Account) (string, error) {
 	claims["account_id"] = acc.ID
 	claims["names"] = acc.Names
 	claims["email"] = acc.Email
+	claims["role"] = acc.Role
 	claims["exp"] = time.Now().Add(expirationTime).Unix()
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -74,12 +75,14 @@ func (m *tokenManager) GetMetadata(tokenString string) (*accounts.Account, error
 	accountID := claims["account_id"]
 	names := claims["names"]
 	email := claims["email"]
+	role := claims["role"]
 	claims["exp"] = time.Now().Add(expirationTime).Unix()
 
 	user := &accounts.Account{
 		ID:    (accountID).(string),
 		Names: (names).(string),
 		Email: (email).(string),
+		Role:  (role).(string),
 	}
 
 	return user, nil

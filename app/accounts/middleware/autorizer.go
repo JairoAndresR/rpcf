@@ -58,7 +58,7 @@ func (a *Authorizer) AuthorizeAdmin() gin.HandlerFunc {
 		}
 
 		if value != AdminRole {
-			err := errors.New(ApiTokenRequired)
+			err := errors.New(InvalidApiToken)
 			handlers.AbortWithError(c, http.StatusUnauthorized, err)
 			return
 		}
@@ -92,6 +92,7 @@ func (a *Authorizer) AuthorizeUser(c *gin.Context) error {
 	c.Set("userId", account.ID)
 	c.Set("names", account.Names)
 	c.Set("email", account.Email)
+	c.Set("role", account.Role)
 	return nil
 }
 

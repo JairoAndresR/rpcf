@@ -9,11 +9,16 @@ import (
 	"time"
 )
 
+const (
+	userRole = "user"
+)
+
 type Account struct {
 	*entities.Base
 	ID        string `gorm:"primaryKey"`
 	Name      string `gorm:"not null"`
 	Email     string `gorm:"not null"`
+	Role      string `gorm:"not null"`
 	Password  string `gorm:"not null"`
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
@@ -27,6 +32,10 @@ func (a *Account) BeforeCreate(tx *gorm.DB) error {
 	password := a.getPasswordHash()
 	a.ID = id
 	a.Password = password
+
+	if a.Role == "" {
+		a.Role = userRole
+	}
 	return nil
 }
 
@@ -46,6 +55,7 @@ func NewFromDomain(u *accounts.Account) *Account {
 		ID:        u.ID,
 		Name:      u.Names,
 		Email:     u.Email,
+		Role:      u.Role,
 		Password:  u.Password,
 		CreatedAt: u.CreatedAt,
 		UpdatedAt: u.UpdatedAt,
@@ -61,6 +71,7 @@ func (u *Account) ToDomain() *accounts.Account {
 		Names:     u.Name,
 		Password:  u.Password,
 		Email:     u.Email,
+		Role:      u.Role,
 		CreatedAt: u.CreatedAt,
 		UpdatedAt: u.UpdatedAt,
 	}
