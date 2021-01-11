@@ -219,6 +219,28 @@ paths:
         "401":
           $ref: "#/components/responses/401"
 
+  /v1/accounts/validate/:
+    post:
+      tags:
+        - "Users"
+      summary: It valites a token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenValidationRequest"
+      responses:
+        "200":
+          description: The token to validate is correct
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenValidationRequest"
+        "400":
+          $ref: "#/components/responses/400"
+        "422":
+          $ref: "#/components/responses/422"
+
 components:
   parameters:
     platform:
@@ -444,3 +466,11 @@ components:
         total:
           type: integer
           example: 1
+
+    TokenValidationRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiOGY1NDliMzktOTJiMC00OWI4LWJmZjEtMzA0OTM5MjRiNTI5IiwiYXV0aG9yaXplZCI6dHJ1ZSwiZW1haWwiOiJleGFtcGxlQGRvbWFpbi5jb20iLCJleHAiOjE2MTAzMzQ2MzcsIm5hbWVzIjoiSm9obiBEb2UifQ.bw8ITBjYciRL946paF6l8oyyYfkEto4eEYjCnBS9oWA"
+        
