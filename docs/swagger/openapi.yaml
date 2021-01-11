@@ -360,7 +360,7 @@ components:
       properties:
         email:
           type: string
-          example: "da@f.er"
+          example: "example@company.com"
         password:
           type: string
           example: "mysecretpass"
