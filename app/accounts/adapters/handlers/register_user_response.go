@@ -7,6 +7,7 @@ type RegisterUserResponse struct {
 	Token     string `json:"token"`
 	Email     string `json:"email"`
 	Name      string `json:"name"`
+	Role      string `json:"role"`
 	Password  string `json:"password"`
 	CreatedAt int64  `json:"created_at"`
 	UpdatedAt int64  `json:"updated_at"`
@@ -18,6 +19,7 @@ func newRegisterUserResponse(acc *accounts.Account, token string) *RegisterUserR
 		Token:     token,
 		Email:     acc.Email,
 		Name:      acc.Names,
+		Role:      acc.Role,
 		Password:  acc.Password,
 		CreatedAt: acc.CreatedAt.Unix(),
 		UpdatedAt: acc.UpdatedAt.Unix(),
