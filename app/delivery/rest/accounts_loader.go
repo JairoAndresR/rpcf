@@ -22,3 +22,12 @@ func loadRegisterHandler() (*handlers.RegisterUserHandler, error) {
 	err := core.Injector.Invoke(invokeFun)
 	return handler, err
 }
+
+func loadAuthHandler() (*handlers.AuthHandler, error) {
+	var handler *handlers.AuthHandler
+	invokeFun := func(h *handlers.AuthHandler) {
+		handler = h
+	}
+	err := core.Injector.Invoke(invokeFun)
+	return handler, err
+}

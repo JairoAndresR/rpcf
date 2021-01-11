@@ -13,6 +13,9 @@ func setupLoginRoutes(s *server) {
 	register, err := loadRegisterHandler()
 	checkError(err)
 
+	auth, err := loadAuthHandler()
+
 	s.router.POST("/v1/accounts/login", login.Login)
 	s.router.POST("/v1/accounts/register", register.Create)
+	s.router.POST("/v1/accounts/validate", auth.ValidateToken)
 }
