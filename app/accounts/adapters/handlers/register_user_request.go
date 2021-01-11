@@ -12,7 +12,7 @@ import (
 type RegisterUserRequest struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
-	Name     string `json:"name" validate:"required"`
+	Names    string `json:"names" validate:"required"`
 }
 
 func (r *RegisterUserRequest) IsValid() *handlers.Error {
@@ -41,7 +41,7 @@ func (r *RegisterUserRequest) IsValid() *handlers.Error {
 
 func (r *RegisterUserRequest) ToDomain() *accounts.Account {
 	return &accounts.Account{
-		Names:    r.Name,
+		Names:    r.Names,
 		Email:    r.Email,
 		Password: r.Password,
 	}
