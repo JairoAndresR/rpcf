@@ -3,9 +3,14 @@ package rest
 func setupGruplacDefinitionRoutes(s *server) {
 	handler, err := loadGruplacDefinitionsHandler()
 	checkError(err)
-	s.router.POST("/v1/gruplac-definitions", handler.Create)
-	s.router.GET("/v1/gruplac-definitions", handler.GetAll)
-	s.router.GET("/v1/gruplac-definitions/:id", handler.GetById)
-	s.router.DELETE("/v1/gruplac-definitions/:id", handler.Delete)
-	s.router.PUT("/v1/gruplac-definitions/:id", handler.Update)
+
+	auth := s.authorizer.AuthorizeAdmin()
+	gruplacDefinitionGroup := s.router.Group("/v1/gruplac-definitions")
+	gruplacDefinitionGroup.Use(auth)
+
+	gruplacDefinitionGroup.POST("", handler.Create)
+	gruplacDefinitionGroup.GET("", handler.GetAll)
+	gruplacDefinitionGroup.GET("/:id", handler.GetById)
+	gruplacDefinitionGroup.DELETE("/:id", handler.Delete)
+	gruplacDefinitionGroup.PUT("/:id", handler.Update)
 }

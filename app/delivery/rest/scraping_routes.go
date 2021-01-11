@@ -9,5 +9,10 @@ import (
 func setupScrapingRoutes(s *server) {
 	handler, err := loadScrapingHandler()
 	checkError(err)
-	s.router.POST("/v1/gruplacs/scraping", handler.Scrap)
+
+	auth := s.authorizer.AuthorizeAdmin()
+
+	scrapingGroup := s.router.Group("/v1/gruplacs/scraping")
+	scrapingGroup.Use(auth)
+	scrapingGroup.POST("", handler.Scrap)
 }

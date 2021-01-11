@@ -3,9 +3,15 @@ package rest
 func setupProductDefinitionRoutes(s *server) {
 	handler, err := loadProductDefinitionsHandler()
 	checkError(err)
-	s.router.POST("/v1/product-definitions", handler.Create)
-	s.router.GET("/v1/product-definitions/:id", handler.GetById)
-	s.router.GET("/v1/product-definitions", handler.GetAll)
-	s.router.DELETE("/v1/product-definitions/:id", handler.Delete)
-	s.router.PUT("/v1/product-definitions/:id", handler.Update)
+
+	auth := s.authorizer.AuthorizeAdmin()
+
+	productDefinitionGroup := s.router.Group("/v1/product-definitions")
+	productDefinitionGroup.Use(auth)
+
+	productDefinitionGroup.POST("", handler.Create)
+	productDefinitionGroup.GET("/:id", handler.GetById)
+	productDefinitionGroup.GET("", handler.GetAll)
+	productDefinitionGroup.DELETE("/:id", handler.Delete)
+	productDefinitionGroup.PUT("/:id", handler.Update)
 }
