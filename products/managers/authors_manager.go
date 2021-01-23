@@ -21,6 +21,10 @@ func newAuthorsManager(ar ports.AuthorsReader) ports.AuthorsManager {
 	}
 }
 
-func (m *authorsManager) GetAll() ([]*products.Author, error) {
-	return m.reader.GetAll()
+func (m *authorsManager) GetAll(groupCode string) ([]*products.Author, error) {
+	if groupCode == "" {
+		return m.reader.GetAll()
+	}
+
+	return m.reader.GetAllByGroup(groupCode)
 }
