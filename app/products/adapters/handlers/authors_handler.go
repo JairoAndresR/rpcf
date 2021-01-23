@@ -23,7 +23,10 @@ func NewAuthorsHandlers(manager ports.AuthorsManager) *AuthorsHandler {
 }
 
 func (h *AuthorsHandler) GetAll(c *gin.Context) {
-	list, err := h.manager.GetAll()
+	req := NewAuthorsRequest(c)
+
+	list, err := h.manager.GetAll(req.Filters)
+
 	if err != nil {
 		generateError(c, http.StatusUnprocessableEntity, err)
 		return
