@@ -7,7 +7,7 @@ import (
 
 type Product struct {
 	ID        string `gorm:"primaryKey"`
-	GroupId   string `gorm:"type:varchar(36)"`
+	GroupCode string `gorm:"type:varchar(36)"`
 	TypeId    string `gorm:"unique"`
 	TypeName  string
 	Title     string
@@ -21,7 +21,7 @@ type Product struct {
 func NewProduct(p *products.Product) *Product {
 	return &Product{
 		ID:        p.ID,
-		GroupId:   p.GrouplacCode,
+		GroupCode: p.GrouplacCode,
 		TypeId:    p.TypeId,
 		TypeName:  p.TypeName,
 		Title:     p.Title,
@@ -35,7 +35,7 @@ func NewProduct(p *products.Product) *Product {
 func (p *Product) ToDomain() *products.Product {
 	return &products.Product{
 		ID:           p.ID,
-		GrouplacCode: p.GroupId,
+		GrouplacCode: p.GroupCode,
 		TypeId:       p.TypeId,
 		TypeName:     p.TypeName,
 		Title:        p.Title,
