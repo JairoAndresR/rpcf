@@ -8,6 +8,7 @@ import (
 type ProductResponse struct {
 	ID        string            `json:"id"`
 	GroupCode string            `json:"group_code"`
+	GroupName string            `json:"group_name"`
 	TypeId    string            `json:"type_id"`
 	TypeName  string            `json:"type_name"`
 	Title     string            `json:"title"`
@@ -22,6 +23,7 @@ func NewProductResponse(p *products.Product) *ProductResponse {
 	return &ProductResponse{
 		ID:        p.ID,
 		GroupCode: p.GrouplacCode,
+		GroupName: p.GroupName,
 		TypeId:    p.TypeId,
 		TypeName:  p.TypeName,
 		Title:     p.Title,

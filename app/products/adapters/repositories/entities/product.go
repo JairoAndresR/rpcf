@@ -38,7 +38,7 @@ func (p *Product) ToDomain() *products.Product {
 	return &products.Product{
 		ID:           p.ID,
 		GrouplacCode: p.GroupCode,
-		GroupName:    p.GroupCode,
+		GroupName:    p.GroupName,
 		TypeId:       p.TypeId,
 		TypeName:     p.TypeName,
 		Title:        p.Title,
@@ -56,6 +56,5 @@ func MapListToDomain(list []*Product) []*products.Product {
 		product := p.ToDomain()
 		results = append(results, product)
 	}
-
 	return results
 }
