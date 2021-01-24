@@ -24,8 +24,8 @@ func newGenericProductWriter(conn sql.Connection, b ports.ProductsBuilder) ports
 	return &genericProductWriter{db: db, builder: b}
 }
 
-func (w *genericProductWriter) WriteGeneric(product map[string]string, gruplacCode, productName string) (*products.Product, error) {
-	p, err := w.WriteMap(product, gruplacCode, productName)
+func (w *genericProductWriter) WriteGeneric(product map[string]string, gruplacCode, groupName, productName string) (*products.Product, error) {
+	p, err := w.WriteMap(product, gruplacCode,groupName, productName)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (w *genericProductWriter) Write(product *products.Product) (*products.Produ
 	return p.ToDomain(), nil
 }
 
-func (w *genericProductWriter) WriteMap(product map[string]string, gruplacCode, productName string) (*products.Product, error) {
+func (w *genericProductWriter) WriteMap(product map[string]string, gruplacCode, groupName, productName string) (*products.Product, error) {
 	p, err := w.builder.Build(product, productName)
 
 	if err != nil {
@@ -58,16 +58,16 @@ func (w *genericProductWriter) WriteMap(product map[string]string, gruplacCode, 
 	if err != nil {
 		return nil, err
 	}
-	generic := ports.NewGenericProduct(p, gruplacCode, productName)
+	generic := ports.NewGenericProduct(p, gruplacCode,groupName, productName)
 	return generic, err
 }
 
-func (w *genericProductWriter) WriteGenerics(ps []map[string]string, gruplacCode, productName string) ([]*products.Product, []error) {
+func (w *genericProductWriter) WriteGenerics(parsed *products.ParsedProducts) ([]*products.Product, []error) {
 	errs := make([]error, 0)
 	results := make([]*products.Product, 0)
 
-	for _, p := range ps {
-		r, err := w.WriteGeneric(p, gruplacCode, productName)
+	for _, p := range parsed.Results {
+		r, err := w.WriteGeneric(p, parsed.GrupLACCode, parsed.GroupName, parsed.Name)
 
 		if err != nil {
 			errs = append(errs, err)

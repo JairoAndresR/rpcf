@@ -3,6 +3,7 @@ package products
 type ParsedProducts struct {
 	Name        string
 	GrupLACCode string
+	GroupName string
 	Results     []map[string]string
 }
 
