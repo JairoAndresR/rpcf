@@ -11,9 +11,9 @@ type GenericProductWriter interface {
 	//
 	// If all is ok it returns a id of the resource saved and a nil error,
 	// in other case it should returns an specific error.
-	WriteMap(product map[string]string, gruplacCode,groupName, productName string) (*products.Product, error)
+	WriteMap(product map[string]string, gruplacCode, groupName, productName string) (*products.Product, error)
 
-	WriteGeneric(product map[string]string, gruplacCode,groupName, productName string) (*products.Product, error)
+	WriteGeneric(product map[string]string, gruplacCode, groupName, productName string) (*products.Product, error)
 
 	// It writes multiples products.
 	WriteGenerics(parsed *products.ParsedProducts) ([]*products.Product, []error)

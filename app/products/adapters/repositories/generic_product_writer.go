@@ -25,7 +25,7 @@ func newGenericProductWriter(conn sql.Connection, b ports.ProductsBuilder) ports
 }
 
 func (w *genericProductWriter) WriteGeneric(product map[string]string, gruplacCode, groupName, productName string) (*products.Product, error) {
-	p, err := w.WriteMap(product, gruplacCode,groupName, productName)
+	p, err := w.WriteMap(product, gruplacCode, groupName, productName)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (w *genericProductWriter) WriteMap(product map[string]string, gruplacCode, 
 	if err != nil {
 		return nil, err
 	}
-	generic := ports.NewGenericProduct(p, gruplacCode,groupName, productName)
+	generic := ports.NewGenericProduct(p, gruplacCode, groupName, productName)
 	return generic, err
 }
 

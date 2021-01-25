@@ -41,7 +41,7 @@ func (c *collectorManager) CollectAll() error {
 			return err
 		}
 		code := g.GetCode()
-		payload := gruplacs.NewCollectorPayload(content, code)
+		payload := gruplacs.NewCollectorPayload(content, code, g.Name)
 		c.collectorWriter.Write(*payload)
 	}
 
