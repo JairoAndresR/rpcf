@@ -67,7 +67,7 @@ func (w *genericProductWriter) WriteGenerics(parsed *products.ParsedProducts) ([
 	results := make([]*products.Product, 0)
 
 	for _, p := range parsed.Results {
-		r, err := w.WriteGeneric(p, parsed.GrupLACCode, parsed.GroupName, parsed.Name)
+		r, err := w.WriteGeneric(p, parsed.GrupLACCode, parsed.GrupLACName, parsed.Name)
 
 		if err != nil {
 			errs = append(errs, err)

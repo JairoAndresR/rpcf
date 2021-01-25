@@ -7,16 +7,16 @@ import (
 
 type ProductResponse struct {
 	ID        string            `json:"id"`
-	GroupCode string            `json:"group_code"`
-	GroupName string            `json:"group_name"`
-	TypeId    string            `json:"type_id"`
-	TypeName  string            `json:"type_name"`
+	GroupCode string            `json:"groupCode"`
+	GroupName string            `json:"groupName"`
+	TypeId    string            `json:"typeId"`
+	TypeName  string            `json:"typeName"`
 	Title     string            `json:"title"`
-	StartYear string            `json:"start_year"`
-	EndYear   string            `json:"end_year"`
+	StartYear string            `json:"startYear"`
+	EndYear   string            `json:"endYear"`
 	Authors   []*AuthorResponse `json:"authors"`
-	CreatedAt *time.Time        `json:"created_at"`
-	UpdatedAt *time.Time        `json:"updated_at"`
+	CreatedAt *time.Time        `json:"createdAt"`
+	UpdatedAt *time.Time        `json:"updatedAt"`
 }
 
 func NewProductResponse(p *products.Product) *ProductResponse {
