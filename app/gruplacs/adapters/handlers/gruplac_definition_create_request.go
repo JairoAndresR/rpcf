@@ -65,8 +65,11 @@ func (r *GruplacDefinitionCreateRequest) HasValidFields() []handlers.InvalidPara
 }
 
 func (r *GruplacDefinitionCreateRequest) GetGruplacDefinition() *gruplacs.GruplacDefinition {
-	return &gruplacs.GruplacDefinition{
+	def := &gruplacs.GruplacDefinition{
 		Name: r.Name,
 		URL:  r.Url,
 	}
+
+	def.Code = def.GetCode()
+	return def
 }

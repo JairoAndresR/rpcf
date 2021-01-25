@@ -12,6 +12,7 @@ import (
 type GruplacDefinitionUpdateRequest struct {
 	ID        string     `json:"id", validate:"required"`
 	Name      string     `json:"name" validate:"required"`
+	Code      string     `json:"code" validate:"required"`
 	Url       string     `json:"url", validate:"required"`
 	CreatedAt *time.Time `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
@@ -71,6 +72,7 @@ func (r *GruplacDefinitionUpdateRequest) GetGruplacDefinition() *gruplacs.Grupla
 	return &gruplacs.GruplacDefinition{
 		ID:        r.ID,
 		Name:      r.Name,
+		Code:      r.Code,
 		URL:       r.Url,
 		CreatedAt: r.CreatedAt,
 		UpdatedAt: r.UpdatedAt,
