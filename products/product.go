@@ -7,7 +7,7 @@ import (
 type Product struct {
 	ID           string `json:"id"`
 	GrouplacCode string
-	GroupName string
+	GroupName    string
 	TypeId       string
 	TypeName     string
 	Title        string

@@ -4,6 +4,7 @@ import "encoding/json"
 
 type contentPayload struct {
 	GrupLACCode string `json:"code"`
+	GrupLACName string `json:"name"`
 	Content     string `json:"content"`
 }
 

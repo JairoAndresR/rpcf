@@ -3,14 +3,15 @@ package products
 type ParsedProducts struct {
 	Name        string
 	GrupLACCode string
-	GroupName string
+	GroupName   string
 	Results     []map[string]string
 }
 
-func NewParsedProducts(results []map[string]string, name, code string) *ParsedProducts {
+func NewParsedProducts(results []map[string]string, name, gruplacCode, gruplacName string) *ParsedProducts {
 	return &ParsedProducts{
 		Results:     results,
 		Name:        name,
-		GrupLACCode: code,
+		GrupLACCode: gruplacCode,
+		GroupName:   gruplacName,
 	}
 }

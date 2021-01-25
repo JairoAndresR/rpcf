@@ -4,12 +4,14 @@ import "encoding/json"
 
 type CollectorPayload struct {
 	GrupLACCode string `json:"code"`
+	GrupLACName string `json:"name"`
 	Content     string `json:"content"`
 }
 
-func NewCollectorPayload(content string, code string) *CollectorPayload {
+func NewCollectorPayload(content string, code, name string) *CollectorPayload {
 	return &CollectorPayload{
 		GrupLACCode: code,
+		GrupLACName: name,
 		Content:     content,
 	}
 }
