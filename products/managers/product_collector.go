@@ -24,6 +24,7 @@ func newProductCollector(
 	pdr ports.ProductDefinitionReader,
 	pw ports.GenericProductWriter,
 	ar ports.AuthorsReader,
+	linker ports.ProductAuthorLinker,
 ) ports.ProductCollector {
 
 	parser := collector.NewParser()
@@ -32,6 +33,7 @@ func newProductCollector(
 		productDefinitionReader: pdr,
 		productGenericWriter:    pw,
 		authorsReader:           ar,
+		linker:                  linker,
 	}
 }
 

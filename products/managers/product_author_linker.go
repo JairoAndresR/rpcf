@@ -33,6 +33,7 @@ func (l *productAuthorLinker) Link(authors []*products.Author, ps []*products.Pr
 		authorsResult := make([]*products.Author, 0)
 
 		for _, name := range authorsNames {
+			name = strings.ToLower(name)
 			foundAuthor, exist := authorsIndex[name]
 
 			if exist {
