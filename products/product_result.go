@@ -4,7 +4,7 @@ type ProductResult struct {
 	Name        string            // Name of the product result
 	GrupLACCode string            // GrupLACCode code of the research group
 	GrupLACName string            // GrupLACName name of the research group
-	Authors     []Author          // Authors is the authors associated to this product
+	Authors     []*Author         // Authors is the authors associated to this product
 	Fields      map[string]string // Fields is a map[product_field_name]=product_field_value
 }
 
