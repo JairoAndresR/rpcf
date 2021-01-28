@@ -24,8 +24,8 @@ func newGenericProductWriter(conn sql.Connection, b ports.ProductsBuilder) ports
 	return &genericProductWriter{db: db, builder: b}
 }
 
-func (w *genericProductWriter) WriteGeneric(product map[string]string, gruplacCode, groupName, productName string) (*products.Product, error) {
-	p, err := w.WriteMap(product, gruplacCode, groupName, productName)
+func (w *genericProductWriter) WriteGeneric(product *products.ProductResult) (*products.Product, error) {
+	p, err := w.WriteMap(product)
 	if err != nil {
 		return nil, err
 	}
@@ -47,34 +47,34 @@ func (w *genericProductWriter) Write(product *products.Product) (*products.Produ
 	return p.ToDomain(), nil
 }
 
-func (w *genericProductWriter) WriteMap(product map[string]string, gruplacCode, groupName, productName string) (*products.Product, error) {
-	p, err := w.builder.Build(product, productName)
+func (w *genericProductWriter) WriteMap(product *products.ProductResult) (*products.Product, error) {
+	p, err := w.builder.Build(product.Fields, product.Name)
 
 	if err != nil {
 		return nil, err
 	}
 
-	err = w.db.Table(productName).Create(p).Error
+	err = w.db.Table(product.Name).Create(p).Error
 	if err != nil {
 		return nil, err
 	}
-	generic := ports.NewGenericProduct(p, gruplacCode, groupName, productName)
+	generic := ports.NewGenericProduct(p, product.GrupLACCode, product.GrupLACCode, product.Name)
 	return generic, err
 }
 
-func (w *genericProductWriter) WriteGenerics(parsed *products.ParsedProducts) ([]*products.Product, []error) {
+func (w *genericProductWriter) WriteGenerics(results []*products.ProductResult) ([]*products.Product, []error) {
 	errs := make([]error, 0)
-	results := make([]*products.Product, 0)
+	res := make([]*products.Product, 0)
 
-	for _, p := range parsed.Results {
-		r, err := w.WriteGeneric(p, parsed.GrupLACCode, parsed.GrupLACName, parsed.Name)
+	for _, p := range results {
+		r, err := w.WriteGeneric(p)
 
 		if err != nil {
 			errs = append(errs, err)
 			continue
 		}
 
-		results = append(results, r)
+		res = append(res, r)
 	}
-	return results, errs
+	return res, errs
 }

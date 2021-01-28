@@ -16,14 +16,22 @@ type productCollector struct {
 	parser                  collector.Parser
 	productDefinitionReader ports.ProductDefinitionReader
 	productGenericWriter    ports.GenericProductWriter
+	authorsReader           ports.AuthorsReader
+	linker                  ports.ProductAuthorLinker
 }
 
-func newProductCollector(pdr ports.ProductDefinitionReader, pw ports.GenericProductWriter) ports.ProductCollector {
+func newProductCollector(
+	pdr ports.ProductDefinitionReader,
+	pw ports.GenericProductWriter,
+	ar ports.AuthorsReader,
+) ports.ProductCollector {
+
 	parser := collector.NewParser()
 	return &productCollector{
 		parser:                  parser,
 		productDefinitionReader: pdr,
 		productGenericWriter:    pw,
+		authorsReader:           ar,
 	}
 }
 
@@ -33,24 +41,18 @@ func (c *productCollector) Process(content string) []error {
 	if len(errs) > 0 {
 		return errs
 	}
-
 	errors := make([]error, 0)
-
-	// save each
-	for _, p := range ps {
-		_, es := c.productGenericWriter.WriteGenerics(p)
-
-		if len(es) > 0 {
-			errors = append(errors, es...)
-		}
+	// save in database the products
+	_, es := c.productGenericWriter.WriteGenerics(ps)
+	if len(es) > 0 {
+		errors = append(errors, es...)
 	}
-
 	return errors
 }
 
-func (c *productCollector) Parse(content string) ([]*products.ParsedProducts, []error) {
+func (c *productCollector) Parse(content string) ([]*products.ProductResult, []error) {
 
-	results := make([]*products.ParsedProducts, 0)
+	results := make([]*products.ProductResult, 0)
 	payload, err := products.NewContentPayload(content)
 
 	if err != nil {
@@ -58,7 +60,11 @@ func (c *productCollector) Parse(content string) ([]*products.ParsedProducts, []
 	}
 
 	definitions, err := c.productDefinitionReader.GetAll()
+	if err != nil {
+		return results, []error{err}
+	}
 
+	authors, err := c.authorsReader.GetAll()
 	if err != nil {
 		return results, []error{err}
 	}
@@ -85,8 +91,9 @@ func (c *productCollector) Parse(content string) ([]*products.ParsedProducts, []
 			continue
 		}
 
-		pp := products.NewParsedProducts(result, pd.Name, payload.GrupLACCode, payload.GrupLACName)
-		results = append(results, pp)
+		products := products.NewProductResults(result, pd.Name, payload.GrupLACCode, payload.GrupLACName)
+		products = c.linker.Link(authors, products)
+		results = append(results, products...)
 	}
 	return results, errors
 }

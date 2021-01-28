@@ -1,5 +1,7 @@
 package ports
 
+import "rpcf/products"
+
 type ProductGenericManager interface {
-	Write(product map[string]string, grouplacCode, groupName, productName string) (GenericProduct, error)
+	Write(product *products.ProductResult) (GenericProduct, error)
 }
