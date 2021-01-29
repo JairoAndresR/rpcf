@@ -24,16 +24,19 @@ func (l *productAuthorLinker) Link(authors []*products.Author, ps []*products.Pr
 	authorsIndex := make(map[string]*products.Author, 0)
 
 	for _, a := range authors {
-		authorsIndex[a.Names] = a
+		names := strings.ToLower(a.Names)
+		names = strings.TrimSpace(names)
+		authorsIndex[names] = a
 	}
 
 	for _, p := range ps {
-		fieldAuthors := p.Fields["authors"]
+		fieldAuthors := p.Fields["autores"]
 		authorsNames := strings.Split(fieldAuthors, ",")
 		authorsResult := make([]*products.Author, 0)
 
 		for _, name := range authorsNames {
-			name = strings.ToLower(name)
+			name = strings.ReplaceAll(strings.ToLower(name), ",", "")
+			name = strings.TrimSpace(name)
 			foundAuthor, exist := authorsIndex[name]
 
 			if exist {

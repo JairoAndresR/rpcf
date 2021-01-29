@@ -16,10 +16,12 @@ type Product struct {
 	EndYear   string
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
-	Authors   []Author `gorm:"many2many:authors_products;"`
+	Authors   []*Author `gorm:"many2many:authors_products;"`
 }
 
 func NewProduct(p *products.Product) *Product {
+
+	authors := NewAuthors(p.Authors)
 	return &Product{
 		ID:        p.ID,
 		GroupCode: p.GrouplacCode,
@@ -31,10 +33,13 @@ func NewProduct(p *products.Product) *Product {
 		EndYear:   p.EndYear,
 		CreatedAt: p.CreatedAt,
 		UpdatedAt: p.UpdatedAt,
+		Authors:   authors,
 	}
 }
 
 func (p *Product) ToDomain() *products.Product {
+
+	authors := MapAuthorsToDomain(p.Authors)
 	return &products.Product{
 		ID:           p.ID,
 		GrouplacCode: p.GroupCode,
@@ -46,6 +51,7 @@ func (p *Product) ToDomain() *products.Product {
 		EndYear:      p.EndYear,
 		CreatedAt:    p.CreatedAt,
 		UpdatedAt:    p.UpdatedAt,
+		Authors:      authors,
 	}
 }
 

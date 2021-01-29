@@ -15,7 +15,7 @@ type Product struct {
 	EndYear      string
 	CreatedAt    *time.Time
 	UpdatedAt    *time.Time
-	Authors      []Author
+	Authors      []*Author
 	GrupLACS     []GrupLAC
 }
 
