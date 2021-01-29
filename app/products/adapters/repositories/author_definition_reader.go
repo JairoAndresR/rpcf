@@ -24,7 +24,7 @@ func newAuthorDefinitionReader(con sql.Connection) ports.AuthorDefinitionReader 
 }
 
 func (r *AuthorDefinitionReader) GetAuthorDefinition() (*products.AuthorDefinition, error) {
-	var definitions *entities.AuthorDefinition
-	err := r.db.Find(&definitions).Error
-	return entities.MapAuthorDefinitionToDomain(definitions), err
+	var definition *entities.AuthorDefinition
+	err := r.db.Find(&definition).Error
+	return definition.GetDomainReference(), err
 }

@@ -1,7 +1,6 @@
 package entities
 
 import (
-	"gorm.io/gorm"
 	"rpcf/core/entities"
 	"rpcf/products"
 	"time"
@@ -22,12 +21,4 @@ func (a *AuthorDefinition) GetDomainReference() *products.AuthorDefinition {
 		CreatedAt:  a.CreatedAt,
 		UpdatedAt:  a.UpdatedAt,
 	}
-}
-
-func MapAuthorDefinitionToDomain(AuthorDefinition *AuthorDefinition) *products.AuthorDefinition {
-	result := make([]*products.AuthorDefinition, 0)
-	for _, p := range list {
-		result = append(result, p.GetDomainReference())
-	}
-	return result[0]
 }
