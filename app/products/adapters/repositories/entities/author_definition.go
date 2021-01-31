@@ -14,6 +14,15 @@ type AuthorDefinition struct {
 	UpdatedAt  *time.Time
 }
 
+func NewAuthorDefinition(d *products.AuthorDefinition) *AuthorDefinition {
+	return &AuthorDefinition{
+		ID:         d.ID,
+		Definition: d.Definition,
+		CreatedAt:  d.CreatedAt,
+		UpdatedAt:  d.UpdatedAt,
+	}
+}
+
 func (a *AuthorDefinition) GetDomainReference() *products.AuthorDefinition {
 	return &products.AuthorDefinition{
 		ID:         a.ID,
