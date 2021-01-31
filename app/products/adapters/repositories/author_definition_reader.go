@@ -18,7 +18,7 @@ type AuthorDefinitionReader struct {
 	db *gorm.DB
 }
 
-func newAuthorDefinitionReader(con sql.Connection) ports.AuthorDefinitionReader {
+func newAuthorDefinitionReader(con sql.Connection) ports.AuthorsDefinitionReader {
 	db := con.GetDatabase()
 	return &AuthorDefinitionReader{db: db}
 }

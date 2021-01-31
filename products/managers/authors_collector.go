@@ -32,63 +32,65 @@ func newAuthorCollector(
 	}
 }
 
-func (c *authorCollector) Process(content string) []error {
+func (c *authorCollector) Process(content string) ([]*products.Author, []error) {
 	ps, errs := c.Parse(content)
 
 	if len(errs) > 0 {
-		return errs
+		return nil, errs
 	}
+
 	errors := make([]error, 0)
-	// save in database the products
+	authors := make([]*products.Author, 0)
 
 	for _, es := range ps {
-		// que hacer con los autores y errores devueltos?
 		a, err := c.authorWriter.Create(es)
+		if err != nil {
+			errors = append(errors, err)
+		}
+		authors = append(authors, a)
 	}
 
-	if len(es) > 0 {
-		errors = append(errors, es...)
-	}
-	return errors
+	return authors, errors
 }
 
 func (c *authorCollector) Parse(content string) ([]*products.Author, []error) {
 
-	results := make([]*products.Author, 0)
 	payload, err := products.NewContentPayload(content)
 
 	if err != nil {
-		return results, []error{err}
+		return []*products.Author{}, []error{err}
 	}
 
+	// Get the author definition
 	ad, err := c.authorDefinitionReader.GetAuthorDefinition()
 	if err != nil {
-		return results, []error{err}
+		return []*products.Author{}, []error{err}
 	}
 
 	errors := make([]error, 0)
-	// for each product definition configured in the database
-	// it will try to parse the content and generates a map(result)
-	// with the possible research products for each definition.
 
-	// It will try to generate a yaml representation that contains the fields
-	// and the regular expression to extracts the fields of each product
+	// From the raw definition it will try to create a yml valid
+	// and parse to  create definition structure with target fields to be parsed
+	// based on regular expressions
 	definition, err := collector.NewDefinition(ad.Definition)
 
 	if err != nil {
 		errors = append(errors, err)
 	}
 
-	// it will try to create a map (result) that contains the parsed product
-	// information from the content and the definition
-	result, err := c.parser.Parse(definition, payload.Content)
+	// It will try to parse the content based on the target fields and regex expressions
+	results, err := c.parser.Parse(definition, payload.Content)
+
 	if err != nil {
 		errors = append(errors, err)
 	}
 
-	// No me queda claro como crear los autores desde la data parseada
-	// si devolver un autor o todos los autores
-	authors := products.NewProductResults(result, pd.Name, payload.GrupLACCode, payload.GrupLACName)
-	results = append(results, authors...)
+	// The result is a []map[field_name]=field value which will be try to generate a
+	// []*products.Author
+	authors, es := products.NewAuthorsFromResults(results)
+	if len(es) > 0 {
+		errors = append(errors, es...)
+	}
+
 	return authors, errors
 }
