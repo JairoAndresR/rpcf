@@ -1,0 +1,21 @@
+package main
+
+import (
+	"rpcf/app/dataproviders/queue"
+	"rpcf/core"
+)
+
+func main() {
+	var q queue.Client
+	invokeFunc := func(qq queue.Client) {
+		q = qq
+	}
+
+	err := core.Injector.Invoke(invokeFunc)
+	if err != nil {
+		panic(err)
+	}
+
+	w := newAuthorsWorker(q)
+	w.Execute()
+}
