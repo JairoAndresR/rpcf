@@ -19,9 +19,12 @@ func Migrate() {
 
 	db := conn.GetDatabase()
 
+	db.AutoMigrate(&entities.ProductDefinition{})
+	db.AutoMigrate(&entities.AuthorDefinition{})
+
 	db.AutoMigrate(&entities.Articles{})
 	db.AutoMigrate(&entities.Books{})
-	db.AutoMigrate(&entities.ProductDefinition{})
+
 	db.AutoMigrate(&entities.Companies{})
 	db.AutoMigrate(&entities.DoctoralThesis{})
 
