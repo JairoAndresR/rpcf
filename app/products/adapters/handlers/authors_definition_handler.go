@@ -48,3 +48,13 @@ func (h *AuthorsDefinitionHandler) Create(ctx *gin.Context) {
 	response := newAuthorDefinitionResponse(definition)
 	ctx.JSON(http.StatusCreated, response)
 }
+
+func (h *AuthorsDefinitionHandler) GetAll(ctx *gin.Context) {
+	definition, err := h.manager.GetAll()
+	if err != nil {
+		generateError(ctx, http.StatusUnprocessableEntity, err)
+		return
+	}
+	response := newAuthorDefinitionResponse(definition)
+	ctx.JSON(http.StatusOK, response)
+}
