@@ -23,10 +23,10 @@ func (h *ProductsScrapingHandler) Scrap(c *gin.Context) {
 	err := h.manager.CollectAll()
 
 	if err != nil {
-		// TODO: add properly error.
 		c.Error(err)
 		return
 	}
 
-	c.JSON(http.StatusOK, nil)
+	res := NewScrapingResponse()
+	c.JSON(http.StatusOK, res)
 }

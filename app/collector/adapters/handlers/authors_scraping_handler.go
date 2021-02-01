@@ -28,5 +28,6 @@ func (h *AuthorsScrapingHandler) Scrap(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, nil)
+	res := NewScrapingResponse()
+	c.JSON(http.StatusOK, res)
 }
