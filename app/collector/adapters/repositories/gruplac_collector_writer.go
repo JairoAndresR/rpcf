@@ -3,27 +3,27 @@ package repositories
 import (
 	"os"
 	"rpcf/app/dataproviders/queue"
+	"rpcf/collector"
+	"rpcf/collector/ports"
 	"rpcf/core"
-	"rpcf/gruplacs"
-	"rpcf/gruplacs/ports"
 )
 
 func init() {
 	err := core.Injector.Provide(newCollectorWriter)
-	core.CheckInjection(err, "CollectorWriter")
+	core.CheckInjection(err, "GrupLACCollectorWriter")
 }
 
-type collectorWriter struct {
+type GrupLACCollectorWriter struct {
 	queueName string
 	queue     queue.Client
 }
 
-func newCollectorWriter(queue queue.Client) ports.CollectorWriter {
+func newCollectorWriter(queue queue.Client) ports.GrupLACCollectorWriter {
 	queueName := os.Getenv("COLLECTOR_QUEUE_NAME")
-	return &collectorWriter{queue: queue, queueName: queueName}
+	return &GrupLACCollectorWriter{queue: queue, queueName: queueName}
 }
 
-func (c *collectorWriter) Write(payload gruplacs.CollectorPayload) error {
+func (c *GrupLACCollectorWriter) Write(payload collector.Payload) error {
 	content, err := payload.JSONString()
 	if err != nil {
 		return err

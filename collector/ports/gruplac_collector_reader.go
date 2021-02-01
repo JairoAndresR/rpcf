@@ -1,6 +1,6 @@
 package ports
 
-type CollectorReader interface {
+type GRUPLACCollectorReader interface {
 
 	// GetContent retrieves the content of specific GrupLAC
 	// using the URL of it.

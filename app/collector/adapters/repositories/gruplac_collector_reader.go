@@ -2,27 +2,27 @@ package repositories
 
 import (
 	"github.com/udistritali3plus/collector"
+	"rpcf/collector/ports"
 	"rpcf/core"
-	"rpcf/gruplacs/ports"
 )
 
 func init() {
 	err := core.Injector.Provide(newCollectorReader)
-	core.CheckInjection(err, "CollectorReader")
+	core.CheckInjection(err, "GRUPLACCollectorReader")
 }
 
-type collectorReader struct {
+type GrupLACCollectorReader struct {
 	collector collector.Collector
 }
 
-func newCollectorReader() ports.CollectorReader {
+func newCollectorReader() ports.GRUPLACCollectorReader {
 	c := collector.NewCollector()
 
-	return &collectorReader{
+	return &GrupLACCollectorReader{
 		collector: c,
 	}
 }
 
-func (c *collectorReader) GetContent(url string) (string, error) {
+func (c *GrupLACCollectorReader) GetContent(url string) (string, error) {
 	return c.collector.GetContent(url)
 }

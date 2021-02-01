@@ -1,13 +1,13 @@
 package rest
 
 import (
-	"rpcf/app/gruplacs/adapters/handlers"
+	"rpcf/app/collector/adapters/handlers"
 	"rpcf/core"
 )
 
-func loadScrapingHandler() (*handlers.ScrapingHandler, error) {
-	var handler *handlers.ScrapingHandler
-	invokeFun := func(h *handlers.ScrapingHandler) {
+func loadProductScrapingHandler() (*handlers.ProductsScrapingHandler, error) {
+	var handler *handlers.ProductsScrapingHandler
+	invokeFun := func(h *handlers.ProductsScrapingHandler) {
 		handler = h
 	}
 	err := core.Injector.Invoke(invokeFun)
