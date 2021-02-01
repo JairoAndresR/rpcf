@@ -1,8 +1,14 @@
 package entities
 
-import "rpcf/products"
+import (
+	"gorm.io/gorm"
+	"rpcf/core/entities"
+	"rpcf/products"
+	"strings"
+)
 
 type Author struct {
+	*entities.Base
 	ID       string `gorm:"primaryKey"`
 	Names    string
 	GrupLACS []GrupLAC  `gorm:"many2many:authors_gruplacs;"`
@@ -14,6 +20,12 @@ func NewAuthor(a *products.Author) *Author {
 		ID:    a.ID,
 		Names: a.Names,
 	}
+}
+func (a *Author) BeforeCreate(tx *gorm.DB) error {
+	id := a.GenerateID()
+	a.ID = id
+	a.Names = strings.ToUpper(a.Names)
+	return nil
 }
 
 func (a *Author) ToDomain() *products.Author {
