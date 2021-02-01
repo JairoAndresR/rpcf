@@ -16,8 +16,8 @@ type AuthorsScrapingHandler struct {
 	manager ports.AuthorsCollectorManager
 }
 
-func newAuthorsScrapingHandler() *AuthorsScrapingHandler {
-	return &AuthorsScrapingHandler{}
+func newAuthorsScrapingHandler(	manager ports.AuthorsCollectorManager) *AuthorsScrapingHandler {
+	return &AuthorsScrapingHandler{manager: manager}
 }
 
 func (h *AuthorsScrapingHandler) Scrap(c *gin.Context) {

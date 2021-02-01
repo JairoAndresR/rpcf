@@ -18,7 +18,7 @@ func setupProductScrapingRoutes(s *server) {
 
 	auth := s.authorizer.AuthorizeAdmin()
 
-	scrapingGroup := s.router.Group("/v1/collectors/product/scraping")
+	scrapingGroup := s.router.Group("/v1/collectors/products/scraping")
 	scrapingGroup.Use(auth)
 	scrapingGroup.POST("", handler.Scrap)
 }

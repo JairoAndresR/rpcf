@@ -1,7 +1,9 @@
 package main
 
 import (
+	_ "rpcf/app/products/adapters/repositories"
 	"rpcf/core"
+	_ "rpcf/products/managers"
 	"rpcf/products/ports"
 )
 
