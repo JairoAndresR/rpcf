@@ -35,6 +35,7 @@ func (s *server) setup() {
 func (s *server) setupRoutes() {
 	setupLoginRoutes(s)
 	setupScrapingRoutes(s)
+	setupAuthorDefinitionRoutes(s)
 	setupProductDefinitionRoutes(s)
 	setupGruplacDefinitionRoutes(s)
 	setupProductsRoutes(s)

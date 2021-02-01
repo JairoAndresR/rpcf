@@ -29,12 +29,9 @@ func newAuthorDefinitionManager(
 }
 
 func (m authorDefinitionManager) Create(d *products.AuthorDefinition) (*products.AuthorDefinition, error) {
-	d, err := m.GetAll()
-	if err != nil {
-		return nil, err
-	}
+	def, _ := m.GetAll()
 
-	if d != nil {
+	if def != nil {
 		return nil, errors.New(authorDefinitionAlreadyExist)
 	}
 
