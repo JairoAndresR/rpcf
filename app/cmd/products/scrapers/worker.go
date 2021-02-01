@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	productsQueue = "collector_queue"
+	productsQueue = "products_queue"
 )
 
 type productsWorker struct {

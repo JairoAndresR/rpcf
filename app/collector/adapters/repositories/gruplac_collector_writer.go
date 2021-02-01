@@ -1,7 +1,6 @@
 package repositories
 
 import (
-	"os"
 	"rpcf/app/dataproviders/queue"
 	"rpcf/collector"
 	"rpcf/collector/ports"
@@ -14,20 +13,18 @@ func init() {
 }
 
 type GrupLACCollectorWriter struct {
-	queueName string
-	queue     queue.Client
+	queue queue.Client
 }
 
 func newCollectorWriter(queue queue.Client) ports.GrupLACCollectorWriter {
-	queueName := os.Getenv("COLLECTOR_QUEUE_NAME")
-	return &GrupLACCollectorWriter{queue: queue, queueName: queueName}
+	return &GrupLACCollectorWriter{queue: queue}
 }
 
-func (c *GrupLACCollectorWriter) Write(payload collector.Payload) error {
+func (c *GrupLACCollectorWriter) Write(payload collector.Payload, queueName string) error {
 	content, err := payload.JSONString()
 	if err != nil {
 		return err
 	}
 
-	return c.queue.Push(c.queueName, content)
+	return c.queue.Push(queueName, content)
 }
