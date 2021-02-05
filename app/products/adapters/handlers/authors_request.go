@@ -9,6 +9,6 @@ type AuthorRequest struct {
 }
 
 func NewAuthorsRequest(c *gin.Context) *AuthorRequest {
-	groupCode := c.Query(groupCodeParam)
+	groupCode := c.Query(groupCodeParam.ToString())
 	return &AuthorRequest{GroupCode: groupCode}
 }

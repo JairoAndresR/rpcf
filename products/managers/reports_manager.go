@@ -36,6 +36,7 @@ func (m *ReportsManager) WordsFrequency(filters map[string]string) ([]*products.
 	if err != nil {
 		return nil, err
 	}
+
 	var textBuilder strings.Builder
 	for _, p := range ps {
 		textBuilder.WriteString(p.Title)
