@@ -35,7 +35,7 @@ func (l *authorsLinker) Link(authors []*products.Author, grupLACCode string) []*
 	}
 
 	for _, a := range authors {
-		a.GrupLACS = append(a.GrupLACS, g)
+		a.GrupLACs = append(a.GrupLACs, g)
 	}
 
 	return authors
