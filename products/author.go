@@ -3,8 +3,9 @@ package products
 import "encoding/json"
 
 type Author struct {
-	ID    string
-	Names string
+	ID       string
+	Names    string
+	GrupLACs []*GrupLAC
 }
 
 func NewAuthorForResult(result map[string]string) (*Author, error) {

@@ -4,6 +4,8 @@ import (
 	"rpcf/core"
 	"rpcf/gruplacs"
 	"rpcf/gruplacs/ports"
+	"rpcf/products"
+	productPorts "rpcf/products/ports"
 )
 
 func init() {
@@ -12,26 +14,34 @@ func init() {
 }
 
 type gruplacDefinitionManager struct {
-	writer ports.GruplacDefinitionWriter
-	reader ports.GruplacDefinitionReader
+	writer        ports.GruplacDefinitionWriter
+	reader        ports.GruplacDefinitionReader
+	gruplacWriter productPorts.GrupLACWriter
 }
 
 func newGruplacDefinitionManager(
 	writer ports.GruplacDefinitionWriter,
-	reader ports.GruplacDefinitionReader) ports.GruplacDefinitionManager {
+	reader ports.GruplacDefinitionReader,
+	gr productPorts.GrupLACWriter,
+) ports.GruplacDefinitionManager {
 
 	return &gruplacDefinitionManager{
-		writer,
-		reader,
+		writer:        writer,
+		reader:        reader,
+		gruplacWriter: gr,
 	}
 }
 
 func (m *gruplacDefinitionManager) Create(g *gruplacs.GruplacDefinition) (*gruplacs.GruplacDefinition, error) {
-	return m.writer.Create(g)
+	def, err := m.writer.Create(g)
+	m.gruplacWriter.Create(products.NewGrupLAC(def.Code, def.Name))
+	return def, err
 }
 
 func (m *gruplacDefinitionManager) Update(g *gruplacs.GruplacDefinition) (*gruplacs.GruplacDefinition, error) {
-	return m.writer.Update(g)
+	def, err := m.writer.Update(g)
+	m.gruplacWriter.Update(products.NewGrupLAC(def.Code, def.Name))
+	return def, err
 }
 
 func (m *gruplacDefinitionManager) Delete(id string) error {
