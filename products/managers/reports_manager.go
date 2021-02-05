@@ -22,3 +22,7 @@ func newReportsManager(r ports.ReportsReader) ports.ReportsManager {
 func (m *ReportsManager) CountAll(filters map[string]string, group string) ([]*products.Report, error) {
 	return m.reader.CountAllBy(filters, group)
 }
+
+func (m *ReportsManager) CountProductsByCategory() []*products.Report {
+	return m.reader.CountProductsByCategory()
+}
