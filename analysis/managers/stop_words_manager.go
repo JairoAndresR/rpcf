@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	filePath = "../stop_words/stop-words-es.txt"
+	filePath = "analysis/stop_words/stop-words-es.txt"
 )
 
 func init() {

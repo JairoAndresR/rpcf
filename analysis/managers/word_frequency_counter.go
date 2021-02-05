@@ -32,8 +32,8 @@ func (c *wordFrequencyCounter) Count(text string) []analysis.Word {
 
 	for _, word := range wordList {
 		cleanWord := c.clean(strings.ToLower(word))
-		found := c.checkStopWords(cleanWord)
-		if !found {
+		isStopWord := c.isStopWord(cleanWord)
+		if !isStopWord {
 			wordCounts[cleanWord]++
 		}
 	}
@@ -50,9 +50,9 @@ func (c *wordFrequencyCounter) clean(text string) string {
 	return processedWord
 }
 
-func (c *wordFrequencyCounter) checkStopWords(word string) bool {
+func (c *wordFrequencyCounter) isStopWord(word string) bool {
 	for _, item := range c.stopWords {
-		if item == word {
+		if strings.ToLower(item) == strings.ToLower(word) {
 			return true
 		}
 	}
