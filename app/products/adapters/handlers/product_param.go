@@ -11,6 +11,7 @@ type ProductParam string
 
 const (
 	titleParam        ProductParam = "title"
+	groupNameParam    ProductParam = "groupName"
 	groupCodeParam    ProductParam = "groupCode"
 	researcherIdParam ProductParam = "researcherId"
 	startYearParam    ProductParam = "startYear"
@@ -34,6 +35,7 @@ func getProductParams() []ProductParam {
 		startYearParam,
 		typeNameParam,
 		endYearParam,
+		groupNameParam,
 	}
 }
 

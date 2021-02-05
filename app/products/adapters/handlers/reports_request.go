@@ -4,17 +4,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const (
-	groupNameParam = "groupType"
-)
-
 type ReportRequest struct {
 	GroupType string
 	Filters   map[string]string
 }
 
 func NewReportsRequest(c *gin.Context) (*ReportRequest, error) {
-	groupType := c.Query(groupNameParam)
+	groupType := c.Query(groupNameParam.ToString())
 	productParams := getProductParams()
 	filters := GetSupportedRequestParams(c, productParams)
 	req := &ReportRequest{

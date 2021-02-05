@@ -19,10 +19,11 @@ type ReportsManager struct {
 	frequencyCounter analysisPorts.WordFrequencyCounter
 }
 
-func newReportsManager(r ports.ReportsReader, pr ports.ProductReader) ports.ReportsManager {
+func newReportsManager(r ports.ReportsReader, pr ports.ProductReader, fc analysisPorts.WordFrequencyCounter) ports.ReportsManager {
 	return &ReportsManager{
-		reader:        r,
-		productReader: pr,
+		reader:           r,
+		productReader:    pr,
+		frequencyCounter: fc,
 	}
 }
 
@@ -39,8 +40,9 @@ func (m *ReportsManager) WordsFrequency(filters map[string]string) ([]*products.
 
 	var textBuilder strings.Builder
 	for _, p := range ps {
-		textBuilder.WriteString(p.Title)
+		textBuilder.WriteString(strings.ToLower(p.Title))
 	}
+
 	text := textBuilder.String()
 	frequencies := m.frequencyCounter.Count(text)
 
