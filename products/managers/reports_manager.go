@@ -47,8 +47,8 @@ func (m *ReportsManager) WordsFrequency(filters map[string]string) ([]*products.
 	frequencies := m.frequencyCounter.Count(text)
 
 	reports := make([]*products.Report, 0)
-	for text, count := range frequencies {
-		report := products.NewReport(text, int64(count))
+	for _, word := range frequencies {
+		report := products.NewReport(word.Key, int64(word.Value))
 		reports = append(reports, report)
 	}
 

@@ -1,5 +1,7 @@
 package ports
 
+import "rpcf/analysis"
+
 type WordFrequencyCounter interface {
-	Count(text string) map[string]int
+	Count(text string) []analysis.Word
 }

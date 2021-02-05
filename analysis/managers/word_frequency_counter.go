@@ -3,20 +3,16 @@ package managers
 import (
 	"fmt"
 	"regexp"
+	"rpcf/analysis"
 	"rpcf/analysis/ports"
 	"rpcf/core"
+	"sort"
 	"strings"
 )
 
 func init() {
 	err := core.Injector.Provide(newWordFrequencyCounter)
 	core.CheckInjection(err, "newWordFrequencyCounter")
-}
-
-//Word type struct defined.
-type Word struct {
-	key   string
-	value int
 }
 
 type wordFrequencyCounter struct {
@@ -30,7 +26,7 @@ func newWordFrequencyCounter(swm ports.StopWordsManager) ports.WordFrequencyCoun
 	}
 }
 
-func (c *wordFrequencyCounter) Count(text string) map[string]int {
+func (c *wordFrequencyCounter) Count(text string) []analysis.Word {
 	wordList := strings.Fields(text)
 	wordCounts := make(map[string]int)
 
@@ -41,7 +37,7 @@ func (c *wordFrequencyCounter) Count(text string) map[string]int {
 			wordCounts[cleanWord]++
 		}
 	}
-	return wordCounts
+	return c.sortedWords(wordCounts)
 }
 
 func (c *wordFrequencyCounter) clean(text string) string {
@@ -61,4 +57,16 @@ func (c *wordFrequencyCounter) checkStopWords(word string) bool {
 		}
 	}
 	return false
+}
+
+func (c *wordFrequencyCounter) sortedWords(words map[string]int) []analysis.Word {
+	var sorted []analysis.Word
+	for k, v := range words {
+		sorted = append(sorted, analysis.Word{Key: k, Value: v})
+	}
+
+	sort.Slice(sorted, func(i, j int) bool {
+		return sorted[i].Value > sorted[j].Value
+	})
+	return sorted
 }
