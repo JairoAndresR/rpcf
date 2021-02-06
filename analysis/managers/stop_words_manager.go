@@ -2,13 +2,15 @@ package managers
 
 import (
 	"bufio"
+	"fmt"
+	"io/ioutil"
 	"os"
 	"rpcf/analysis/ports"
 	"rpcf/core"
 )
 
 const (
-	filePath = "analysis/stop_words/stop-words-es.txt"
+	stopWordsDirectory = "analysis/stop_words/"
 )
 
 func init() {
@@ -24,6 +26,27 @@ func newStopWordsManager() ports.StopWordsManager {
 }
 
 func (s *StopWordsManager) GetStopWords() ([]string, error) {
+	words := make([]string, 0)
+
+	files, err := ioutil.ReadDir(stopWordsDirectory)
+	if err != nil {
+		fmt.Println(err)
+		return words, err
+	}
+	for _, f := range files {
+		filePath := fmt.Sprintf("%s%s", stopWordsDirectory, f.Name())
+		lines, err := s.loadFile(filePath)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		words = append(words, lines...)
+	}
+
+	return words, nil
+}
+
+func (s *StopWordsManager) loadFile(filePath string) ([]string, error) {
 	lines := make([]string, 0)
 	f, err := os.Open(filePath)
 	if err != nil {
