@@ -41,7 +41,7 @@ func (c *wordFrequencyCounter) Count(text string) []analysis.Word {
 }
 
 func (c *wordFrequencyCounter) clean(text string) string {
-	reg, err := regexp.Compile("[^a-zA-Z0-9]+")
+	reg, err := regexp.Compile("[^-_/.,\\p{L}0-9 ]+")
 	if err != nil {
 		// TODO: return the error and handle it
 		fmt.Println(err)
