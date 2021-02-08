@@ -10,7 +10,7 @@ type ReportRequest struct {
 }
 
 func NewReportsRequest(c *gin.Context) (*ReportRequest, error) {
-	groupType := c.Query(groupNameParam.ToString())
+	groupType := c.Query(groupTypeParam.ToString())
 	productParams := getProductParams()
 	filters := GetSupportedRequestParams(c, productParams)
 	req := &ReportRequest{

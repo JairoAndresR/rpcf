@@ -40,7 +40,10 @@ func (c *productFilterPredicate) generateWhereExpression(filters map[string]stri
 
 	for column, v := range filters {
 		value := fmt.Sprintf("%%%s%%", v)
-		expr := clause.Like{Column: column, Value: value}
+		expr := clause.Like{
+			Column: column,
+			Value:  value,
+		}
 		expressions = append(expressions, expr)
 	}
 	return expressions

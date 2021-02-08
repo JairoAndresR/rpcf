@@ -11,6 +11,7 @@ type ProductParam string
 
 const (
 	titleParam        ProductParam = "title"
+	groupTypeParam    ProductParam = "groupType"
 	groupNameParam    ProductParam = "groupName"
 	groupCodeParam    ProductParam = "groupCode"
 	researcherIdParam ProductParam = "researcherId"
