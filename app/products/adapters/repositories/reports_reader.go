@@ -34,8 +34,8 @@ func (r *ReportsReader) CountAllBy(filters map[string]string, groupType string) 
 	selectQuery := fmt.Sprintf("%s as value, COUNT(%s) as count", groupType, groupType)
 	tx := r.db.Model(entities.Product{}).Select(selectQuery)
 	for column, value := range filters {
-		q := fmt.Sprintf(`%s LIKE %%%s%%`, column, value)
-		tx.Where(q)
+		q := fmt.Sprintf(`%s LIKE ?`, column)
+		tx.Where(q, fmt.Sprintf("%%%s%%", value))
 	}
 
 	err := tx.Group(groupType).Find(&results).Error
