@@ -11,5 +11,6 @@ func setupReportsRoutes(s *server) {
 	h, err := loadReportsHandler()
 	checkError(err)
 	s.router.GET("/v1/products/reports", h.CountAll)
+	s.router.GET("/v1/products/reports/categories", h.CountProductsByCategory)
 	s.router.GET("/v1/products/reports/words-frequencies", h.WordFrequency)
 }

@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"rpcf/core"
 	"rpcf/products/ports"
+
+	"github.com/gin-gonic/gin"
 )
 
 func init() {
@@ -38,6 +39,14 @@ func (h *ReportsHandler) CountAll(c *gin.Context) {
 	}
 	response := NewListReportResponse(list)
 	c.JSON(http.StatusOK, response)
+}
+
+func (h *ReportsHandler) CountProductsByCategory(c *gin.Context) {
+
+	list := h.manager.CountProductsByCategory()
+  
+  response := NewListReportResponse(list)
+  c.JSON(http.StatusOK, response)
 }
 
 func (h *ReportsHandler) WordFrequency(c *gin.Context) {

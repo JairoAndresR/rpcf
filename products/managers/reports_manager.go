@@ -31,6 +31,10 @@ func (m *ReportsManager) CountAll(filters map[string]string, group string) ([]*p
 	return m.reader.CountAllBy(filters, group)
 }
 
+func (m *ReportsManager) CountProductsByCategory() []*products.Report {
+	return m.reader.CountProductsByCategory()
+}
+
 func (m *ReportsManager) WordsFrequency(filters map[string]string) ([]*products.Report, error) {
 	ps, err := m.productReader.GetAll(filters)
 
