@@ -11,14 +11,21 @@ type Author struct {
 	*entities.Base
 	ID       string `gorm:"primaryKey"`
 	Names    string
-	GrupLACS []GrupLAC  `gorm:"many2many:authors_gruplacs;"`
+	GrupLACS []*GrupLAC `gorm:"many2many:authors_gruplacs;"`
 	Products []*Product `gorm:"many2many:authors_products;"`
 }
 
 func NewAuthor(a *products.Author) *Author {
+
+	gruplacs := make([]*GrupLAC, 0)
+
+	for _, g := range a.GrupLACs {
+		gruplacs = append(gruplacs, NewGrupLAC(g))
+	}
 	return &Author{
-		ID:    a.ID,
-		Names: a.Names,
+		ID:       a.ID,
+		Names:    a.Names,
+		GrupLACS: gruplacs,
 	}
 }
 func (a *Author) BeforeCreate(tx *gorm.DB) error {
@@ -29,9 +36,16 @@ func (a *Author) BeforeCreate(tx *gorm.DB) error {
 }
 
 func (a *Author) ToDomain() *products.Author {
+	gruplacs := make([]*products.GrupLAC, 0)
+
+	for _, g := range a.GrupLACS {
+		gruplacs = append(gruplacs, g.ToDomain())
+	}
+
 	return &products.Author{
-		ID:    a.ID,
-		Names: a.Names,
+		ID:       a.ID,
+		Names:    a.Names,
+		GrupLACs: gruplacs,
 	}
 }
 

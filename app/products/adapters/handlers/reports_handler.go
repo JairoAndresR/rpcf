@@ -44,7 +44,24 @@ func (h *ReportsHandler) CountAll(c *gin.Context) {
 func (h *ReportsHandler) CountProductsByCategory(c *gin.Context) {
 
 	list := h.manager.CountProductsByCategory()
+  
+  response := NewListReportResponse(list)
+  c.JSON(http.StatusOK, response)
+}
 
+func (h *ReportsHandler) WordFrequency(c *gin.Context) {
+	req, err := NewReportsRequest(c)
+
+	if err != nil {
+		generateError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	list, err := h.manager.WordsFrequency(req.Filters)
+	if err != nil {
+		generateError(c, http.StatusUnprocessableEntity, err)
+		return
+	}
 	response := NewListReportResponse(list)
 	c.JSON(http.StatusOK, response)
 }

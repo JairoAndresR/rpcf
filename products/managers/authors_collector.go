@@ -17,11 +17,13 @@ type authorCollector struct {
 	parser                 collector.Parser
 	authorWriter           ports.AuthorsWriter
 	authorDefinitionReader ports.AuthorsDefinitionReader
+	linker                 ports.AuthorsLinker
 }
 
 func newAuthorCollector(
 	adr ports.AuthorsDefinitionReader,
 	aw ports.AuthorsWriter,
+	linker ports.AuthorsLinker,
 ) ports.AuthorsCollector {
 
 	parser := collector.NewParser()
@@ -29,6 +31,7 @@ func newAuthorCollector(
 		parser:                 parser,
 		authorWriter:           aw,
 		authorDefinitionReader: adr,
+		linker:                 linker,
 	}
 }
 
@@ -88,6 +91,7 @@ func (c *authorCollector) Parse(content string) ([]*products.Author, []error) {
 	// The result is a []map[field_name]=field value which will be try to generate a
 	// []*products.Author
 	authors, es := products.NewAuthorsFromResults(results)
+	authors = c.linker.Link(authors, payload.GrupLACCode)
 	if len(es) > 0 {
 		errors = append(errors, es...)
 	}

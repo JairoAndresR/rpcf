@@ -1,9 +1,10 @@
 package repositories
 
 import (
+	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"rpcf/app/dataproviders/sql"
-	"rpcf/app/products/adapters/repositories/clauses"
 	"rpcf/app/products/adapters/repositories/entities"
 	"rpcf/core"
 	"rpcf/products"
@@ -25,15 +26,15 @@ func newProductReader(conn sql.Connection) ports.ProductReader {
 
 func (r *productReader) GetAll(filters map[string]string) ([]*products.Product, error) {
 	var list []*entities.Product
-
-	predicate := clauses.NewProductFilterPredicate(r.db)
-	values, sql := predicate.Build(filters)
-	err := r.db.Raw(sql, values).Scan(&list).Error
-
-	if err != nil {
-		return []*products.Product{}, err
+	tx := r.db.Model(entities.Product{})
+	for column, value := range filters {
+		q := fmt.Sprintf(`%s LIKE ?`, column)
+		tx.Where(q, fmt.Sprintf("%%%s%%", value))
 	}
-
+	err := tx.Find(&list).Error
+	if err != nil {
+		return nil, errors.New("find error")
+	}
 	products := entities.MapListToDomain(list)
 	return products, nil
 }
