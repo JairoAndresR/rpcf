@@ -46,10 +46,10 @@ func (r *ReportsReader) CountAllBy(filters map[string]string, groupType string) 
 func (r *ReportsReader) CountProductsByCategory() []*products.Report {
 
 	categories := map[string][]string{
-		"applied_investigation": []string{"master_theses", "tech_products", "software", "articles", "inv_books"},
-		"pure_investigation":    []string{"doctoral_theses"},
-		"formation":             []string{"text_books", "books_traduction", "theses", "presentations", "manuals"},
-		"consulting":            []string{"startup", "spinoff", "consultancies"},
+		"applied_investigation": {"master_theses", "tech_products", "software", "articles", "inv_books"},
+		"pure_investigation":    {"doctoral_theses"},
+		"formation":             {"text_books", "books_traduction", "theses", "presentations", "manuals"},
+		"consulting":            {"startup", "spinoff", "consultancies"},
 	}
 
 	results := make([]*products.Report, 0)
