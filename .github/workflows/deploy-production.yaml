@@ -57,5 +57,5 @@ jobs:
           envs: DB_HOST, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME, QUEUE_ADDR, QUEUE_PASSWORD, COLLECTOR_QUEUE_NAME
           script: |
             DB_HOST=$DB_HOST  DB_PORT=$DB_PORT DB_USER_PASSWORD=$DB_USER_PASSWORD  DB_NAME=$DB_NAME QUEUE_ADDR=$QUEUE_ADDR  QUEUE_PASSWORD=$QUEUE_PASSWORD COLLECTOR_QUEUE_NAME=$COLLECTOR_QUEUE_NAME
-          run: sh /opt/app/compiler.sh
-          debug: true
+      - run: sh /opt/app/compiler.sh
+          
