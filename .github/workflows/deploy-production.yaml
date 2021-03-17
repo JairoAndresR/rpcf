@@ -46,15 +46,3 @@ jobs:
           script: |
             DB_HOST=$DB_HOST  DB_PORT=$DB_PORT DB_USER_PASSWORD=$DB_USER_PASSWORD  DB_NAME=$DB_NAME QUEUE_ADDR=$QUEUE_ADDR  QUEUE_PASSWORD=$QUEUE_PASSWORD COLLECTOR_QUEUE_NAME=$COLLECTOR_QUEUE_NAME sh /opt/app/run-pro.sh
           debug: true
-
-      - name: Compile and run api.
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PRO_SERVER_HOST }}
-          username: ${{ secrets.PRO_SERVER_USERNAME }}
-          key: ${{ secrets.PRO_SERVER_PRIVATE_KEY }}
-          port: ${{ secrets.PRO_SERVER_PORT }}
-          envs: DB_HOST, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME, QUEUE_ADDR, QUEUE_PASSWORD, COLLECTOR_QUEUE_NAME
-          script: |
-            DB_HOST=$DB_HOST  DB_PORT=$DB_PORT DB_USER_PASSWORD=$DB_USER_PASSWORD  DB_NAME=$DB_NAME QUEUE_ADDR=$QUEUE_ADDR  QUEUE_PASSWORD=$QUEUE_PASSWORD COLLECTOR_QUEUE_NAME=$COLLECTOR_QUEUE_NAME sh /opt/app/compiler.sh
-          
