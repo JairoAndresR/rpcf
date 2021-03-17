@@ -1,5 +1,4 @@
 #!/bin/bash
 kill -9 $(lsof -i:8080 -t)
-rm -rf .rpcf
-/usr/local/go/bin/go build -o .rpcf
-/opt/app/.rpcf 
+/usr/local/go/bin/go build -o .rpcf_local
+/opt/app/.rpcf_local 
