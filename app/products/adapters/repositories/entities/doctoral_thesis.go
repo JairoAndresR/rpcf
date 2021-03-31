@@ -6,15 +6,20 @@ import (
 )
 
 const (
-	DoctoralThesisTable = "doctoral_thesis"
+	DoctoralThesisTable = "doctoral_theses"
 )
 
 type DoctoralThesis struct {
 	*entities.Base
-	ID          string `gorm:"primaryKey"`
-	Type        string
-	Orientation string
-	Institution string
+	ID              string `gorm:"primaryKey"`
+	Title           string
+	Type            string
+	Orientation     string
+	Institution     string
+	StudentName     string `json:"student_name"`
+	AcademicProgram string `json:"academic_program"`
+	Pages           string
+	StartDate       string `json:"start_date"`
 }
 
 func NewDoctoralThesis(product map[string]string) (*DoctoralThesis, error) {

@@ -1,6 +1,9 @@
 package builders
 
-import "rpcf/app/products/adapters/repositories/entities"
+import (
+	"fmt"
+	"rpcf/app/products/adapters/repositories/entities"
+)
 
 type DoctoralThesisBuilder struct {
 	next ProductSelector
@@ -14,6 +17,10 @@ func (d *DoctoralThesisBuilder) Build(product map[string]string, name string) (i
 
 	if !d.IsProduct(name) {
 		return d.next.Build(product, name)
+	}
+
+	if product["type"] != "Tesis de doctorado" {
+		return nil, fmt.Errorf("No doctoral thesis")
 	}
 
 	p, err := entities.NewDoctoralThesis(product)
