@@ -2,6 +2,7 @@ package managers
 
 import (
 	"errors"
+	"fmt"
 	"rpcf/collector"
 	"rpcf/collector/ports"
 	"rpcf/gruplacs/managers"
@@ -17,6 +18,7 @@ type collectorBase struct {
 func (c *collectorBase) Collect(productsQueue string) error {
 
 	groups, err := c.grupLACReader.GetAll()
+	fmt.Println("Colllector_base GetAll() err: %s", err)
 
 	if err != nil {
 		return errors.New(managers.NotPossibleRetrieveGrupLACsError)
@@ -24,6 +26,7 @@ func (c *collectorBase) Collect(productsQueue string) error {
 
 	for _, g := range groups {
 		content, err := c.collectorReader.GetContent(g.URL)
+		fmt.Println("GetContent() err: %s", err)
 		if err != nil {
 			// TODO log it and marks as not readable
 			return err

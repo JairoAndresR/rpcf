@@ -8,12 +8,93 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: rpcf
     ports:
-      - 3306:3306
+      - "3306:3306"
+    networks:
+      - backend
 
   redis:
     image: "redis:alpine"
     command: redis-server --requirepass BUA2WBYgWq9ALAG3
     ports:
       - "6379:6379"
+    networks:
+      - backend
     environment:
       - REDIS_REPLICATION_MODE=master
+
+  rpcf:
+    image: "golang:1.19-rc-alpine"
+    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go run *.go"
+    depends_on:
+      - redis
+      - mysqldb
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    environment:
+      - GOPATH=/usr/src/app
+      - SERVER_PORT=8080
+      - TOKEN_ACCESS_SECRET=12345
+      - DB_HOST=mysqldb
+      - DB_PORT=3306
+      - DB_USER_NAME=root
+      - DB_USER_PASSWORD=root
+      - DB_NAME=rpcf
+      - QUEUE_ADDR=redis:6379
+      - QUEUE_PASSWORD=BUA2WBYgWq9ALAG3
+      - QUEUE_DB=0
+      - COLLECTOR_QUEUE_NAME=collector_queue
+    volumes:
+    - .:/usr/src/app/src/rpcf
+
+  scrapper-products:
+    image: "golang:1.19-rc-alpine"
+    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go run app/cmd/products/scrapers/*.go"
+    depends_on:
+      - redis
+      - mysqldb
+    networks:
+      - backend
+    environment:
+      - GOPATH=/usr/src/app
+      - SERVER_PORT=8080
+      - TOKEN_ACCESS_SECRET=12345
+      - DB_HOST=mysqldb
+      - DB_PORT=3306
+      - DB_USER_NAME=root
+      - DB_USER_PASSWORD=root
+      - DB_NAME=rpcf
+      - QUEUE_ADDR=redis:6379
+      - QUEUE_PASSWORD=BUA2WBYgWq9ALAG3
+      - QUEUE_DB=0
+      - COLLECTOR_QUEUE_NAME=collector_queue
+    volumes:
+      - .:/usr/src/app/src/rpcf
+
+  scrapper-authors:
+    image: "golang:1.19-rc-alpine"
+    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go run app/cmd/authors/scrapers/*.go"
+    depends_on:
+      - redis
+      - mysqldb
+    networks:
+      - backend
+    environment:
+      - GOPATH=/usr/src/app
+      - SERVER_PORT=8080
+      - TOKEN_ACCESS_SECRET=12345
+      - DB_HOST=mysqldb
+      - DB_PORT=3306
+      - DB_USER_NAME=root
+      - DB_USER_PASSWORD=root
+      - DB_NAME=rpcf
+      - QUEUE_ADDR=redis:6379
+      - QUEUE_PASSWORD=BUA2WBYgWq9ALAG3
+      - QUEUE_DB=0
+      - COLLECTOR_QUEUE_NAME=collector_queue
+    volumes:
+      - .:/usr/src/app/src/rpcf
+
+networks:
+  backend:

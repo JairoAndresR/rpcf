@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"fmt"
 	"rpcf/app/dataproviders/queue"
 	"rpcf/collector"
 	"rpcf/collector/ports"
@@ -22,6 +23,7 @@ func newCollectorWriter(queue queue.Client) ports.GrupLACCollectorWriter {
 
 func (c *GrupLACCollectorWriter) Write(payload collector.Payload, queueName string) error {
 	content, err := payload.JSONString()
+	fmt.Println("Write() err: %s", err)
 	if err != nil {
 		return err
 	}

@@ -1,6 +1,7 @@
 package managers
 
 import (
+	"fmt"
 	"rpcf/collector/ports"
 	"rpcf/core"
 	gruplacPorts "rpcf/gruplacs/ports"
@@ -36,5 +37,9 @@ func newAuthorsCollectorManager(
 	}
 }
 func (m *authorsCollectorManager) CollectAll() error {
-	return m.Collect(authorsQueue)
+	if err := m.Collect(authorsQueue); err != nil{
+		fmt.Println("CollectAll %s", err)
+		return err
+	}
+	return nil
 }
