@@ -33,6 +33,7 @@ INSERT INTO` rpcf`.`author_definitions `(`id`,` definition`) VALUES ('1', 'name:
 
 7. Create new product definition using admin module and set product name and definition (definitions examples: https://github.com/JairoAndresR/collector/tree/master/examples)
 Product names: (articles, books, companies, doctoral_theses)
+
 ![image](https://user-images.githubusercontent.com/25800176/178642008-5b806c07-5f24-40cd-8bb0-0636d90daacb.png)
 
 ![image](https://user-images.githubusercontent.com/25800176/178642026-441868fb-6b9f-4ff9-8ab1-fcce4e20d8bd.png)
