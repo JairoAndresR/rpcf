@@ -1,7 +1,7 @@
 package managers
 
 import (
-	"github.com/udistritali3plus/collector"
+	"github.com/JairoAndresR/collector"
 	"rpcf/core"
 	"rpcf/products"
 	"rpcf/products/ports"

@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/udistritali3plus/collector"
+	"github.com/JairoAndresR/collector"
 	"rpcf/collector/ports"
 	"rpcf/core"
 )

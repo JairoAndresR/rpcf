@@ -5,7 +5,7 @@ import (
 	"rpcf/products"
 	"rpcf/products/ports"
 
-	"github.com/udistritali3plus/collector"
+	"github.com/JairoAndresR/collector"
 )
 
 func init() {

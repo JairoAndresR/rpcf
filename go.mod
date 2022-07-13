@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/AgileBits/go-redis-queue v0.0.0-20190528184534-321b38e2f24c
 	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/JairoAndresR/collector v0.0.9
 	github.com/agilebits/go-redis-queue v0.0.0-20190528184534-321b38e2f24c // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/contrib v0.0.0-20201005132743-ca038bbf2944
@@ -22,7 +23,6 @@ require (
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stretchr/testify v1.6.1
 	github.com/thoas/go-funk v0.7.0
-	github.com/udistritali3plus/collector v0.0.5
 	go.uber.org/dig v1.10.0
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
 	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
