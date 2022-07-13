@@ -32,7 +32,7 @@ func (r *authorsReader) GetAllByGroup(groupCode string) ([]*products.Author, err
 	var authors []*entities.Author
 	err := r.db.
 		Joins("join authors_gruplacs ag on ag.author_id = authors.id").
-		Joins("join gruplacs g on g.id = ag.grup_lac_id and g.code =?", groupCode).
+		Joins("join gruplacs g on g.code = ag.grup_lac_code and g.code =?", groupCode).
 		Find(&authors).Error
 	return entities.MapAuthorsToDomain(authors), err
 }
