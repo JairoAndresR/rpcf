@@ -1,7 +1,6 @@
 package repositories
 
 import (
-	"errors"
 	"fmt"
 	"gorm.io/gorm"
 	"rpcf/app/dataproviders/sql"
@@ -31,9 +30,9 @@ func (r *productReader) GetAll(filters map[string]string) ([]*products.Product, 
 		q := fmt.Sprintf(`%s LIKE ?`, column)
 		tx.Where(q, fmt.Sprintf("%%%s%%", value))
 	}
-	err := tx.Find(&list).Error
+	err := tx.Preload("Authors").Find(&list).Error
 	if err != nil {
-		return nil, errors.New("find error")
+		return nil, err
 	}
 	products := entities.MapListToDomain(list)
 	return products, nil

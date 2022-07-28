@@ -20,6 +20,7 @@ type ProductResponse struct {
 }
 
 func NewProductResponse(p *products.Product) *ProductResponse {
+	authors := NewAuthorListResponse(p.Authors)
 	return &ProductResponse{
 		ID:        p.ID,
 		GroupCode: p.GrouplacCode,
@@ -29,6 +30,7 @@ func NewProductResponse(p *products.Product) *ProductResponse {
 		Title:     p.Title,
 		StartYear: p.StartYear,
 		EndYear:   p.EndYear,
+		Authors: authors.Authors,
 		CreatedAt: p.CreatedAt,
 		UpdatedAt: p.UpdatedAt,
 	}
