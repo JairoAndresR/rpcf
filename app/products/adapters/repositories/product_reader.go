@@ -25,12 +25,19 @@ func newProductReader(conn sql.Connection) ports.ProductReader {
 
 func (r *productReader) GetAll(filters map[string]string) ([]*products.Product, error) {
 	var list []*entities.Product
-	tx := r.db.Model(entities.Product{})
+	tx := r.db.Model(entities.Product{}).Preload("Authors")
+	researcher := filters["researcher_id"]
+	
+	if researcher != "" {
+		delete(filters, "researcher_id")
+		tx.Where("id IN (SELECT product_id from rpcf.authors_products WHERE author_id = ?)", researcher)
+	}
+	
 	for column, value := range filters {
 		q := fmt.Sprintf(`%s LIKE ?`, column)
 		tx.Where(q, fmt.Sprintf("%%%s%%", value))
 	}
-	err := tx.Preload("Authors").Find(&list).Error
+	err := tx.Find(&list).Error
 	if err != nil {
 		return nil, err
 	}
