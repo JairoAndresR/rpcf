@@ -21,7 +21,7 @@ docker-compose -f docker-compose-local.yml up
 ```
 2. Set author definition using MySqlWorkbench for author_definitions table with following SQL sentence
 ```cassandraql
-INSERT INTO rpcf.author_definitions (id, definition) VALUES ('1', 'name: Libros\npath: \"/html/body/table[5]/tbody[1]/tr\"\nparser:\n lookahead-manual: true\n skip-results: true\n skip-number-results: 2\nfields:\n -\n name: names\n ex: (>).*(</a>)\n\n - name: link\n ex: (href=\").*(\")');
+insert into rpcf.author_definitions (id, definition) values (1, 'name: Libros\npath: \"/html/body/table[5]/tbody[1]/tr\"\nparser:\n  lookahead-manual: true\n  skip-results: true\n  skip-number-results: 2\nfields:\n  - name: names\n    ex: (>).*(</a>)\n  - name: link\n    ex: (href=\").*(\")');
 ```
 3. Create new admin user using this url and filling the form 
 `localhost:4200/accounts/new`
