@@ -1,7 +1,9 @@
 package entities
 
 import (
+	"crypto/sha1"
 	"gorm.io/gorm"
+	"encoding/hex"
 	"rpcf/core/entities"
 	"rpcf/products"
 	"strings"
@@ -29,7 +31,10 @@ func NewAuthor(a *products.Author) *Author {
 	}
 }
 func (a *Author) BeforeCreate(tx *gorm.DB) error {
-	id := a.GenerateID()
+	h := sha1.New()
+	h.Write([]byte(strings.ToUpper(a.Names)))
+	hb := hex.EncodeToString(h.Sum(nil))
+	id := string(hb[:])
 	a.ID = id
 	a.Names = strings.ToUpper(a.Names)
 	return nil
