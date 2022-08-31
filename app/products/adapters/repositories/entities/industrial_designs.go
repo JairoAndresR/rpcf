@@ -15,6 +15,7 @@ type IndustrialDesigns struct {
 	Title              string
 	Availability       string
 	FundingInstitution string `json:"funding_institution"`
+	year               string
 }
 
 func (IndustrialDesigns) TableName() string {
