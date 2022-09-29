@@ -24,7 +24,7 @@ services:
 
   rpcf:
     image: "golang:1.19-rc-alpine"
-    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go run *.go"
+    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go mod tidy && go run *.go"
     depends_on:
       - redis
       - mysqldb
@@ -50,7 +50,7 @@ services:
 
   scrapper-products:
     image: "golang:1.19-rc-alpine"
-    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go run app/cmd/products/scrapers/*.go"
+    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go mod tidy && go run app/cmd/products/scrapers/*.go"
     depends_on:
       - redis
       - mysqldb
@@ -74,7 +74,7 @@ services:
 
   scrapper-authors:
     image: "golang:1.19-rc-alpine"
-    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go run app/cmd/authors/scrapers/*.go"
+    command: sh -c "cd /usr/src/app/src/rpcf && go mod download && go mod tidy && go run app/cmd/authors/scrapers/*.go"
     depends_on:
       - redis
       - mysqldb

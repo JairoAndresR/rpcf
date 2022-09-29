@@ -4,7 +4,7 @@ import (
 	"rpcf/core"
 	"rpcf/products"
 	"rpcf/products/ports"
-
+	"fmt"
 	"github.com/JairoAndresR/collector"
 )
 
@@ -91,6 +91,9 @@ func (c *authorCollector) Parse(content string) ([]*products.Author, []error) {
 	// The result is a []map[field_name]=field value which will be try to generate a
 	// []*products.Author
 	authors, es := products.NewAuthorsFromResults(results)
+	for _, author := range authors {
+		fmt.Println("author id", author.ID)
+	}
 	authors = c.linker.Link(authors, payload.GrupLACCode)
 	if len(es) > 0 {
 		errors = append(errors, es...)

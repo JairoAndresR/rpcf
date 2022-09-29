@@ -5,6 +5,7 @@ import (
 	"rpcf/core"
 	"rpcf/products"
 	"rpcf/products/ports"
+	"fmt"
 )
 
 func init() {
@@ -88,6 +89,13 @@ func (c *productCollector) Parse(content string) ([]*products.ProductResult, []e
 		// it will try to create a map (result) that contains the parsed product
 		// information from the content and the definition
 		result, err := c.parser.Parse(definition, payload.Content)
+		fmt.Println("parser result")
+		for _, mapf := range result {
+			for key, value := range mapf {
+				fmt.Println(key, ": ", value)
+			}
+			
+		}
 		if err != nil {
 			errors = append(errors, err)
 			continue

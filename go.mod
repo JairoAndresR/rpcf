@@ -27,6 +27,7 @@ require (
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
 	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
 	golang.org/x/mod v0.4.0 // indirect
+	golang.org/x/text v0.3.3
 	golang.org/x/tools v0.0.0-20210101214203-2dba1e4ea05c // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gorm.io/driver/mysql v1.0.3

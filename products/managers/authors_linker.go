@@ -4,6 +4,7 @@ import (
 	"rpcf/core"
 	"rpcf/products"
 	"rpcf/products/ports"
+	"fmt"
 )
 
 func init() {
@@ -17,7 +18,12 @@ type authorsLinker struct {
 
 func newAuthorsLinker(gr ports.GrupLACReader) ports.AuthorsLinker {
 	// TODO: handler the error
-	gs, _ := gr.GetAll()
+	gs, err := gr.GetAll()
+	
+	if err != nil {
+		fmt.Println("error en news authors linker", err)
+	}
+
 	gruplacs := make(map[string]*products.GrupLAC, 0)
 
 	for _, g := range gs {
