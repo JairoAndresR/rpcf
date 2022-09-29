@@ -22,6 +22,7 @@ type Articles struct {
 	Fasc             string
 	Pags             string
 	Doi              string
+	PublishedYear    string `json:"published_year"`
 	CreatedAt        *time.Time
 	UpdatedAt        *time.Time
 }

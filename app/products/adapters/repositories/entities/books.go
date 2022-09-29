@@ -14,6 +14,7 @@ type Books struct {
 	ID               string `gorm:"primaryKey"`
 	Title            string `json:"title"`
 	PublishedCountry string `json:"published_country"`
+	PublishedYear    string `json:"published_year"`
 	Editorial        string
 }
 
