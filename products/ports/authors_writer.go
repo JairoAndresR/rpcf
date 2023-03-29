@@ -6,4 +6,5 @@ import (
 
 type AuthorsWriter interface {
 	Create(a *products.Author) (*products.Author, error)
+	ClearDB()
 }
