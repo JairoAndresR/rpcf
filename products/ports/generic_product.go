@@ -41,5 +41,8 @@ func NewGenericProduct(generic interface{}, p *products.ProductResult) *products
 	if strings.Contains(p.Fields["type"], "Libro resultado de") {
 		product.StartYear = p.Fields["published_year"]
 	}
+	if strings.Contains(p.Fields["type"], "Spin-off") {
+		product.StartYear = strings.Trim(strings.Trim(p.Fields["registred_at"], " "), "-")
+	}
 	return &product
 }
