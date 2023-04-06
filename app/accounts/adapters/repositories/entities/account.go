@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	userRole = "user"
+	userRole = "admin"
 )
 
 type Account struct {
