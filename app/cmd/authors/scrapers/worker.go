@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"rpcf/app/dataproviders/queue"
 	"rpcf/products/ports"
+
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -42,7 +43,6 @@ func (w *authorsWorker) Execute() {
 		if content == "" {
 			continue
 		}
-
 		_, errs := w.collector.Process(content)
 
 		if len(errs) > 0 {

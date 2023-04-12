@@ -1,10 +1,11 @@
 package managers
 
 import (
+	"fmt"
 	"rpcf/core"
 	"rpcf/products"
 	"rpcf/products/ports"
-	"fmt"
+
 	"github.com/JairoAndresR/collector"
 )
 
@@ -44,7 +45,6 @@ func (c *authorCollector) Process(content string) ([]*products.Author, []error) 
 
 	errors := make([]error, 0)
 	authors := make([]*products.Author, 0)
-	c.authorWriter.ClearDB()
 
 	for _, es := range ps {
 		a, err := c.authorWriter.Create(es)
